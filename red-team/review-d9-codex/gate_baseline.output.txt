@@ -1,0 +1,70 @@
+interpreter: /Users/danielfrazer/.pyenv/versions/3.12.0/bin/python3  python 3.12.0
+numpy 2.4.4
+PASS test_gate.test_C1_chain_reaches_at_exactly_H2
+PASS test_gate.test_C1_delay_empties_support_until_arrival
+PASS test_gate.test_C1_delayed_chain_one_hop_per_step
+PASS test_gate.test_C1_reachability_is_sign_pattern_not_magnitude
+PASS test_gate.test_C3_gain_boundary_and_functional_form
+PASS test_gate.test_C3_out_of_range_assign_raises_not_silent
+PASS test_gate.test_C4_family_N_response_depends_on_zbar_and_is_not_odd
+PASS test_gate.test_C4_open_loop_equals_piecewise_jacobian_over_tau_h_grid_rectangular
+PASS test_gate.test_E2_eligibility_and_nan_guard
+PASS test_gate.test_E2_global_max_is_not_the_witness_value
+PASS test_gate.test_E2_witness_negative_sign_and_nonzero_column_and_max_not_mean
+PASS test_gate.test_G_count_alarms_persistence_and_refractory
+PASS test_gate.test_G_count_alarms_persistence_is_consecutive_not_leaky
+PASS test_gate.test_G_count_alarms_refractory_blocks_burst_inside_window_and_exact_boundary
+PASS test_gate.test_G_hpdt_mean_three_events_and_outcomes
+PASS test_gate.test_G_match_alarms_attribution_and_false_alarms
+PASS test_gate.test_G_match_alarms_episode_end_bounds_attribution_and_event_step_is_not_detection
+PASS test_gate.test_G_spacing_episode_end_strictness_and_order
+PASS test_gate.test_K10_downstream_d_inside_S_and_w_x_outside
+PASS test_gate.test_K11_downstream_chain_through_A_d_with_and_without_delay
+PASS test_gate.test_K1_sensor_swap_moves_observed_support_not_latent_with_reachable_padding_target
+PASS test_gate.test_K3_actuator_remap_changes_R_not_S
+PASS test_gate.test_K4_actuator_loss_label_depends_on_coupling_and_horizon
+PASS test_gate.test_K5_sensor_dropout_changes_observed_support_only
+PASS test_gate.test_K7_partial_actuator_loss_changes_R_not_S_above_gamma_min
+PASS test_gate.test_L12_rectangular_B_indexes_rows
+PASS test_gate.test_M1_rejected_action_leaks_into_distractor
+PASS test_gate.test_M7_rejected_negative_power_formula
+PASS test_gate.test_aggregate_primary_pairs_by_seed_and_cell
+PASS test_gate.test_aggregate_primary_three_cells_mean_not_median_and_delay_kept_in_key
+PASS test_proof_theatre.test_print_only_script_exits_zero_with_wrong_formula
+
+tests: 31 passed, 0 failed
+KILLED   R3-M1 count_alarms ignores refractory: 1 failing tests
+KILLED   R3-M2 leaky persistence: 1 failing tests
+KILLED   R3-M8/GM3-6 refractory off by one: 1 failing tests
+KILLED   R3-M4 match_alarms drops episode_end: 1 failing tests
+KILLED   GM3-5 alarm at event step counted: 1 failing tests
+KILLED   R3-M5/GM3-1 aggregate median: 1 failing tests
+KILLED   CX3 aggregate ignores delay: 1 failing tests
+KILLED   R3-M7 s_obs silent out-of-range: 1 failing tests
+KILLED   R3-M9 corr returns witness not max: 1 failing tests
+KILLED   CL r1 no-delay reachability: 4 failing tests
+KILLED   CL r1 no-downstream: 2 failing tests
+KILLED   GM r1 999B: 1 failing tests
+KILLED   GM r1 skip-H2: 5 failing tests
+KILLED   CX r1 tau-cap: 1 failing tests
+KILLED   GM2-1 premature delayed propagation: 2 failing tests
+KILLED   CX2/OP-M15 A_d omitted: 1 failing tests
+KILLED   FB-M13 magnitude>0.25 edges: 1 failing tests
+KILLED   FB-M3/OP-M4 padding guard dropped: 1 failing tests
+KILLED   FB-M4/OP-M5 >= at boundary: 1 failing tests
+KILLED   FB-M5 gain squared: 1 failing tests
+KILLED   M8 gain ignored: 1 failing tests
+KILLED   FB-M1 abs dropped: 2 failing tests
+KILLED   FB-M2 column 0 only: 2 failing tests
+KILLED   OP-M8 mean not max: 2 failing tests
+KILLED   FB-M9/OP-M1 HPDT median: 1 failing tests
+KILLED   FB-M10 two outcome classes only: 1 failing tests
+KILLED   HPDT censoring excluded: 1 failing tests
+KILLED   FB-M6/OP-M2 spacing ignores episode end: 1 failing tests
+KILLED   FB-M7/OP-M3 spacing strict: 1 failing tests
+KILLED   FB-M8 spacing unsorted: 1 failing tests
+KILLED   FB-M11/OP-M7 zbar ignored: 1 failing tests
+KILLED   M7 negative power: 2 failing tests
+
+32/32 mutants killed
+GATE PASS: tests 31/31, mutation exit 0

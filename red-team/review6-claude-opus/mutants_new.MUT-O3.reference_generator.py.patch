@@ -1,0 +1,11 @@
+--- ../executable-proofs/gate/reference_generator.py	2026-09-07 19:32:29
++++ mutant_gate3/reference_generator.py	2026-09-07 20:42:14
+@@ -167,7 +167,7 @@
+         rng = np.random.default_rng([self.seed, 555]); z0 = rng.uniform(-c["z_init_N"], c["z_init_N"], (n, self.Nz))
+         Z = self.rollout_batch(n, T, z0, RESERVED_EP["bound"]); max_abs = float(np.max(np.abs(Z)))
+         keep = slice(self.sl["b"].start, self.sl["d"].stop); post = Z[min(2000, T // 2) + 1:, :, keep]
+-        groups = np.array_split(np.arange(n), 4); means = np.stack([post[:, g, :].mean(axis=(0, 1)) for g in groups])
++        groups = np.array_split(np.arange(n), 2)   # MUT-O3: contract T-L9b says FOUR groups of 8; means = np.stack([post[:, g, :].mean(axis=(0, 1)) for g in groups])
+         spread = float(np.max(means.max(axis=0) - means.min(axis=0)))
+         return dict(bounded=bool(np.isfinite(max_abs) and max_abs <= c["z_bound_N"]), max_abs_z=max_abs, chain_mean_spread=spread,
+                     stationary_ok=bool(spread <= c["delta_inv"]))

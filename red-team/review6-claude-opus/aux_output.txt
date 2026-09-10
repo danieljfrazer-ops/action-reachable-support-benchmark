@@ -1,0 +1,114 @@
+
+====================================================================================================
+A. MECHANISM: does G reach anything inside S_obs_eps(pre)?  (confounding benefit == 0)
+====================================================================================================
+   L Nx10 tau0: actions identical=True  b identical=True  d identical=True  x identical=False
+                |S_obs(pre)|=6  channels in pre that are confounded = 0  (G touches only the x block)
+                max|o_present - o_absent| on channels IN the pre-event support = 0.000e+00
+   L Nx10 tau2: actions identical=True  b identical=True  d identical=True  x identical=False
+                |S_obs(pre)|=4  channels in pre that are confounded = 0  (G touches only the x block)
+                max|o_present - o_absent| on channels IN the pre-event support = 0.000e+00
+   N Nx10 tau0: actions identical=True  b identical=True  d identical=True  x identical=False
+                |S_obs(pre)|=6  channels in pre that are confounded = 0  (G touches only the x block)
+                max|o_present - o_absent| on channels IN the pre-event support = 0.000e+00
+
+====================================================================================================
+B. CONTROL: the NEGATED static loading (-l).  A zero-probe, event-blind arm.
+====================================================================================================
+   auc_pre_event_support(-s, pre, post) == 1 - auc_pre_event_support(s, pre, post) exactly
+   (gt and lt swap, eq is unchanged, gt+lt+eq = n_pos*n_neg).  Verified numerically below,
+   then read off the cell means measured in report.txt section [5].
+   check: auc(v)=0.4000  auc(-v)=0.6000  sum=1.0000
+   L_Nx10_tau0      static l = 0.422   NEGATED static (-l) = 0.578   seq_ibd@500 = 0.813   comparator@500 = 0.879
+   L_Nx10_tau2      static l = 0.200   NEGATED static (-l) = 0.800   seq_ibd@500 = 0.687   comparator@500 = 1.000   <-- -l BEATS seq_ibd
+   L_Nx30_tau0      static l = 0.422   NEGATED static (-l) = 0.578   seq_ibd@500 = 0.813   comparator@500 = 0.879
+   L_Nx30_tau2      static l = 0.200   NEGATED static (-l) = 0.800   seq_ibd@500 = 0.687   comparator@500 = 1.000   <-- -l BEATS seq_ibd
+   N_Nx10_tau0      static l = 0.655   NEGATED static (-l) = 0.345   seq_ibd@500 = 0.840   comparator@500 = 0.728
+   N_Nx10_tau2      static l = 0.600   NEGATED static (-l) = 0.400   seq_ibd@500 = 0.775   comparator@500 = 0.767
+   P_cp0.5_nm0.5    static l = 0.000   NEGATED static (-l) = 1.000   seq_ibd@500 = 0.675   comparator@500 = 1.000   <-- -l BEATS seq_ibd
+   P_cp0.5_nm1.0    static l = 0.000   NEGATED static (-l) = 1.000   seq_ibd@500 = 0.600   comparator@500 = 1.000   <-- -l BEATS seq_ibd
+   P_cp0.5_nm2.0    static l = 0.000   NEGATED static (-l) = 1.000   seq_ibd@500 = 0.550   comparator@500 = 1.000   <-- -l BEATS seq_ibd
+   P_cp1.0_nm0.5    static l = 0.200   NEGATED static (-l) = 0.800   seq_ibd@500 = 0.750   comparator@500 = 1.000   <-- -l BEATS seq_ibd
+   P_cp1.0_nm1.0    static l = 0.200   NEGATED static (-l) = 0.800   seq_ibd@500 = 0.750   comparator@500 = 1.000   <-- -l BEATS seq_ibd
+   P_cp1.0_nm2.0    static l = 0.200   NEGATED static (-l) = 0.800   seq_ibd@500 = 0.550   comparator@500 = 1.000   <-- -l BEATS seq_ibd
+   P_cp2.0_nm0.5    static l = 0.200   NEGATED static (-l) = 0.800   seq_ibd@500 = 0.800   comparator@500 = 1.000
+   P_cp2.0_nm1.0    static l = 0.200   NEGATED static (-l) = 0.800   seq_ibd@500 = 0.800   comparator@500 = 1.000
+   P_cp2.0_nm2.0    static l = 0.200   NEGATED static (-l) = 0.800   seq_ibd@500 = 0.800   comparator@500 = 1.000
+
+====================================================================================================
+C. CL-4 BY CONSTRUCTION: the same event applied to actuator 1 (NOT the protected actuator).
+====================================================================================================
+   reference_generator zeroes B[dom, k!=ea] and A_b[dom, j!=dom] with dom = 2*event_actuator % N_b,
+   so actuator 0's dominant body component is structurally isolated. Actuator 1 has no such row.
+   cell           seed n_lost(a1)  cmp@500  ibd@500  static
+   L Nx10 tau0     0-4[0, 0, 0, 0, 0]      nan      nan     nan
+   L Nx10 tau2     0-4[0, 0, 0, 0, 0]      nan      nan     nan
+   (n_lost per seed listed; seeds with n_lost=0 contribute nothing -- CL-4 is NOT certified for actuator 1.)
+
+====================================================================================================
+D. FAMILY N: S_obs depends on a 2000-step single-chain Monte Carlo estimate of z-bar.
+====================================================================================================
+   Instance.stationary_mean(T=4000) discards 2000 and averages 2000 steps of an AR process.
+   operational_effect is evaluated at that z-bar and the label is e_j > eps = 0.05.
+    seed   spread  |zbar|max  min|e-eps|   S_obs stable over 5 re-estimates?
+       0   0.0363      0.859      0.2385            YES  |S|=[6, 6, 6, 6, 6]
+       1   0.0352      1.265      0.4233            YES  |S|=[6, 6, 6, 6, 6]
+       2   0.0308      0.967      0.2532            YES  |S|=[6, 6, 6, 6, 6]
+       3   0.0185      0.831      0.2138            YES  |S|=[6, 6, 6, 6, 6]
+       4   0.0401      1.350      0.2801            YES  |S|=[6, 6, 6, 6, 6]
+   delta_inv (the T-L9b agreement tolerance) = 0.05; contract eps = 0.05.
+
+====================================================================================================
+E. FAMILY L: label margin min|e_j - eps| over reachable latents on the 10 development seeds.
+====================================================================================================
+   tau0: min=0.1812 median=0.4027 max=0.5484  (eps = 0.05)
+   tau2: min=0.2691 median=0.3876 max=0.4567  (eps = 0.05)
+
+====================================================================================================
+F. N_x = 10 and N_x = 30 share the body blocks (IBD spec Sec.11(e), R5-27) -- verified.
+====================================================================================================
+   seed 0: sub-seed 1 vs 1; A_b/B/C_d identical = True; pre-support on the first 10 channels identical = True
+   seed 1: sub-seed 1000 vs 1000; A_b/B/C_d identical = True; pre-support on the first 10 channels identical = True
+   seed 2: sub-seed 2000 vs 2000; A_b/B/C_d identical = True; pre-support on the first 10 channels identical = True
+   -> the two distractor levels are one matched design, not two independent replicates.
+
+====================================================================================================
+G. tau = 2 exhausts the H = 3 horizon: structural_reach_full does ZERO propagation hops.
+====================================================================================================
+   structural_reach_full: frontier = rows of B; then `for _ in range(tau+2, H+1)`.
+   tau=0 -> range(2,4): 2 hops (b -> b -> d).   tau=2 -> range(4,4): 0 hops (direct drive only).
+   tau0: |S_obs(pre)| = [6, 5, 6, 6, 6, 5, 5, 6, 6, 6]; downstream d channels inside the support = [2, 1, 2, 2, 2, 1, 1, 2, 2, 2]
+   tau2: |S_obs(pre)| = [4, 4, 4, 4, 4, 4, 4, 4, 4, 4]; downstream d channels inside the support = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+   -> at tau = 2 the primary contains no downstream channel at all; contract K10's case is untestable there.
+
+====================================================================================================
+H. EPISODE-ID REGISTRIES: the two specs against each other and against RESERVED_EP.
+====================================================================================================
+   generator RESERVED_EP = [996, 997, 998, 999]
+   IBD x comparator clashes at the DECLARED sizes: none
+   BUT sequential-ibd-spec Sec.7: 'If the observed run-length dispersion forces n > 400, the ARL
+   split extends upward from ep = 900; it never overlaps any other set.'  Sec.5 contemplates n up to 666.
+     n=450: ARL ids 500..949;  hits comparator predictor-fit 900-919: True;  arm-2 alarm ref 920-939: True;  arm-3 alarm ref 940-959: True;  RESERVED_EP 996-999: False
+     n=500: ARL ids 500..999;  hits comparator predictor-fit 900-919: True;  arm-2 alarm ref 920-939: True;  arm-3 alarm ref 940-959: True;  RESERVED_EP 996-999: True
+     n=600: ARL ids 500..1099;  hits comparator predictor-fit 900-919: True;  arm-2 alarm ref 920-939: True;  arm-3 alarm ref 940-959: True;  RESERVED_EP 996-999: True
+     n=666: ARL ids 500..1165;  hits comparator predictor-fit 900-919: True;  arm-2 alarm ref 920-939: True;  arm-3 alarm ref 940-959: True;  RESERVED_EP 996-999: True
+   Any n > 496 collides with the generator's oracle-only reserved ids; any n > 400 collides with the
+   comparator's predictor-fit split.  The IBD spec's disjointness claim is false as written.
+
+====================================================================================================
+I. OFFSET READ GAP: the two specs disagree on the number.
+====================================================================================================
+   offset  200: comparator reads t=1199, seq_ibd reads t=1182, gap = 17 steps
+   offset  500: comparator reads t=1499, seq_ibd reads t=1482, gap = 17 steps
+   offset 1000: comparator reads t=1999, seq_ibd reads t=1982, gap = 17 steps
+   comparator-spec v3 Sec.4.5 and contract Sec.G say 17.  sequential-ibd-spec Sec.13/Sec.14(g) say
+   'up to 18 steps apart' at offset 1000.  The correct value is 17 at every offset.
+
+====================================================================================================
+J. Instance.S_obs_pre_event() has a SILENT fallback where a hard error belongs.
+====================================================================================================
+   Instance(...) built directly: has _pre_S = False
+   S_obs_pre_event() BEFORE the event: 6 channels
+   S_obs_pre_event() AFTER  the event: 5 channels   <-- it silently returns the POST support
+   auc_pre_event_support(scores, pre, post) then ranks over the post support and can return NaN or a
+   quietly wrong number.  The certified path (draw_certified) sets _pre_S; nothing enforces it.

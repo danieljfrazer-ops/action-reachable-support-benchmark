@@ -1,0 +1,12 @@
+AUC of the STATIC loading l (a fit-time constant that never sees the episode) vs
+AUC of the full comparator score q at offset 500, split by whether the event changed S^obs,eps.
+
+cell      conf     group           n   AUC(l)  AUC(q@500)  AUC(ibd@500)
+tau=0     present  S CHANGED       3    0.814       0.643         0.801
+tau=0     present  S unchanged     7    0.837       0.702         0.756
+tau=0     absent   S CHANGED       3    0.975       0.845         0.774
+tau=0     absent   S unchanged     7    1.000       0.890         0.760
+tau=2     present  S CHANGED       4    0.846       0.652         0.905
+tau=2     present  S unchanged     6    0.902       0.686         0.764
+tau=2     absent   S CHANGED       4    0.969       0.831         0.882
+tau=2     absent   S unchanged     6    1.000       0.819         0.764

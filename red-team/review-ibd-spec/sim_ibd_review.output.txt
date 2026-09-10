@@ -1,0 +1,347 @@
+#### RUN 1: registry policy scale (W_u = 0.5; corr(a,x) just above rho_min = 0.4)
+sim_ibd_review.py  quick=False  W_u(policy u-gain)=0.5  seeds=200  run lengths: grid 200, verify 400  (reduced from the D-2a 400 where noted for runtime)
+==============================================================================================================
+[SCM] saturation fraction 0.0008 (reject > 0.05); max |corr(a_k, x_j)| confounded = 0.426 (rho_min 0.4), unconfounded = 0.027; sd(a) = [0.588 0.589]; E|a| = [0.469 0.469] vs probe |a| = 1.0
+[SCM] rho(A_b) = 0.70; oracle S^obs before loss = channels [0, 1, 2, 3, 4, 5], after = [2, 3, 5]
+[SCM] policy-action autocorrelation at lags 1,2,3 = [0.49  0.255 0.129] (probe actions are i.i.d.: 0)
+
+[calibration] 480 pairs from a fault-free 12k-step split (~40.0 pairs / 1000 steps)
+  reference median delta  h=1 body=[ 0.088 -0.     0.152  0.008]  d=[-0.013  0.011]  conf-x=[-0.034  0.005  0.016 -0.011 -0.007]
+  reference median delta  h=3 body=[ 0.147 -0.023  0.227 -0.027]  d=[-0.111 -0.047]  conf-x=[-0.056 -0.076 -0.074 -0.064 -0.007]
+  reference MAD-sigma     h=1 body=[0.582 0.199 0.617 0.254]  conf-x=[0.989 1.014 1.003 0.989 1.008]  (floor 0.1 binds where sigma < 0.1)
+  fraction of (h, c) with sigma < sigma_floor: 0.21
+  mean delta on body channel 0 by pair i (rows 0..2) x horizon h (cols 1..3):
+[[0.145 0.111 0.079]
+ [0.152 0.061 0.066]
+ [0.03  0.083 0.013]]
+  -> null start t_b-3+i with h reaches o(t_b-3+i+h): for (i=1,h=3),(i=2,h>=2) the 'null' increment ends INSIDE the probe block (tau=0)
+  null mean of z = max_h z_h  : body=[0.664 0.571 0.665 0.534]  conf-x=0.450  pad=0.463  (k = 0.5)
+  null mean of per-h z_h      : [-0.012 -0.006 -0.008] (median-centred, so ~0 by construction)
+  E[max_h z - k] > 0 on 13/24 channels -> G+ has POSITIVE drift under the null; G- drift = -1.084
+  attainable |signed-rank z| at W=16: max = 3.52; window turnover = W/L blocks = 5.3 blocks = 400 steps at Pi=75
+  isotonic g: knots=[-3.46  0.1   0.26  0.83  1.03  1.03  1.24  1.65  1.76  1.91  2.22  2.22  2.69  2.79  2.9   3.05] vals=[0.226 0.233 0.238 0.243 0.259 0.293 0.316 0.324 0.333 0.382 0.429 0.438 0.455 0.5   0.5   0.6  ]; mean s_c on body=0.12, on x=-0.03 (labels constant per channel on a fault-free split)
+
+--------------------------------------------------------------------------------------------------------------
+[variant=DRAFT]
+  ARL_0(h): fresh-start-to-first-alarm vs steady-state inter-alarm (mean +/- 1.96 se; n; med; min; alarms from G+; ref pairs mean/min)
+   h= 1.0  fresh=   67.0+/-  0.0 (n=200,cens=0)   stream=  229.1+/-  1.6 (n=201) med=   231 min=  67  G+ share=0.95  epochs/1k=49.9 probe=0.0499 ref=8/6
+   h= 2.0  fresh=   68.8+/-  1.3 (n=200,cens=0)   stream=  229.3+/-  1.6 (n=201) med=   231 min=  68  G+ share=0.96  epochs/1k=49.9 probe=0.0499 ref=8/6
+   h= 3.0  fresh=   82.7+/-  4.1 (n=200,cens=0)   stream=  231.5+/-  2.3 (n=201) med=   231 min=  68  G+ share=0.99  epochs/1k=49.9 probe=0.0499 ref=9/6
+   h= 4.0  fresh=  112.8+/-  6.8 (n=200,cens=0)   stream=  236.1+/-  3.3 (n=201) med=   232 min=  68  G+ share=1.00  epochs/1k=49.9 probe=0.0499 ref=9/6
+   h= 6.0  fresh=  183.7+/-  9.6 (n=200,cens=0)   stream=  260.4+/-  6.0 (n=201) med=   233 min= 219  G+ share=0.99  epochs/1k=49.9 probe=0.0499 ref=9/6
+   h= 8.0  fresh=  259.6+/- 12.5 (n=200,cens=0)   stream=  306.9+/-  9.0 (n=201) med=   307 min= 224  G+ share=0.98  epochs/1k=50.0 probe=0.0500 ref=9/6
+   h=12.0  fresh=  469.0+/- 20.9 (n=200,cens=0)   stream=  366.5+/- 12.0 (n=201) med=   382 min= 231  G+ share=1.00  epochs/1k=49.9 probe=0.0499 ref=10/9
+   h=16.0  fresh=  672.6+/- 24.3 (n=200,cens=0)   stream=  490.8+/- 19.1 (n=201) med=   464 min= 232  G+ share=0.99  epochs/1k=49.9 probe=0.0499 ref=11/9
+   h=24.0  fresh= 1130.9+/- 37.4 (n=200,cens=0)   stream=  747.9+/- 32.3 (n=201) med=   700 min= 306  G+ share=1.00  epochs/1k=49.9 probe=0.0499 ref=14/9
+   h=32.0  fresh= 1648.4+/- 53.0 (n=200,cens=0)   stream= 1033.9+/- 43.9 (n=201) med=  1001 min= 319  G+ share=1.00  epochs/1k=50.0 probe=0.0500 ref=17/9
+  monotone (fresh): True;  monotone (stream, point estimates): True; within 2se: True
+  mechanical floor of stream run length = r + n_ref = 220 steps (blind); min observed stream RL above = 67
+  verify h*=31.176: stream ARL_0 = 1011.3 [981.1, 1041.4] (n=408)  band [900,1100] MET;  steps used = 412,592 (D-2a cap 2,000,000 per cell; this is ONE h value)
+  at that h*, fresh-start first-alarm ARL = 1604.9 +/- 45.4  (differs from stream ARL by the blind/burst/re-estimation dynamics)
+
+  [T=2000, event=1000] n=200: HPDT = 194.1 [190.5, 197.6]   P(detect within H_det) = 0.10
+     NULL CONTROL (same seeds, no event): P(alarm inside (event_t, event_t+200]) = 0.14  <- detection floor to compare with the line above
+     post-event epochs within H_det: mean 9.3; mean per-h z on lost channel b0 = [-0.09 -0.04 -0.03]; mean max_h z = +0.51 (null ~+0.66); mean S at event = 20.9 of h* = 31.2
+     delay | detected: mean 140.6, median 156, p10 43, p90 194, min 42
+     first alarm after event (any delay): exists in 0.78 of runs; median delay 569
+     probe steps/run: mean 90.1, max 96; fraction mean 0.0450, max 0.0480 (cap 0.05); epochs/run 90; alarms/run 0.84
+     pre-event false alarms: mean 0.04/run, P(>=1) = 0.04; P(event falls inside a blind window) = 0.04, mean remaining blind at event | inside = 115 steps
+     post-alarm reference re-estimations: 141, pairs per re-estimation mean 20.2, min 12 (calibration used 480)
+     mean p_c confounded x    : off 10: 0.255   off 50: 0.256   off 200: 0.252
+     mean p_c unconfounded x  : off 10: 0.253   off 50: 0.252   off 200: 0.253
+     mean p_c lost {b0,b1,d0} : off 10: 0.266   off 50: 0.261   off 200: 0.258
+     mean p_c kept {b2,b3,d1} : off 10: 0.267   off 50: 0.265   off 200: 0.262
+
+  [T=20000, event=10000] n=200: HPDT = 184.8 [178.5, 191.0]   P(detect within H_det) = 0.14
+     NULL CONTROL (same seeds, no event): P(alarm inside (event_t, event_t+200]) = 0.18  <- detection floor to compare with the line above
+     post-event epochs within H_det: mean 10.7; mean per-h z on lost channel b0 = [-0.02 -0.02 -0.05]; mean max_h z = +0.80 (null ~+0.66); mean S at event = 13.1 of h* = 31.2
+     delay | detected: mean 94.9, median 99, p10 13, p90 178, min 2
+     first alarm after event (any delay): exists in 1.00 of runs; median delay 620
+     probe steps/run: mean 991.3, max 996; fraction mean 0.0496, max 0.0498 (cap 0.05); epochs/run 991; alarms/run 18.14
+     pre-event false alarms: mean 8.91/run, P(>=1) = 1.00; P(event falls inside a blind window) = 0.15, mean remaining blind at event | inside = 92 steps
+     post-alarm reference re-estimations: 3588, pairs per re-estimation mean 17.6, min 9 (calibration used 480)
+     mean p_c confounded x    : off 10: 0.257   off 50: 0.253   off 200: 0.250
+     mean p_c unconfounded x  : off 10: 0.250   off 50: 0.248   off 200: 0.248
+     mean p_c lost {b0,b1,d0} : off 10: 0.266   off 50: 0.258   off 200: 0.249
+     mean p_c kept {b2,b3,d1} : off 10: 0.269   off 50: 0.264   off 200: 0.263
+
+  [pseudo-code vs prose] p_c updated during the 200-step blind window (PROSE) vs frozen (DRAFT pseudo-code), T=2000:
+     p_lost  off200: DRAFT 0.249  PROSE 0.257
+     p_conf  off200: DRAFT 0.250  PROSE 0.255
+  [attribution] same h*, blind window disabled (reference never re-estimated): HPDT = 194.1, P(detect) = 0.10 (vs 194.1 / 0.10 with the blind window; ARL_0 differs, so this is attribution only)
+
+--------------------------------------------------------------------------------------------------------------
+[variant=ABSMAX]
+  ARL_0(h): fresh-start-to-first-alarm vs steady-state inter-alarm (mean +/- 1.96 se; n; med; min; alarms from G+; ref pairs mean/min)
+   h= 1.0  fresh=   67.0+/-  0.0 (n=200,cens=0)   stream=  229.1+/-  1.6 (n=201) med=   231 min=  67  G+ share=0.50  epochs/1k=49.9 probe=0.0499 ref=8/6
+   h= 2.0  fresh=   67.3+/-  0.1 (n=200,cens=0)   stream=  229.2+/-  1.6 (n=201) med=   231 min=  67  G+ share=0.52  epochs/1k=49.9 probe=0.0499 ref=8/6
+   h= 3.0  fresh=   72.2+/-  2.4 (n=200,cens=0)   stream=  229.9+/-  1.8 (n=201) med=   231 min=  68  G+ share=0.52  epochs/1k=49.9 probe=0.0499 ref=9/6
+   h= 4.0  fresh=   97.1+/-  5.9 (n=200,cens=0)   stream=  231.3+/-  2.2 (n=201) med=   231 min=  68  G+ share=0.57  epochs/1k=49.9 probe=0.0499 ref=9/6
+   h= 6.0  fresh=  170.3+/- 10.5 (n=200,cens=0)   stream=  244.5+/-  4.4 (n=201) med=   232 min= 219  G+ share=0.56  epochs/1k=49.9 probe=0.0499 ref=9/6
+   h= 8.0  fresh=  321.4+/- 23.9 (n=200,cens=0)   stream=  279.9+/-  8.0 (n=201) med=   299 min= 143  G+ share=0.50  epochs/1k=49.9 probe=0.0499 ref=9/6
+   h=12.0  fresh=  805.1+/- 66.5 (n=200,cens=0)   stream=  368.7+/- 16.4 (n=201) med=   314 min= 226  G+ share=0.51  epochs/1k=50.0 probe=0.0500 ref=10/6
+   h=16.0  fresh= 2243.0+/-242.8 (n=200,cens=0)   stream=  475.3+/- 26.3 (n=201) med=   458 min= 231  G+ share=0.56  epochs/1k=49.9 probe=0.0499 ref=11/6
+   h=24.0  fresh=11780.0+/-951.1 (n=200,cens=57)   stream= 1104.5+/-120.0 (n=201) med=   839 min= 312  G+ share=0.58  epochs/1k=49.3 probe=0.0493 ref=17/9
+   h=32.0  fresh=18061.1+/-597.9 (n=200,cens=157)   stream= 2689.8+/-619.2 (n=201) med=  1556 min= 393  G+ share=0.61  epochs/1k=46.2 probe=0.0462 ref=23/9
+  monotone (fresh): True;  monotone (stream, point estimates): True; within 2se: True
+  mechanical floor of stream run length = r + n_ref = 220 steps (blind); min observed stream RL above = 67
+  verify h*=23.057: stream ARL_0 = 1076.6 [886.2, 1267.0] (n=408)  band [900,1100] NOT met;  steps used = 439,253 (D-2a cap 2,000,000 per cell; this is ONE h value)
+  verify h*=21.896: stream ARL_0 = 934.1 [760.5, 1107.7] (n=408)  band [900,1100] NOT met;  steps used = 381,102 (D-2a cap 2,000,000 per cell; this is ONE h value)
+  verify h*=22.967: stream ARL_0 = 1087.6 [895.9, 1279.4] (n=408)  band [900,1100] NOT met;  steps used = 443,744 (D-2a cap 2,000,000 per cell; this is ONE h value)
+  at that h*, fresh-start first-alarm ARL = 7811.1 +/- 777.0  (differs from stream ARL by the blind/burst/re-estimation dynamics)
+
+  [T=2000, event=1000] n=200: HPDT = 198.8 [197.0, 200.5]   P(detect within H_det) = 0.02
+     NULL CONTROL (same seeds, no event): P(alarm inside (event_t, event_t+200]) = 0.02  <- detection floor to compare with the line above
+     post-event epochs within H_det: mean 8.9; mean per-h z on lost channel b0 = [-0.14 -0.11 -0.15]; mean max_h z = +0.07 (null ~+0.66); mean S at event = 10.4 of h* = 21.7
+     delay | detected: mean 137.5, median 156, p10 66, p90 194, min 44
+     first alarm after event (any delay): exists in 0.14 of runs; median delay 568
+     probe steps/run: mean 80.1, max 99; fraction mean 0.0400, max 0.0495 (cap 0.05); epochs/run 80; alarms/run 0.22
+     pre-event false alarms: mean 0.07/run, P(>=1) = 0.05; P(event falls inside a blind window) = 0.04, mean remaining blind at event | inside = 128 steps
+     post-alarm reference re-estimations: 38, pairs per re-estimation mean 15.2, min 9 (calibration used 480)
+     mean p_c confounded x    : off 10: 0.250   off 50: 0.249   off 200: 0.250
+     mean p_c unconfounded x  : off 10: 0.248   off 50: 0.246   off 200: 0.248
+     mean p_c lost {b0,b1,d0} : off 10: 0.259   off 50: 0.257   off 200: 0.252
+     mean p_c kept {b2,b3,d1} : off 10: 0.258   off 50: 0.256   off 200: 0.255
+
+  [T=20000, event=10000] n=200: HPDT = 182.8 [176.6, 189.0]   P(detect within H_det) = 0.17
+     NULL CONTROL (same seeds, no event): P(alarm inside (event_t, event_t+200]) = 0.22  <- detection floor to compare with the line above
+     post-event epochs within H_det: mean 10.0; mean per-h z on lost channel b0 = [-0.05 -0.11 -0.07]; mean max_h z = +0.70 (null ~+0.66); mean S at event = 9.9 of h* = 21.7
+     delay | detected: mean 98.9, median 96, p10 28, p90 187, min 13
+     first alarm after event (any delay): exists in 0.89 of runs; median delay 566
+     probe steps/run: mean 935.9, max 996; fraction mean 0.0468, max 0.0498 (cap 0.05); epochs/run 936; alarms/run 14.38
+     pre-event false alarms: mean 5.14/run, P(>=1) = 0.74; P(event falls inside a blind window) = 0.17, mean remaining blind at event | inside = 99 steps
+     post-alarm reference re-estimations: 2841, pairs per re-estimation mean 16.2, min 6 (calibration used 480)
+     mean p_c confounded x    : off 10: 0.248   off 50: 0.248   off 200: 0.252
+     mean p_c unconfounded x  : off 10: 0.246   off 50: 0.246   off 200: 0.246
+     mean p_c lost {b0,b1,d0} : off 10: 0.256   off 50: 0.254   off 200: 0.249
+     mean p_c kept {b2,b3,d1} : off 10: 0.253   off 50: 0.258   off 200: 0.259
+
+[reservoir_0 = B_max = 30, unspecified in the draft] 2000-step run: probe steps = 105 -> fraction 0.0525 (VIOLATES the 0.05 cap); alarms at [1807]
+[reservoir_0 = 0] same run: probe steps = 90 -> fraction 0.0450; reservoir at t=1000 would be ~10 tokens -> burst can fund ~3 blocks, not 10
+
+[context only] per-step innovation CUSUM (linear predictor fitted on the same split), h=10, null ARL ~1558 steps: HPDT = 5.3, P(detect) = 1.00, median delay 5, pre-event FA/run 0.79.  Its statistic updates every step; the IBD arm's ~40 times per 1000 steps.
+
+Total wall time 247 s
+SUMMARY {
+ "('DRAFT', 'h')": 31.175687865688893,
+ "('DRAFT', 2000)": {
+  "hpdt": 194.055,
+  "ci": [
+   190.47460807066628,
+   197.63539192933374
+  ],
+  "pdet": 0.1,
+  "pre_fa": 0.035,
+  "in_blind": 0.035,
+  "probe_max": 0.048
+ },
+ "('DRAFT', 20000)": {
+  "hpdt": 184.76,
+  "ci": [
+   178.49401646607356,
+   191.02598353392642
+  ],
+  "pdet": 0.145,
+  "pre_fa": 8.915,
+  "in_blind": 0.155,
+  "probe_max": 0.0498
+ },
+ "('ABSMAX', 'h')": 21.655771336568613,
+ "('ABSMAX', 2000)": {
+  "hpdt": 198.75,
+  "ci": [
+   197.02524532951296,
+   200.47475467048704
+  ],
+  "pdet": 0.02,
+  "pre_fa": 0.065,
+  "in_blind": 0.035,
+  "probe_max": 0.0495
+ },
+ "('ABSMAX', 20000)": {
+  "hpdt": 182.805,
+  "ci": [
+   176.5659321937283,
+   189.04406780627173
+  ],
+  "pdet": 0.17,
+  "pre_fa": 5.14,
+  "in_blind": 0.165,
+  "probe_max": 0.0498
+ }
+}
+
+#### RUN 2: sensitivity, quieter default policy (W_u = 0.2). The contract fixes probe magnitude 1.0 but not the policy's action scale.
+sim_ibd_review.py  quick=False  W_u(policy u-gain)=0.2  seeds=200  run lengths: grid 200, verify 400  (reduced from the D-2a 400 where noted for runtime)
+==============================================================================================================
+[SCM] saturation fraction 0.0000 (reject > 0.05); max |corr(a_k, x_j)| confounded = 0.391 (rho_min 0.4), unconfounded = 0.026; sd(a) = [0.257 0.258]; E|a| = [0.205 0.206] vs probe |a| = 1.0
+[SCM] rho(A_b) = 0.70; oracle S^obs before loss = channels [0, 1, 2, 3, 4, 5], after = [2, 3, 5]
+[SCM] policy-action autocorrelation at lags 1,2,3 = [0.39  0.204 0.101] (probe actions are i.i.d.: 0)
+
+[calibration] 480 pairs from a fault-free 12k-step split (~40.0 pairs / 1000 steps)
+  reference median delta  h=1 body=[0.165 0.045 0.234 0.079]  d=[0.117 0.141]  conf-x=[-0.034  0.005  0.016 -0.011 -0.007]
+  reference median delta  h=3 body=[0.009 0.055 0.038 0.024]  d=[0.076 0.091]  conf-x=[-0.056 -0.076 -0.074 -0.064 -0.007]
+  reference MAD-sigma     h=1 body=[0.508 0.174 0.553 0.173]  conf-x=[0.989 1.014 1.003 0.989 1.008]  (floor 0.1 binds where sigma < 0.1)
+  fraction of (h, c) with sigma < sigma_floor: 0.21
+  mean delta on body channel 0 by pair i (rows 0..2) x horizon h (cols 1..3):
+[[ 0.366  0.46   0.02 ]
+ [ 0.347 -0.006 -0.051]
+ [-0.077 -0.053 -0.04 ]]
+  -> null start t_b-3+i with h reaches o(t_b-3+i+h): for (i=1,h=3),(i=2,h>=2) the 'null' increment ends INSIDE the probe block (tau=0)
+  null mean of z = max_h z_h  : body=[0.771 0.698 0.832 0.739]  conf-x=0.450  pad=0.463  (k = 0.5)
+  null mean of per-h z_h      : [0.008 0.015 0.005] (median-centred, so ~0 by construction)
+  E[max_h z - k] > 0 on 15/24 channels -> G+ has POSITIVE drift under the null; G- drift = -1.123
+  attainable |signed-rank z| at W=16: max = 3.52; window turnover = W/L blocks = 5.3 blocks = 400 steps at Pi=75
+  isotonic g: knots=[-3.15 -3.15 -3.1  -3.   -3.   -2.95 -2.38 -2.17 -1.96 -1.19 -1.09 -0.16  0.26  0.41  0.47  0.52  0.72  0.83  1.03  1.03  1.03  1.14  1.19  1.6   1.91  1.91
+  2.07  2.12  2.28  2.33  2.38  2.48  2.84  3.41  3.41  3.46] vals=[0.    0.    0.    0.    0.    0.038 0.04  0.056 0.066 0.07  0.095 0.151 0.162 0.181 0.222 0.229 0.259 0.278 0.333 0.333 0.333 0.373 0.406 0.548 0.571 0.603
+ 0.73  0.74  0.741 0.75  0.786 0.788 0.925 1.    1.    1.   ]; mean s_c on body=1.15, on x=-0.03 (labels constant per channel on a fault-free split)
+
+--------------------------------------------------------------------------------------------------------------
+[variant=DRAFT]
+  ARL_0(h): fresh-start-to-first-alarm vs steady-state inter-alarm (mean +/- 1.96 se; n; med; min; alarms from G+; ref pairs mean/min)
+   h= 1.0  fresh=   67.0+/-  0.0 (n=200,cens=0)   stream=  229.1+/-  1.6 (n=201) med=   231 min=  67  G+ share=0.98  epochs/1k=49.9 probe=0.0499 ref=8/6
+   h= 2.0  fresh=   68.3+/-  1.0 (n=200,cens=0)   stream=  229.3+/-  1.6 (n=201) med=   231 min=  68  G+ share=0.98  epochs/1k=49.9 probe=0.0499 ref=8/6
+   h= 3.0  fresh=   78.2+/-  3.5 (n=200,cens=0)   stream=  230.3+/-  1.9 (n=201) med=   231 min=  68  G+ share=0.99  epochs/1k=49.9 probe=0.0499 ref=9/6
+   h= 4.0  fresh=  103.3+/-  5.9 (n=200,cens=0)   stream=  234.8+/-  3.1 (n=201) med=   232 min=  67  G+ share=0.98  epochs/1k=49.9 probe=0.0499 ref=9/6
+   h= 6.0  fresh=  164.1+/-  8.6 (n=200,cens=0)   stream=  256.0+/-  5.5 (n=201) med=   233 min= 219  G+ share=1.00  epochs/1k=49.9 probe=0.0499 ref=9/6
+   h= 8.0  fresh=  238.5+/- 11.0 (n=200,cens=0)   stream=  288.1+/-  7.2 (n=201) med=   306 min= 226  G+ share=1.00  epochs/1k=49.9 probe=0.0499 ref=9/6
+   h=12.0  fresh=  425.8+/- 17.9 (n=200,cens=0)   stream=  337.0+/- 10.4 (n=201) med=   308 min= 226  G+ share=1.00  epochs/1k=50.0 probe=0.0500 ref=10/6
+   h=16.0  fresh=  621.2+/- 22.3 (n=200,cens=0)   stream=  452.2+/- 20.1 (n=201) med=   456 min= 231  G+ share=1.00  epochs/1k=49.9 probe=0.0499 ref=11/6
+   h=24.0  fresh= 1070.0+/- 34.7 (n=200,cens=0)   stream=  667.0+/- 28.2 (n=201) med=   626 min= 308  G+ share=1.00  epochs/1k=49.9 probe=0.0499 ref=13/9
+   h=32.0  fresh= 1524.5+/- 45.0 (n=200,cens=0)   stream=  892.2+/- 39.2 (n=201) med=   856 min= 326  G+ share=1.00  epochs/1k=49.9 probe=0.0499 ref=16/9
+  monotone (fresh): True;  monotone (stream, point estimates): True; within 2se: True
+  mechanical floor of stream run length = r + n_ref = 220 steps (blind); min observed stream RL above = 67
+  verify h*=32.000: stream ARL_0 = 901.3 [873.5, 929.0] (n=408)  band [900,1100] NOT met;  steps used = 367,713 (D-2a cap 2,000,000 per cell; this is ONE h value)
+  verify h*=34.416: stream ARL_0 = 990.4 [958.3, 1022.5] (n=408)  band [900,1100] MET;  steps used = 404,090 (D-2a cap 2,000,000 per cell; this is ONE h value)
+  at that h*, fresh-start first-alarm ARL = 1704.9 +/- 44.7  (differs from stream ARL by the blind/burst/re-estimation dynamics)
+
+  [T=2000, event=1000] n=200: HPDT = 197.1 [194.5, 199.6]   P(detect within H_det) = 0.04
+     NULL CONTROL (same seeds, no event): P(alarm inside (event_t, event_t+200]) = 0.07  <- detection floor to compare with the line above
+     post-event epochs within H_det: mean 9.2; mean per-h z on lost channel b0 = [-0.2  -0.09  0.02]; mean max_h z = +0.37 (null ~+0.77); mean S at event = 22.7 of h* = 34.4
+     delay | detected: mean 134.9, median 119, p10 43, p90 194, min 42
+     first alarm after event (any delay): exists in 0.58 of runs; median delay 717
+     probe steps/run: mean 87.3, max 96; fraction mean 0.0436, max 0.0480 (cap 0.05); epochs/run 87; alarms/run 0.61
+     pre-event false alarms: mean 0.01/run, P(>=1) = 0.01; P(event falls inside a blind window) = 0.01, mean remaining blind at event | inside = 118 steps
+     post-alarm reference re-estimations: 98, pairs per re-estimation mean 20.7, min 12 (calibration used 480)
+     mean p_c confounded x    : off 10: 0.221   off 50: 0.222   off 200: 0.214
+     mean p_c unconfounded x  : off 10: 0.219   off 50: 0.216   off 200: 0.218
+     mean p_c lost {b0,b1,d0} : off 10: 0.434   off 50: 0.332   off 200: 0.284
+     mean p_c kept {b2,b3,d1} : off 10: 0.436   off 50: 0.429   off 200: 0.432
+
+  [T=20000, event=10000] n=200: HPDT = 185.5 [179.5, 191.5]   P(detect within H_det) = 0.15
+     NULL CONTROL (same seeds, no event): P(alarm inside (event_t, event_t+200]) = 0.24  <- detection floor to compare with the line above
+     post-event epochs within H_det: mean 10.6; mean per-h z on lost channel b0 = [0.01 0.03 0.01]; mean max_h z = +0.80 (null ~+0.77); mean S at event = 14.8 of h* = 34.4
+     delay | detected: mean 103.3, median 99, p10 17, p90 181, min 3
+     first alarm after event (any delay): exists in 1.00 of runs; median delay 628
+     probe steps/run: mean 991.2, max 996; fraction mean 0.0496, max 0.0498 (cap 0.05); epochs/run 991; alarms/run 17.62
+     pre-event false alarms: mean 8.72/run, P(>=1) = 1.00; P(event falls inside a blind window) = 0.15, mean remaining blind at event | inside = 97 steps
+     post-alarm reference re-estimations: 3493, pairs per re-estimation mean 17.9, min 9 (calibration used 480)
+     mean p_c confounded x    : off 10: 0.229   off 50: 0.225   off 200: 0.227
+     mean p_c unconfounded x  : off 10: 0.213   off 50: 0.215   off 200: 0.212
+     mean p_c lost {b0,b1,d0} : off 10: 0.416   off 50: 0.335   off 200: 0.268
+     mean p_c kept {b2,b3,d1} : off 10: 0.401   off 50: 0.414   off 200: 0.425
+
+  [pseudo-code vs prose] p_c updated during the 200-step blind window (PROSE) vs frozen (DRAFT pseudo-code), T=2000:
+     p_lost  off200: DRAFT 0.268  PROSE 0.281
+     p_conf  off200: DRAFT 0.227  PROSE 0.217
+  [attribution] same h*, blind window disabled (reference never re-estimated): HPDT = 197.1, P(detect) = 0.04 (vs 197.1 / 0.04 with the blind window; ARL_0 differs, so this is attribution only)
+
+--------------------------------------------------------------------------------------------------------------
+[variant=ABSMAX]
+  ARL_0(h): fresh-start-to-first-alarm vs steady-state inter-alarm (mean +/- 1.96 se; n; med; min; alarms from G+; ref pairs mean/min)
+   h= 1.0  fresh=   67.0+/-  0.0 (n=200,cens=0)   stream=  229.1+/-  1.6 (n=201) med=   231 min=  67  G+ share=0.62  epochs/1k=49.9 probe=0.0499 ref=8/6
+   h= 2.0  fresh=   67.3+/-  0.1 (n=200,cens=0)   stream=  229.2+/-  1.6 (n=201) med=   231 min=  67  G+ share=0.60  epochs/1k=49.9 probe=0.0499 ref=8/6
+   h= 3.0  fresh=   71.7+/-  2.3 (n=200,cens=0)   stream=  229.4+/-  1.6 (n=201) med=   231 min=  68  G+ share=0.62  epochs/1k=49.9 probe=0.0499 ref=8/6
+   h= 4.0  fresh=   93.4+/-  5.2 (n=200,cens=0)   stream=  231.2+/-  2.2 (n=201) med=   231 min=  67  G+ share=0.64  epochs/1k=49.9 probe=0.0499 ref=9/6
+   h= 6.0  fresh=  169.4+/- 12.1 (n=200,cens=0)   stream=  249.8+/-  5.1 (n=201) med=   232 min= 219  G+ share=0.63  epochs/1k=49.9 probe=0.0499 ref=9/6
+   h= 8.0  fresh=  309.8+/- 23.5 (n=200,cens=0)   stream=  278.5+/-  6.9 (n=201) med=   306 min= 143  G+ share=0.59  epochs/1k=49.9 probe=0.0499 ref=9/6
+   h=12.0  fresh=  808.1+/- 69.0 (n=200,cens=0)   stream=  361.5+/- 14.8 (n=201) med=   314 min= 225  G+ share=0.59  epochs/1k=49.9 probe=0.0499 ref=10/6
+   h=16.0  fresh= 2154.8+/-246.0 (n=200,cens=0)   stream=  465.3+/- 22.0 (n=201) med=   456 min= 232  G+ share=0.59  epochs/1k=49.9 probe=0.0499 ref=11/9
+   h=24.0  fresh=11496.8+/-956.8 (n=200,cens=57)   stream=  918.9+/- 97.7 (n=201) med=   781 min= 251  G+ share=0.64  epochs/1k=49.5 probe=0.0495 ref=15/9
+   h=32.0  fresh=17783.3+/-640.8 (n=200,cens=151)   stream= 2867.4+/-658.2 (n=201) med=  1781 min= 388  G+ share=0.79  epochs/1k=46.1 probe=0.0461 ref=24/12
+  monotone (fresh): True;  monotone (stream, point estimates): True; within 2se: True
+  mechanical floor of stream run length = r + n_ref = 220 steps (blind); min observed stream RL above = 67
+  verify h*=24.594: stream ARL_0 = 1098.9 [958.1, 1239.7] (n=408)  band [900,1100] NOT met;  steps used = 448,351 (D-2a cap 2,000,000 per cell; this is ONE h value)
+  verify h*=23.023: stream ARL_0 = 1017.2 [879.2, 1155.2] (n=408)  band [900,1100] NOT met;  steps used = 415,033 (D-2a cap 2,000,000 per cell; this is ONE h value)
+  at that h*, fresh-start first-alarm ARL = 9199.6 +/- 870.1  (differs from stream ARL by the blind/burst/re-estimation dynamics)
+
+  [T=2000, event=1000] n=200: HPDT = 198.3 [196.5, 200.2]   P(detect within H_det) = 0.03
+     NULL CONTROL (same seeds, no event): P(alarm inside (event_t, event_t+200]) = 0.03  <- detection floor to compare with the line above
+     post-event epochs within H_det: mean 9.1; mean per-h z on lost channel b0 = [-0.3  -0.14 -0.  ]; mean max_h z = +0.12 (null ~+0.77); mean S at event = 10.9 of h* = 23.0
+     delay | detected: mean 144.7, median 156, p10 84, p90 194, min 50
+     first alarm after event (any delay): exists in 0.10 of runs; median delay 465
+     probe steps/run: mean 79.7, max 96; fraction mean 0.0398, max 0.0480 (cap 0.05); epochs/run 80; alarms/run 0.16
+     pre-event false alarms: mean 0.03/run, P(>=1) = 0.03; P(event falls inside a blind window) = 0.01, mean remaining blind at event | inside = 130 steps
+     post-alarm reference re-estimations: 22, pairs per re-estimation mean 16.2, min 9 (calibration used 480)
+     mean p_c confounded x    : off 10: 0.211   off 50: 0.212   off 200: 0.213
+     mean p_c unconfounded x  : off 10: 0.203   off 50: 0.202   off 200: 0.201
+     mean p_c lost {b0,b1,d0} : off 10: 0.381   off 50: 0.364   off 200: 0.282
+     mean p_c kept {b2,b3,d1} : off 10: 0.372   off 50: 0.375   off 200: 0.370
+
+  [T=20000, event=10000] n=200: HPDT = 191.9 [187.4, 196.4]   P(detect within H_det) = 0.08
+     NULL CONTROL (same seeds, no event): P(alarm inside (event_t, event_t+200]) = 0.10  <- detection floor to compare with the line above
+     post-event epochs within H_det: mean 9.7; mean per-h z on lost channel b0 = [-0.11 -0.07 -0.02]; mean max_h z = +0.63 (null ~+0.77); mean S at event = 10.5 of h* = 23.0
+     delay | detected: mean 98.7, median 115, p10 14, p90 168, min 1
+     first alarm after event (any delay): exists in 0.81 of runs; median delay 930
+     probe steps/run: mean 912.4, max 996; fraction mean 0.0456, max 0.0498 (cap 0.05); epochs/run 912; alarms/run 10.03
+     pre-event false alarms: mean 3.50/run, P(>=1) = 0.58; P(event falls inside a blind window) = 0.14, mean remaining blind at event | inside = 98 steps
+     post-alarm reference re-estimations: 1975, pairs per re-estimation mean 18.0, min 9 (calibration used 480)
+     mean p_c confounded x    : off 10: 0.201   off 50: 0.202   off 200: 0.195
+     mean p_c unconfounded x  : off 10: 0.192   off 50: 0.194   off 200: 0.198
+     mean p_c lost {b0,b1,d0} : off 10: 0.370   off 50: 0.363   off 200: 0.260
+     mean p_c kept {b2,b3,d1} : off 10: 0.379   off 50: 0.380   off 200: 0.368
+
+[reservoir_0 = B_max = 30, unspecified in the draft] 2000-step run: probe steps = 81 -> fraction 0.0405 (within the 0.05 cap); alarms at []
+[reservoir_0 = 0] same run: probe steps = 87 -> fraction 0.0435; reservoir at t=1000 would be ~10 tokens -> burst can fund ~3 blocks, not 10
+
+[context only] per-step innovation CUSUM (linear predictor fitted on the same split), h=10, null ARL ~1529 steps: HPDT = 9.2, P(detect) = 1.00, median delay 8, pre-event FA/run 0.84.  Its statistic updates every step; the IBD arm's ~40 times per 1000 steps.
+
+Total wall time 260 s
+SUMMARY {
+ "('DRAFT', 'h')": 34.415636312337384,
+ "('DRAFT', 2000)": {
+  "hpdt": 197.07,
+  "ci": [
+   194.50657165005015,
+   199.63342834994984
+  ],
+  "pdet": 0.045,
+  "pre_fa": 0.015,
+  "in_blind": 0.015,
+  "probe_max": 0.048
+ },
+ "('DRAFT', 20000)": {
+  "hpdt": 185.495,
+  "ci": [
+   179.52019382540993,
+   191.46980617459008
+  ],
+  "pdet": 0.15,
+  "pre_fa": 8.725,
+  "in_blind": 0.15,
+  "probe_max": 0.0498
+ },
+ "('ABSMAX', 'h')": 23.023273335007286,
+ "('ABSMAX', 2000)": {
+  "hpdt": 198.34,
+  "ci": [
+   196.49656297762104,
+   200.18343702237897
+  ],
+  "pdet": 0.03,
+  "pre_fa": 0.025,
+  "in_blind": 0.01,
+  "probe_max": 0.048
+ },
+ "('ABSMAX', 20000)": {
+  "hpdt": 191.895,
+  "ci": [
+   187.40123112462084,
+   196.38876887537918
+  ],
+  "pdet": 0.08,
+  "pre_fa": 3.505,
+  "in_blind": 0.135,
+  "probe_max": 0.0498
+ }
+}

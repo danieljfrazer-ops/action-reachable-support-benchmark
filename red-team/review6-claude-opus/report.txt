@@ -1,0 +1,558 @@
+======================================================================================================================
+ROUND-6 INDEPENDENT REIMPLEMENTATION -- claude-opus.  Frozen version 38d161e762a3de76.
+ALL NUMBERS BELOW ARE MINE ALONE (one of three implementations).  Python 3.12.0 / numpy 2.4.4
+======================================================================================================================
+
+[1] PRIMARY pre-event-support AUC (auc_pre_event_support), per cell, per arm, per condition.
+    Per-episode AUC -> instance mean -> cell mean; 95% percentile bootstrap CLUSTERED BY INSTANCE.
+
+cell            arm       cond       off     mean     lo95     hi95  #inst
+----------------------------------------------------------------------------------------------------------------------
+L_Nx10_tau0     seq_ibd   present    200    0.601    0.476    0.724     10
+L_Nx10_tau0     seq_ibd   present    500    0.813    0.727    0.896     10
+L_Nx10_tau0     seq_ibd   present   1000    0.854    0.799    0.905     10
+L_Nx10_tau0     seq_ibd   absent     200    0.601    0.476    0.724     10
+L_Nx10_tau0     seq_ibd   absent     500    0.813    0.727    0.896     10
+L_Nx10_tau0     seq_ibd   absent    1000    0.854    0.799    0.905     10
+L_Nx10_tau0     comparatorpresent    200    0.869    0.741    0.975     10
+L_Nx10_tau0     comparatorpresent    500    0.879    0.758    1.000     10
+L_Nx10_tau0     comparatorpresent   1000    0.879    0.758    1.000     10
+L_Nx10_tau0     comparatorabsent     200    0.863    0.725    1.000     10
+L_Nx10_tau0     comparatorabsent     500    0.863    0.725    1.000     10
+L_Nx10_tau0     comparatorabsent    1000    0.863    0.725    1.000     10
+----------------------------------------------------------------------------------------------------------------------
+L_Nx10_tau2     seq_ibd   present    200    0.463    0.379    0.558     10
+L_Nx10_tau2     seq_ibd   present    500    0.687    0.571    0.808     10
+L_Nx10_tau2     seq_ibd   present   1000    0.796    0.733    0.863     10
+L_Nx10_tau2     seq_ibd   absent     200    0.463    0.379    0.558     10
+L_Nx10_tau2     seq_ibd   absent     500    0.687    0.571    0.808     10
+L_Nx10_tau2     seq_ibd   absent    1000    0.796    0.733    0.863     10
+L_Nx10_tau2     comparatorpresent    200    1.000    1.000    1.000     10
+L_Nx10_tau2     comparatorpresent    500    1.000    1.000    1.000     10
+L_Nx10_tau2     comparatorpresent   1000    1.000    1.000    1.000     10
+L_Nx10_tau2     comparatorabsent     200    1.000    1.000    1.000     10
+L_Nx10_tau2     comparatorabsent     500    1.000    1.000    1.000     10
+L_Nx10_tau2     comparatorabsent    1000    1.000    1.000    1.000     10
+----------------------------------------------------------------------------------------------------------------------
+L_Nx30_tau0     seq_ibd   present    200    0.601    0.476    0.724     10
+L_Nx30_tau0     seq_ibd   present    500    0.813    0.727    0.896     10
+L_Nx30_tau0     seq_ibd   present   1000    0.854    0.799    0.905     10
+L_Nx30_tau0     seq_ibd   absent     200    0.601    0.476    0.724     10
+L_Nx30_tau0     seq_ibd   absent     500    0.813    0.727    0.896     10
+L_Nx30_tau0     seq_ibd   absent    1000    0.854    0.799    0.905     10
+L_Nx30_tau0     comparatorpresent    200    0.869    0.741    0.975     10
+L_Nx30_tau0     comparatorpresent    500    0.879    0.758    1.000     10
+L_Nx30_tau0     comparatorpresent   1000    0.882    0.761    1.000     10
+L_Nx30_tau0     comparatorabsent     200    0.863    0.725    1.000     10
+L_Nx30_tau0     comparatorabsent     500    0.863    0.725    1.000     10
+L_Nx30_tau0     comparatorabsent    1000    0.863    0.725    1.000     10
+----------------------------------------------------------------------------------------------------------------------
+L_Nx30_tau2     seq_ibd   present    200    0.463    0.379    0.558     10
+L_Nx30_tau2     seq_ibd   present    500    0.687    0.571    0.808     10
+L_Nx30_tau2     seq_ibd   present   1000    0.796    0.733    0.863     10
+L_Nx30_tau2     seq_ibd   absent     200    0.463    0.379    0.558     10
+L_Nx30_tau2     seq_ibd   absent     500    0.687    0.571    0.808     10
+L_Nx30_tau2     seq_ibd   absent    1000    0.796    0.733    0.863     10
+L_Nx30_tau2     comparatorpresent    200    1.000    1.000    1.000     10
+L_Nx30_tau2     comparatorpresent    500    1.000    1.000    1.000     10
+L_Nx30_tau2     comparatorpresent   1000    1.000    1.000    1.000     10
+L_Nx30_tau2     comparatorabsent     200    1.000    1.000    1.000     10
+L_Nx30_tau2     comparatorabsent     500    1.000    1.000    1.000     10
+L_Nx30_tau2     comparatorabsent    1000    1.000    1.000    1.000     10
+----------------------------------------------------------------------------------------------------------------------
+N_Nx10_tau0     seq_ibd   present    200    0.680    0.570    0.770      5
+N_Nx10_tau0     seq_ibd   present    500    0.840    0.765    0.905      5
+N_Nx10_tau0     seq_ibd   present   1000    0.878    0.782    0.970      5
+N_Nx10_tau0     seq_ibd   absent     200    0.680    0.570    0.770      5
+N_Nx10_tau0     seq_ibd   absent     500    0.840    0.765    0.905      5
+N_Nx10_tau0     seq_ibd   absent    1000    0.878    0.782    0.970      5
+N_Nx10_tau0     comparatorpresent    200    0.728    0.495    0.960      5
+N_Nx10_tau0     comparatorpresent    500    0.728    0.495    0.960      5
+N_Nx10_tau0     comparatorpresent   1000    0.728    0.495    0.960      5
+N_Nx10_tau0     comparatorabsent     200    0.718    0.495    0.940      5
+N_Nx10_tau0     comparatorabsent     500    0.728    0.495    0.960      5
+N_Nx10_tau0     comparatorabsent    1000    0.715    0.470    0.960      5
+----------------------------------------------------------------------------------------------------------------------
+N_Nx10_tau2     seq_ibd   present    200    0.667    0.500    0.850      5
+N_Nx10_tau2     seq_ibd   present    500    0.775    0.592    0.958      5
+N_Nx10_tau2     seq_ibd   present   1000    0.725    0.567    0.867      5
+N_Nx10_tau2     seq_ibd   absent     200    0.667    0.500    0.850      5
+N_Nx10_tau2     seq_ibd   absent     500    0.775    0.592    0.958      5
+N_Nx10_tau2     seq_ibd   absent    1000    0.725    0.567    0.867      5
+N_Nx10_tau2     comparatorpresent    200    0.783    0.533    0.983      5
+N_Nx10_tau2     comparatorpresent    500    0.767    0.517    0.983      5
+N_Nx10_tau2     comparatorpresent   1000    0.750    0.483    0.967      5
+N_Nx10_tau2     comparatorabsent     200    0.917    0.750    1.000      5
+N_Nx10_tau2     comparatorabsent     500    0.900    0.700    1.000      5
+N_Nx10_tau2     comparatorabsent    1000    0.900    0.700    1.000      5
+----------------------------------------------------------------------------------------------------------------------
+P_cp0.5_nm0.5   seq_ibd   present    200    0.450    0.450    0.450      1
+P_cp0.5_nm0.5   seq_ibd   present    500    0.675    0.675    0.675      1
+P_cp0.5_nm0.5   seq_ibd   present   1000    0.800    0.800    0.800      1
+P_cp0.5_nm0.5   seq_ibd   absent     200    0.450    0.450    0.450      1
+P_cp0.5_nm0.5   seq_ibd   absent     500    0.675    0.675    0.675      1
+P_cp0.5_nm0.5   seq_ibd   absent    1000    0.800    0.800    0.800      1
+P_cp0.5_nm0.5   comparatorpresent    200    1.000    1.000    1.000      1
+P_cp0.5_nm0.5   comparatorpresent    500    1.000    1.000    1.000      1
+P_cp0.5_nm0.5   comparatorpresent   1000    1.000    1.000    1.000      1
+P_cp0.5_nm0.5   comparatorabsent     200    1.000    1.000    1.000      1
+P_cp0.5_nm0.5   comparatorabsent     500    1.000    1.000    1.000      1
+P_cp0.5_nm0.5   comparatorabsent    1000    1.000    1.000    1.000      1
+----------------------------------------------------------------------------------------------------------------------
+P_cp0.5_nm1.0   seq_ibd   present    200    0.525    0.525    0.525      1
+P_cp0.5_nm1.0   seq_ibd   present    500    0.600    0.600    0.600      1
+P_cp0.5_nm1.0   seq_ibd   present   1000    0.750    0.750    0.750      1
+P_cp0.5_nm1.0   seq_ibd   absent     200    0.525    0.525    0.525      1
+P_cp0.5_nm1.0   seq_ibd   absent     500    0.600    0.600    0.600      1
+P_cp0.5_nm1.0   seq_ibd   absent    1000    0.750    0.750    0.750      1
+P_cp0.5_nm1.0   comparatorpresent    200    1.000    1.000    1.000      1
+P_cp0.5_nm1.0   comparatorpresent    500    1.000    1.000    1.000      1
+P_cp0.5_nm1.0   comparatorpresent   1000    1.000    1.000    1.000      1
+P_cp0.5_nm1.0   comparatorabsent     200    1.000    1.000    1.000      1
+P_cp0.5_nm1.0   comparatorabsent     500    1.000    1.000    1.000      1
+P_cp0.5_nm1.0   comparatorabsent    1000    1.000    1.000    1.000      1
+----------------------------------------------------------------------------------------------------------------------
+P_cp0.5_nm2.0   seq_ibd   present    200    0.500    0.500    0.500      1
+P_cp0.5_nm2.0   seq_ibd   present    500    0.550    0.550    0.550      1
+P_cp0.5_nm2.0   seq_ibd   present   1000    0.625    0.625    0.625      1
+P_cp0.5_nm2.0   seq_ibd   absent     200    0.500    0.500    0.500      1
+P_cp0.5_nm2.0   seq_ibd   absent     500    0.550    0.550    0.550      1
+P_cp0.5_nm2.0   seq_ibd   absent    1000    0.625    0.625    0.625      1
+P_cp0.5_nm2.0   comparatorpresent    200    1.000    1.000    1.000      1
+P_cp0.5_nm2.0   comparatorpresent    500    1.000    1.000    1.000      1
+P_cp0.5_nm2.0   comparatorpresent   1000    1.000    1.000    1.000      1
+P_cp0.5_nm2.0   comparatorabsent     200    1.000    1.000    1.000      1
+P_cp0.5_nm2.0   comparatorabsent     500    1.000    1.000    1.000      1
+P_cp0.5_nm2.0   comparatorabsent    1000    1.000    1.000    1.000      1
+----------------------------------------------------------------------------------------------------------------------
+P_cp1.0_nm0.5   seq_ibd   present    200    0.475    0.475    0.475      1
+P_cp1.0_nm0.5   seq_ibd   present    500    0.750    0.750    0.750      1
+P_cp1.0_nm0.5   seq_ibd   present   1000    0.900    0.900    0.900      1
+P_cp1.0_nm0.5   seq_ibd   absent     200    0.475    0.475    0.475      1
+P_cp1.0_nm0.5   seq_ibd   absent     500    0.750    0.750    0.750      1
+P_cp1.0_nm0.5   seq_ibd   absent    1000    0.900    0.900    0.900      1
+P_cp1.0_nm0.5   comparatorpresent    200    1.000    1.000    1.000      1
+P_cp1.0_nm0.5   comparatorpresent    500    1.000    1.000    1.000      1
+P_cp1.0_nm0.5   comparatorpresent   1000    1.000    1.000    1.000      1
+P_cp1.0_nm0.5   comparatorabsent     200    1.000    1.000    1.000      1
+P_cp1.0_nm0.5   comparatorabsent     500    1.000    1.000    1.000      1
+P_cp1.0_nm0.5   comparatorabsent    1000    1.000    1.000    1.000      1
+----------------------------------------------------------------------------------------------------------------------
+P_cp1.0_nm1.0   seq_ibd   present    200    0.550    0.550    0.550      1
+P_cp1.0_nm1.0   seq_ibd   present    500    0.750    0.750    0.750      1
+P_cp1.0_nm1.0   seq_ibd   present   1000    0.875    0.875    0.875      1
+P_cp1.0_nm1.0   seq_ibd   absent     200    0.550    0.550    0.550      1
+P_cp1.0_nm1.0   seq_ibd   absent     500    0.750    0.750    0.750      1
+P_cp1.0_nm1.0   seq_ibd   absent    1000    0.875    0.875    0.875      1
+P_cp1.0_nm1.0   comparatorpresent    200    1.000    1.000    1.000      1
+P_cp1.0_nm1.0   comparatorpresent    500    1.000    1.000    1.000      1
+P_cp1.0_nm1.0   comparatorpresent   1000    1.000    1.000    1.000      1
+P_cp1.0_nm1.0   comparatorabsent     200    1.000    1.000    1.000      1
+P_cp1.0_nm1.0   comparatorabsent     500    1.000    1.000    1.000      1
+P_cp1.0_nm1.0   comparatorabsent    1000    1.000    1.000    1.000      1
+----------------------------------------------------------------------------------------------------------------------
+P_cp1.0_nm2.0   seq_ibd   present    200    0.500    0.500    0.500      1
+P_cp1.0_nm2.0   seq_ibd   present    500    0.550    0.550    0.550      1
+P_cp1.0_nm2.0   seq_ibd   present   1000    0.725    0.725    0.725      1
+P_cp1.0_nm2.0   seq_ibd   absent     200    0.500    0.500    0.500      1
+P_cp1.0_nm2.0   seq_ibd   absent     500    0.550    0.550    0.550      1
+P_cp1.0_nm2.0   seq_ibd   absent    1000    0.725    0.725    0.725      1
+P_cp1.0_nm2.0   comparatorpresent    200    1.000    1.000    1.000      1
+P_cp1.0_nm2.0   comparatorpresent    500    1.000    1.000    1.000      1
+P_cp1.0_nm2.0   comparatorpresent   1000    1.000    1.000    1.000      1
+P_cp1.0_nm2.0   comparatorabsent     200    1.000    1.000    1.000      1
+P_cp1.0_nm2.0   comparatorabsent     500    1.000    1.000    1.000      1
+P_cp1.0_nm2.0   comparatorabsent    1000    1.000    1.000    1.000      1
+----------------------------------------------------------------------------------------------------------------------
+P_cp2.0_nm0.5   seq_ibd   present    200    0.500    0.500    0.500      1
+P_cp2.0_nm0.5   seq_ibd   present    500    0.800    0.800    0.800      1
+P_cp2.0_nm0.5   seq_ibd   present   1000    1.000    1.000    1.000      1
+P_cp2.0_nm0.5   seq_ibd   absent     200    0.500    0.500    0.500      1
+P_cp2.0_nm0.5   seq_ibd   absent     500    0.800    0.800    0.800      1
+P_cp2.0_nm0.5   seq_ibd   absent    1000    1.000    1.000    1.000      1
+P_cp2.0_nm0.5   comparatorpresent    200    1.000    1.000    1.000      1
+P_cp2.0_nm0.5   comparatorpresent    500    1.000    1.000    1.000      1
+P_cp2.0_nm0.5   comparatorpresent   1000    1.000    1.000    1.000      1
+P_cp2.0_nm0.5   comparatorabsent     200    1.000    1.000    1.000      1
+P_cp2.0_nm0.5   comparatorabsent     500    1.000    1.000    1.000      1
+P_cp2.0_nm0.5   comparatorabsent    1000    1.000    1.000    1.000      1
+----------------------------------------------------------------------------------------------------------------------
+P_cp2.0_nm1.0   seq_ibd   present    200    0.400    0.400    0.400      1
+P_cp2.0_nm1.0   seq_ibd   present    500    0.800    0.800    0.800      1
+P_cp2.0_nm1.0   seq_ibd   present   1000    1.000    1.000    1.000      1
+P_cp2.0_nm1.0   seq_ibd   absent     200    0.400    0.400    0.400      1
+P_cp2.0_nm1.0   seq_ibd   absent     500    0.800    0.800    0.800      1
+P_cp2.0_nm1.0   seq_ibd   absent    1000    1.000    1.000    1.000      1
+P_cp2.0_nm1.0   comparatorpresent    200    1.000    1.000    1.000      1
+P_cp2.0_nm1.0   comparatorpresent    500    1.000    1.000    1.000      1
+P_cp2.0_nm1.0   comparatorpresent   1000    1.000    1.000    1.000      1
+P_cp2.0_nm1.0   comparatorabsent     200    1.000    1.000    1.000      1
+P_cp2.0_nm1.0   comparatorabsent     500    1.000    1.000    1.000      1
+P_cp2.0_nm1.0   comparatorabsent    1000    1.000    1.000    1.000      1
+----------------------------------------------------------------------------------------------------------------------
+P_cp2.0_nm2.0   seq_ibd   present    200    0.375    0.375    0.375      1
+P_cp2.0_nm2.0   seq_ibd   present    500    0.800    0.800    0.800      1
+P_cp2.0_nm2.0   seq_ibd   present   1000    0.950    0.950    0.950      1
+P_cp2.0_nm2.0   seq_ibd   absent     200    0.375    0.375    0.375      1
+P_cp2.0_nm2.0   seq_ibd   absent     500    0.800    0.800    0.800      1
+P_cp2.0_nm2.0   seq_ibd   absent    1000    0.950    0.950    0.950      1
+P_cp2.0_nm2.0   comparatorpresent    200    1.000    1.000    1.000      1
+P_cp2.0_nm2.0   comparatorpresent    500    1.000    1.000    1.000      1
+P_cp2.0_nm2.0   comparatorpresent   1000    1.000    1.000    1.000      1
+P_cp2.0_nm2.0   comparatorabsent     200    1.000    1.000    1.000      1
+P_cp2.0_nm2.0   comparatorabsent     500    1.000    1.000    1.000      1
+P_cp2.0_nm2.0   comparatorabsent    1000    1.000    1.000    1.000      1
+----------------------------------------------------------------------------------------------------------------------
+
+[2] SECONDARY full-channel AUC of secondary_support() vs S_obs_eps(post), offset 500.
+cell            arm       cond          mean     lo95     hi95
+L_Nx10_tau0     seq_ibd   present      0.851    0.810    0.891
+L_Nx10_tau0     seq_ibd   absent       0.863    0.830    0.897
+L_Nx10_tau0     comparatorpresent      0.795    0.758    0.829
+L_Nx10_tau0     comparatorabsent       0.964    0.953    0.972
+L_Nx10_tau2     seq_ibd   present      0.753    0.666    0.836
+L_Nx10_tau2     seq_ibd   absent       0.751    0.661    0.836
+L_Nx10_tau2     comparatorpresent      0.795    0.776    0.808
+L_Nx10_tau2     comparatorabsent       0.962    0.957    0.967
+L_Nx30_tau0     seq_ibd   present      0.859    0.819    0.894
+L_Nx30_tau0     seq_ibd   absent       0.869    0.837    0.899
+L_Nx30_tau0     comparatorpresent      0.731    0.686    0.774
+L_Nx30_tau0     comparatorabsent       0.982    0.977    0.986
+L_Nx30_tau2     seq_ibd   present      0.768    0.689    0.844
+L_Nx30_tau2     seq_ibd   absent       0.756    0.666    0.839
+L_Nx30_tau2     comparatorpresent      0.724    0.698    0.739
+L_Nx30_tau2     comparatorabsent       0.980    0.978    0.983
+N_Nx10_tau0     seq_ibd   present      0.860    0.791    0.917
+N_Nx10_tau0     seq_ibd   absent       0.871    0.816    0.915
+N_Nx10_tau0     comparatorpresent      0.794    0.737    0.853
+N_Nx10_tau0     comparatorabsent       0.981    0.966    0.993
+N_Nx10_tau2     seq_ibd   present      0.754    0.575    0.920
+N_Nx10_tau2     seq_ibd   absent       0.761    0.597    0.906
+N_Nx10_tau2     comparatorpresent      0.759    0.727    0.803
+N_Nx10_tau2     comparatorabsent       0.981    0.965    0.997
+P_cp0.5_nm0.5   seq_ibd   present      0.755    0.755    0.755
+P_cp0.5_nm0.5   seq_ibd   absent       0.767    0.767    0.767
+P_cp0.5_nm0.5   comparatorpresent      0.684    0.684    0.684
+P_cp0.5_nm0.5   comparatorabsent       0.947    0.947    0.947
+P_cp0.5_nm1.0   seq_ibd   present      0.696    0.696    0.696
+P_cp0.5_nm1.0   seq_ibd   absent       0.701    0.701    0.701
+P_cp0.5_nm1.0   comparatorpresent      0.684    0.684    0.684
+P_cp0.5_nm1.0   comparatorabsent       0.947    0.947    0.947
+P_cp0.5_nm2.0   seq_ibd   present      0.647    0.647    0.647
+P_cp0.5_nm2.0   seq_ibd   absent       0.668    0.668    0.668
+P_cp0.5_nm2.0   comparatorpresent      0.684    0.684    0.684
+P_cp0.5_nm2.0   comparatorabsent       0.947    0.947    0.947
+P_cp1.0_nm0.5   seq_ibd   present      0.801    0.801    0.801
+P_cp1.0_nm0.5   seq_ibd   absent       0.809    0.809    0.809
+P_cp1.0_nm0.5   comparatorpresent      0.800    0.800    0.800
+P_cp1.0_nm0.5   comparatorabsent       0.958    0.958    0.958
+P_cp1.0_nm1.0   seq_ibd   present      0.762    0.762    0.762
+P_cp1.0_nm1.0   seq_ibd   absent       0.787    0.787    0.787
+P_cp1.0_nm1.0   comparatorpresent      0.800    0.800    0.800
+P_cp1.0_nm1.0   comparatorabsent       0.958    0.958    0.958
+P_cp1.0_nm2.0   seq_ibd   present      0.716    0.716    0.716
+P_cp1.0_nm2.0   seq_ibd   absent       0.720    0.720    0.720
+P_cp1.0_nm2.0   comparatorpresent      0.800    0.800    0.800
+P_cp1.0_nm2.0   comparatorabsent       0.958    0.958    0.958
+P_cp2.0_nm0.5   seq_ibd   present      0.926    0.926    0.926
+P_cp2.0_nm0.5   seq_ibd   absent       0.943    0.943    0.943
+P_cp2.0_nm0.5   comparatorpresent      0.958    0.958    0.958
+P_cp2.0_nm0.5   comparatorabsent       0.958    0.958    0.958
+P_cp2.0_nm1.0   seq_ibd   present      0.914    0.914    0.914
+P_cp2.0_nm1.0   seq_ibd   absent       0.928    0.928    0.928
+P_cp2.0_nm1.0   comparatorpresent      0.958    0.958    0.958
+P_cp2.0_nm1.0   comparatorabsent       0.958    0.958    0.958
+P_cp2.0_nm2.0   seq_ibd   present      0.864    0.864    0.864
+P_cp2.0_nm2.0   seq_ibd   absent       0.887    0.887    0.887
+P_cp2.0_nm2.0   comparatorpresent      0.958    0.958    0.958
+P_cp2.0_nm2.0   comparatorabsent       0.958    0.958    0.958
+
+[3] CONFOUNDING BENEFIT = [dAUC(present) - dAUC(absent)], dAUC = IBD - comparator on the
+    primary, paired within instance and cell.  95% percentile bootstrap clustered by instance.
+cell              off  dAUC_pres   dAUC_abs   benefit     lo95     hi95  >0.10?
+L_Nx10_tau0       200     -0.268     -0.262    -0.006   -0.031    0.016      no
+L_Nx10_tau0       500     -0.066     -0.049    -0.017   -0.042    0.000      no
+L_Nx10_tau0      1000     -0.025     -0.009    -0.017   -0.042    0.000      no
+L_Nx10_tau2       200     -0.537     -0.537     0.000    0.000    0.000      no
+L_Nx10_tau2       500     -0.312     -0.312     0.000    0.000    0.000      no
+L_Nx10_tau2      1000     -0.204     -0.204     0.000    0.000    0.000      no
+L_Nx30_tau0       200     -0.268     -0.262    -0.006   -0.031    0.016      no
+L_Nx30_tau0       500     -0.066     -0.049    -0.017   -0.042    0.000      no
+L_Nx30_tau0      1000     -0.029     -0.009    -0.020   -0.046    0.000      no
+L_Nx30_tau2       200     -0.537     -0.537     0.000    0.000    0.000      no
+L_Nx30_tau2       500     -0.312     -0.312     0.000    0.000    0.000      no
+L_Nx30_tau2      1000     -0.204     -0.204     0.000    0.000    0.000      no
+N_Nx10_tau0       200     -0.047     -0.037    -0.010   -0.030    0.000      no
+N_Nx10_tau0       500      0.112      0.112     0.000    0.000    0.000      no
+N_Nx10_tau0      1000      0.150      0.163    -0.013   -0.037    0.000      no
+N_Nx10_tau2       200     -0.117     -0.250     0.133    0.017    0.250      no
+N_Nx10_tau2       500      0.008     -0.125     0.133    0.017    0.283      no
+N_Nx10_tau2      1000     -0.025     -0.175     0.150    0.033    0.267      no
+P_cp0.5_nm0.5     200     -0.550     -0.550     0.000    0.000    0.000      no
+P_cp0.5_nm0.5     500     -0.325     -0.325     0.000    0.000    0.000      no
+P_cp0.5_nm0.5    1000     -0.200     -0.200     0.000    0.000    0.000      no
+P_cp0.5_nm1.0     200     -0.475     -0.475     0.000    0.000    0.000      no
+P_cp0.5_nm1.0     500     -0.400     -0.400     0.000    0.000    0.000      no
+P_cp0.5_nm1.0    1000     -0.250     -0.250     0.000    0.000    0.000      no
+P_cp0.5_nm2.0     200     -0.500     -0.500     0.000    0.000    0.000      no
+P_cp0.5_nm2.0     500     -0.450     -0.450     0.000    0.000    0.000      no
+P_cp0.5_nm2.0    1000     -0.375     -0.375     0.000    0.000    0.000      no
+P_cp1.0_nm0.5     200     -0.525     -0.525     0.000    0.000    0.000      no
+P_cp1.0_nm0.5     500     -0.250     -0.250     0.000    0.000    0.000      no
+P_cp1.0_nm0.5    1000     -0.100     -0.100     0.000    0.000    0.000      no
+P_cp1.0_nm1.0     200     -0.450     -0.450     0.000    0.000    0.000      no
+P_cp1.0_nm1.0     500     -0.250     -0.250     0.000    0.000    0.000      no
+P_cp1.0_nm1.0    1000     -0.125     -0.125     0.000    0.000    0.000      no
+P_cp1.0_nm2.0     200     -0.500     -0.500     0.000    0.000    0.000      no
+P_cp1.0_nm2.0     500     -0.450     -0.450     0.000    0.000    0.000      no
+P_cp1.0_nm2.0    1000     -0.275     -0.275     0.000    0.000    0.000      no
+P_cp2.0_nm0.5     200     -0.500     -0.500     0.000    0.000    0.000      no
+P_cp2.0_nm0.5     500     -0.200     -0.200     0.000    0.000    0.000      no
+P_cp2.0_nm0.5    1000      0.000      0.000     0.000    0.000    0.000      no
+P_cp2.0_nm1.0     200     -0.600     -0.600     0.000    0.000    0.000      no
+P_cp2.0_nm1.0     500     -0.200     -0.200     0.000    0.000    0.000      no
+P_cp2.0_nm1.0    1000      0.000      0.000     0.000    0.000    0.000      no
+P_cp2.0_nm2.0     200     -0.625     -0.625     0.000    0.000    0.000      no
+P_cp2.0_nm2.0     500     -0.200     -0.200     0.000    0.000    0.000      no
+P_cp2.0_nm2.0    1000     -0.050     -0.050     0.000    0.000    0.000      no
+
+[4] D-10.3 COMPETENCE FLOOR (R0-absent): lower 95% bound of the COMPARATOR's primary AUC,
+    confounder ABSENT, must be >= 0.85 in every required family-L cell.  Primary offset 500.
+cell              off     mean     lo95     verdict
+L_Nx10_tau0       200    0.863    0.725        FAIL
+L_Nx10_tau0       500    0.863    0.725        FAIL
+L_Nx10_tau0      1000    0.863    0.725        FAIL
+L_Nx10_tau2       200    1.000    1.000        PASS
+L_Nx10_tau2       500    1.000    1.000        PASS
+L_Nx10_tau2      1000    1.000    1.000        PASS
+L_Nx30_tau0       200    0.863    0.725        FAIL
+L_Nx30_tau0       500    0.863    0.725        FAIL
+L_Nx30_tau0      1000    0.863    0.725        FAIL
+L_Nx30_tau2       200    1.000    1.000        PASS
+L_Nx30_tau2       500    1.000    1.000        PASS
+L_Nx30_tau2      1000    1.000    1.000        PASS
+N_Nx10_tau0       200    0.718    0.495        FAIL
+N_Nx10_tau0       500    0.728    0.495        FAIL
+N_Nx10_tau0      1000    0.715    0.470        FAIL
+N_Nx10_tau2       200    0.917    0.750        FAIL
+N_Nx10_tau2       500    0.900    0.700        FAIL
+N_Nx10_tau2      1000    0.900    0.700        FAIL
+P_cp0.5_nm0.5     200    1.000    1.000        PASS
+P_cp0.5_nm0.5     500    1.000    1.000        PASS
+P_cp0.5_nm0.5    1000    1.000    1.000        PASS
+P_cp0.5_nm1.0     200    1.000    1.000        PASS
+P_cp0.5_nm1.0     500    1.000    1.000        PASS
+P_cp0.5_nm1.0    1000    1.000    1.000        PASS
+P_cp0.5_nm2.0     200    1.000    1.000        PASS
+P_cp0.5_nm2.0     500    1.000    1.000        PASS
+P_cp0.5_nm2.0    1000    1.000    1.000        PASS
+P_cp1.0_nm0.5     200    1.000    1.000        PASS
+P_cp1.0_nm0.5     500    1.000    1.000        PASS
+P_cp1.0_nm0.5    1000    1.000    1.000        PASS
+P_cp1.0_nm1.0     200    1.000    1.000        PASS
+P_cp1.0_nm1.0     500    1.000    1.000        PASS
+P_cp1.0_nm1.0    1000    1.000    1.000        PASS
+P_cp1.0_nm2.0     200    1.000    1.000        PASS
+P_cp1.0_nm2.0     500    1.000    1.000        PASS
+P_cp1.0_nm2.0    1000    1.000    1.000        PASS
+P_cp2.0_nm0.5     200    1.000    1.000        PASS
+P_cp2.0_nm0.5     500    1.000    1.000        PASS
+P_cp2.0_nm0.5    1000    1.000    1.000        PASS
+P_cp2.0_nm1.0     200    1.000    1.000        PASS
+P_cp2.0_nm1.0     500    1.000    1.000        PASS
+P_cp2.0_nm1.0    1000    1.000    1.000        PASS
+P_cp2.0_nm2.0     200    1.000    1.000        PASS
+P_cp2.0_nm2.0     500    1.000    1.000        PASS
+P_cp2.0_nm2.0    1000    1.000    1.000        PASS
+
+[5] CONTROLS on the primary (both are fit-time objects that never see the scored episode).
+cell            cond       channel-const   static-loading l  lo95(static)
+L_Nx10_tau0     present         0.500000              0.422         0.277
+L_Nx10_tau0     absent          0.500000              0.422         0.277
+L_Nx10_tau2     present         0.500000              0.200         0.100
+L_Nx10_tau2     absent          0.500000              0.200         0.100
+L_Nx30_tau0     present         0.500000              0.422         0.277
+L_Nx30_tau0     absent          0.500000              0.422         0.277
+L_Nx30_tau2     present         0.500000              0.200         0.100
+L_Nx30_tau2     absent          0.500000              0.200         0.100
+N_Nx10_tau0     present         0.500000              0.655         0.375
+N_Nx10_tau0     absent          0.500000              0.655         0.375
+N_Nx10_tau2     present         0.500000              0.600         0.267
+N_Nx10_tau2     absent          0.500000              0.600         0.267
+P_cp0.5_nm0.5   present         0.500000              0.000         0.000
+P_cp0.5_nm0.5   absent          0.500000              0.000         0.000
+P_cp0.5_nm1.0   present         0.500000              0.000         0.000
+P_cp0.5_nm1.0   absent          0.500000              0.000         0.000
+P_cp0.5_nm2.0   present         0.500000              0.000         0.000
+P_cp0.5_nm2.0   absent          0.500000              0.000         0.000
+P_cp1.0_nm0.5   present         0.500000              0.200         0.200
+P_cp1.0_nm0.5   absent          0.500000              0.200         0.200
+P_cp1.0_nm1.0   present         0.500000              0.200         0.200
+P_cp1.0_nm1.0   absent          0.500000              0.200         0.200
+P_cp1.0_nm2.0   present         0.500000              0.200         0.200
+P_cp1.0_nm2.0   absent          0.500000              0.200         0.200
+P_cp2.0_nm0.5   present         0.500000              0.200         0.200
+P_cp2.0_nm0.5   absent          0.500000              0.200         0.200
+P_cp2.0_nm1.0   present         0.500000              0.200         0.200
+P_cp2.0_nm1.0   absent          0.500000              0.200         0.200
+P_cp2.0_nm2.0   present         0.500000              0.200         0.200
+P_cp2.0_nm2.0   absent          0.500000              0.200         0.200
+
+[6] n_lost and |S_obs_eps(pre)| distribution over every certified draw used.
+  L_Nx10_tau0      n_lost={1: 7, 2: 3}  |pre|={5: 3, 6: 7}  C=[24]  n_resamples={0: 9, 1: 1}
+  L_Nx10_tau2      n_lost={1: 10}  |pre|={4: 10}  C=[24]  n_resamples={0: 9, 1: 1}
+  L_Nx30_tau0      n_lost={1: 7, 2: 3}  |pre|={5: 3, 6: 7}  C=[44]  n_resamples={0: 9, 1: 1}
+  L_Nx30_tau2      n_lost={1: 10}  |pre|={4: 10}  C=[44]  n_resamples={0: 9, 1: 1}
+  N_Nx10_tau0      n_lost={1: 4, 2: 1}  |pre|={6: 5}  C=[24]  n_resamples={1: 2, 2: 1, 5: 1, 7: 1}
+  N_Nx10_tau2      n_lost={1: 5}  |pre|={4: 5}  C=[24]  n_resamples={1: 2, 2: 1, 5: 1, 7: 1}
+  P_cp0.5_nm0.5    n_lost={1: 1}  |pre|={6: 1}  C=[24]  n_resamples={1: 1}
+  P_cp0.5_nm1.0    n_lost={1: 1}  |pre|={6: 1}  C=[24]  n_resamples={1: 1}
+  P_cp0.5_nm2.0    n_lost={1: 1}  |pre|={6: 1}  C=[24]  n_resamples={1: 1}
+  P_cp1.0_nm0.5    n_lost={1: 1}  |pre|={6: 1}  C=[24]  n_resamples={1: 1}
+  P_cp1.0_nm1.0    n_lost={1: 1}  |pre|={6: 1}  C=[24]  n_resamples={1: 1}
+  P_cp1.0_nm2.0    n_lost={1: 1}  |pre|={6: 1}  C=[24]  n_resamples={1: 1}
+  P_cp2.0_nm0.5    n_lost={1: 1}  |pre|={6: 1}  C=[24]  n_resamples={1: 1}
+  P_cp2.0_nm1.0    n_lost={1: 1}  |pre|={6: 1}  C=[24]  n_resamples={1: 1}
+  P_cp2.0_nm2.0    n_lost={1: 1}  |pre|={6: 1}  C=[24]  n_resamples={1: 1}
+
+[7] Whitener rank / conditioning (comparator Sec.3.2), and degenerate-channel count.
+  L_Nx10_tau0      q=[6]  cond(Sigma_a) in [155, 229]  min_eig/cutoff in [43.6, 64.4]  degenerate=[0]
+  L_Nx10_tau2      q=[6]  cond(Sigma_a) in [227, 274]  min_eig/cutoff in [36.5, 44.1]  degenerate=[0]
+  L_Nx30_tau0      q=[6]  cond(Sigma_a) in [155, 229]  min_eig/cutoff in [43.6, 64.4]  degenerate=[0]
+  L_Nx30_tau2      q=[6]  cond(Sigma_a) in [227, 274]  min_eig/cutoff in [36.5, 44.1]  degenerate=[0]
+  N_Nx10_tau0      q=[6]  cond(Sigma_a) in [231, 340]  min_eig/cutoff in [29.4, 43.4]  degenerate=[0]
+  N_Nx10_tau2      q=[6]  cond(Sigma_a) in [274, 314]  min_eig/cutoff in [31.8, 36.5]  degenerate=[0]
+  P_cp0.5_nm0.5    q=[6]  cond(Sigma_a) in [1205, 1205]  min_eig/cutoff in [8.3, 8.3]  degenerate=[0]
+  P_cp0.5_nm1.0    q=[6]  cond(Sigma_a) in [308, 308]  min_eig/cutoff in [32.4, 32.4]  degenerate=[0]
+  P_cp0.5_nm2.0    q=[6]  cond(Sigma_a) in [80, 80]  min_eig/cutoff in [125.6, 125.6]  degenerate=[0]
+  P_cp1.0_nm0.5    q=[6]  cond(Sigma_a) in [748, 748]  min_eig/cutoff in [13.4, 13.4]  degenerate=[0]
+  P_cp1.0_nm1.0    q=[6]  cond(Sigma_a) in [213, 213]  min_eig/cutoff in [47.0, 47.0]  degenerate=[0]
+  P_cp1.0_nm2.0    q=[6]  cond(Sigma_a) in [59, 59]  min_eig/cutoff in [168.9, 168.9]  degenerate=[0]
+  P_cp2.0_nm0.5    q=[6]  cond(Sigma_a) in [213, 213]  min_eig/cutoff in [46.9, 46.9]  degenerate=[0]
+  P_cp2.0_nm1.0    q=[6]  cond(Sigma_a) in [87, 87]  min_eig/cutoff in [114.3, 114.3]  degenerate=[0]
+  P_cp2.0_nm2.0    q=[6]  cond(Sigma_a) in [29, 29]  min_eig/cutoff in [346.5, 346.5]  degenerate=[0]
+
+[8] Separation diagnostics at offset 500 (present arm): Delta on lost vs kept channels;
+    a_c on lost vs kept channels.
+  L_Nx10_tau0      Delta lost med=  138.96 kept med=   89.59 | a_c lost med= 1.71 kept med= 2.71 a_c overlap frac(lost>=min kept)=1.00
+  L_Nx10_tau2      Delta lost med=  148.81 kept med=   87.63 | a_c lost med= 1.71 kept med= 2.11 a_c overlap frac(lost>=min kept)=0.97
+  L_Nx30_tau0      Delta lost med=  139.02 kept med=   90.02 | a_c lost med= 1.71 kept med= 2.71 a_c overlap frac(lost>=min kept)=1.00
+  L_Nx30_tau2      Delta lost med=  148.88 kept med=   87.61 | a_c lost med= 1.71 kept med= 2.11 a_c overlap frac(lost>=min kept)=0.97
+  N_Nx10_tau0      Delta lost med=  105.01 kept med=   49.54 | a_c lost med= 1.41 kept med= 2.52 a_c overlap frac(lost>=min kept)=0.88
+  N_Nx10_tau2      Delta lost med=  104.15 kept med=   66.97 | a_c lost med= 1.52 kept med= 2.47 a_c overlap frac(lost>=min kept)=0.90
+  P_cp0.5_nm0.5    Delta lost med=  160.93 kept med=   71.80 | a_c lost med= 1.49 kept med= 2.29 a_c overlap frac(lost>=min kept)=1.00
+  P_cp0.5_nm1.0    Delta lost med=   92.69 kept med=   31.49 | a_c lost med= 1.49 kept med= 2.07 a_c overlap frac(lost>=min kept)=1.00
+  P_cp0.5_nm2.0    Delta lost med=   44.37 kept med=   14.95 | a_c lost med= 1.49 kept med= 2.09 a_c overlap frac(lost>=min kept)=1.00
+  P_cp1.0_nm0.5    Delta lost med=  291.53 kept med=  191.91 | a_c lost med= 1.49 kept med= 2.24 a_c overlap frac(lost>=min kept)=0.50
+  P_cp1.0_nm1.0    Delta lost med=  208.88 kept med=   90.56 | a_c lost med= 1.49 kept med= 2.14 a_c overlap frac(lost>=min kept)=0.50
+  P_cp1.0_nm2.0    Delta lost med=  117.16 kept med=   38.63 | a_c lost med= 1.49 kept med= 2.14 a_c overlap frac(lost>=min kept)=1.00
+  P_cp2.0_nm0.5    Delta lost med=  677.13 kept med=  542.14 | a_c lost med= 1.49 kept med= 2.62 a_c overlap frac(lost>=min kept)=0.25
+  P_cp2.0_nm1.0    Delta lost med=  484.36 kept med=  314.99 | a_c lost med= 1.49 kept med= 2.57 a_c overlap frac(lost>=min kept)=0.50
+  P_cp2.0_nm2.0    Delta lost med=  310.86 kept med=  136.88 | a_c lost med= 1.49 kept med= 2.39 a_c overlap frac(lost>=min kept)=0.50
+
+[9] SENSITIVITY (seed 0 of each cell only): lambda_rel and kappa_min on the primary at 500.
+  L_Nx10_tau0     present   primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+  L_Nx10_tau0     absent    primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+  L_Nx10_tau2     present   primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.000, ('kappa', 1e-08)=0.000, 0.0001=0.000, 0.001=0.000, 1e-05=0.000
+  L_Nx10_tau2     absent    primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.000, ('kappa', 1e-08)=0.000, 0.0001=0.000, 0.001=0.000, 1e-05=0.000
+  L_Nx30_tau0     present   primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+  L_Nx30_tau0     absent    primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+  L_Nx30_tau2     present   primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.000, ('kappa', 1e-08)=0.000, 0.0001=0.000, 0.001=0.000, 1e-05=0.000
+  L_Nx30_tau2     absent    primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.000, ('kappa', 1e-08)=0.000, 0.0001=0.000, 0.001=0.000, 1e-05=0.000
+  N_Nx10_tau0     present   primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.400, ('kappa', 1e-08)=0.400, 0.0001=0.400, 0.001=0.400, 1e-05=0.400
+  N_Nx10_tau0     absent    primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.400, ('kappa', 1e-08)=0.400, 0.0001=0.400, 0.001=0.400, 1e-05=0.400
+  N_Nx10_tau2     present   primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.333, ('kappa', 1e-08)=0.333, 0.0001=0.333, 0.001=0.333, 1e-05=0.333
+  N_Nx10_tau2     absent    primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.333, ('kappa', 1e-08)=0.333, 0.0001=0.333, 0.001=0.333, 1e-05=0.333
+  P_cp0.5_nm0.5   present   primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.000, ('kappa', 1e-08)=0.000, 0.0001=0.000, 0.001=0.000, 1e-05=0.000
+  P_cp0.5_nm0.5   absent    primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.000, ('kappa', 1e-08)=0.000, 0.0001=0.000, 0.001=0.000, 1e-05=0.000
+  P_cp0.5_nm1.0   present   primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.000, ('kappa', 1e-08)=0.000, 0.0001=0.000, 0.001=0.000, 1e-05=0.000
+  P_cp0.5_nm1.0   absent    primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.000, ('kappa', 1e-08)=0.000, 0.0001=0.000, 0.001=0.000, 1e-05=0.000
+  P_cp0.5_nm2.0   present   primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.000, ('kappa', 1e-08)=0.000, 0.0001=0.000, 0.001=0.000, 1e-05=0.000
+  P_cp0.5_nm2.0   absent    primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.000, ('kappa', 1e-08)=0.000, 0.0001=0.000, 0.001=0.000, 1e-05=0.000
+  P_cp1.0_nm0.5   present   primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+  P_cp1.0_nm0.5   absent    primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+  P_cp1.0_nm1.0   present   primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+  P_cp1.0_nm1.0   absent    primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+  P_cp1.0_nm2.0   present   primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+  P_cp1.0_nm2.0   absent    primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+  P_cp2.0_nm0.5   present   primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+  P_cp2.0_nm0.5   absent    primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+  P_cp2.0_nm1.0   present   primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+  P_cp2.0_nm1.0   absent    primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+  P_cp2.0_nm2.0   present   primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+  P_cp2.0_nm2.0   absent    primary: ('kappa', 0.01)=1.000, ('kappa', 1e-08)=1.000, 0.0001=1.000, 0.001=1.000, 1e-05=1.000
+                            static : ('kappa', 0.01)=0.200, ('kappa', 1e-08)=0.200, 0.0001=0.200, 0.001=0.200, 1e-05=0.200
+
+[10] Null-scale and lag-slot diagnostics (seed 0, present).
+  L_Nx10_tau0      null Delta median=2.35 max=5.93 (predicted sqrt(3K)=2.449); fault-free AUC(-Delta vs S_obs)=0.623
+                   un-whitened c-hat on lost channel @500: a_t k0=-7.30, a_t k1=-5.38, a_t-1 k0=-6.25, a_t-1 k1=-4.66, a_t-2 k0=-5.00, a_t-2 k1=-3.76   -> largest slot: a_t k0
+  L_Nx10_tau2      null Delta median=2.34 max=5.05 (predicted sqrt(3K)=2.449); fault-free AUC(-Delta vs S_obs)=0.547
+                   un-whitened c-hat on lost channel @500: a_t k0=-4.53, a_t k1=-3.46, a_t-1 k0=-5.55, a_t-1 k1=-4.40, a_t-2 k0=-6.67, a_t-2 k1=-5.33   -> largest slot: a_t-2 k0
+  L_Nx30_tau0      null Delta median=2.42 max=6.01 (predicted sqrt(3K)=2.449); fault-free AUC(-Delta vs S_obs)=0.621
+                   un-whitened c-hat on lost channel @500: a_t k0=-7.30, a_t k1=-5.38, a_t-1 k0=-6.25, a_t-1 k1=-4.66, a_t-2 k0=-5.01, a_t-2 k1=-3.76   -> largest slot: a_t k0
+  L_Nx30_tau2      null Delta median=2.33 max=5.54 (predicted sqrt(3K)=2.449); fault-free AUC(-Delta vs S_obs)=0.581
+                   un-whitened c-hat on lost channel @500: a_t k0=-4.53, a_t k1=-3.47, a_t-1 k0=-5.55, a_t-1 k1=-4.40, a_t-2 k0=-6.67, a_t-2 k1=-5.33   -> largest slot: a_t-2 k0
+  N_Nx10_tau0      null Delta median=2.37 max=5.97 (predicted sqrt(3K)=2.449); fault-free AUC(-Delta vs S_obs)=0.606
+                   un-whitened c-hat on lost channel @500: a_t k0=-4.59, a_t k1=-3.61, a_t-1 k0=-3.58, a_t-1 k1=-2.83, a_t-2 k0=-2.86, a_t-2 k1=-2.27   -> largest slot: a_t k0
+  N_Nx10_tau2      null Delta median=2.39 max=5.19 (predicted sqrt(3K)=2.449); fault-free AUC(-Delta vs S_obs)=0.566
+                   un-whitened c-hat on lost channel @500: a_t k0=-3.04, a_t k1=-2.48, a_t-1 k0=-3.75, a_t-1 k1=-3.13, a_t-2 k0=-4.54, a_t-2 k1=-3.82   -> largest slot: a_t-2 k0
+  P_cp0.5_nm0.5    null Delta median=2.41 max=7.25 (predicted sqrt(3K)=2.449); fault-free AUC(-Delta vs S_obs)=0.657
+                   un-whitened c-hat on lost channel @500: a_t k0=-6.57, a_t k1=-6.00, a_t-1 k0=-5.72, a_t-1 k1=-5.23, a_t-2 k0=-4.70, a_t-2 k1=-4.31   -> largest slot: a_t k0
+  P_cp0.5_nm1.0    null Delta median=2.34 max=5.41 (predicted sqrt(3K)=2.449); fault-free AUC(-Delta vs S_obs)=0.611
+                   un-whitened c-hat on lost channel @500: a_t k0=-4.51, a_t k1=-4.07, a_t-1 k0=-3.86, a_t-1 k1=-3.49, a_t-2 k0=-3.18, a_t-2 k1=-2.89   -> largest slot: a_t k0
+  P_cp0.5_nm2.0    null Delta median=2.33 max=5.58 (predicted sqrt(3K)=2.449); fault-free AUC(-Delta vs S_obs)=0.579
+                   un-whitened c-hat on lost channel @500: a_t k0=-2.29, a_t k1=-1.98, a_t-1 k0=-1.90, a_t-1 k1=-1.68, a_t-2 k0=-1.55, a_t-2 k1=-1.42   -> largest slot: a_t k0
+  P_cp1.0_nm0.5    null Delta median=2.40 max=6.84 (predicted sqrt(3K)=2.449); fault-free AUC(-Delta vs S_obs)=0.606
+                   un-whitened c-hat on lost channel @500: a_t k0=-8.22, a_t k1=-6.14, a_t-1 k0=-7.06, a_t-1 k1=-5.33, a_t-2 k0=-5.66, a_t-2 k1=-4.29   -> largest slot: a_t k0
+  P_cp1.0_nm1.0    null Delta median=2.35 max=5.93 (predicted sqrt(3K)=2.449); fault-free AUC(-Delta vs S_obs)=0.623
+                   un-whitened c-hat on lost channel @500: a_t k0=-7.30, a_t k1=-5.38, a_t-1 k0=-6.25, a_t-1 k1=-4.66, a_t-2 k0=-5.00, a_t-2 k1=-3.76   -> largest slot: a_t k0
+  P_cp1.0_nm2.0    null Delta median=2.35 max=5.44 (predicted sqrt(3K)=2.449); fault-free AUC(-Delta vs S_obs)=0.579
+                   un-whitened c-hat on lost channel @500: a_t k0=-4.99, a_t k1=-3.55, a_t-1 k0=-4.12, a_t-1 k1=-3.02, a_t-2 k0=-3.31, a_t-2 k1=-2.47   -> largest slot: a_t k0
+  P_cp2.0_nm0.5    null Delta median=2.34 max=5.06 (predicted sqrt(3K)=2.449); fault-free AUC(-Delta vs S_obs)=0.551
+                   un-whitened c-hat on lost channel @500: a_t k0=-10.74, a_t k1=-4.84, a_t-1 k0=-8.94, a_t-1 k1=-4.40, a_t-2 k0=-6.46, a_t-2 k1=-3.29   -> largest slot: a_t k0
+  P_cp2.0_nm1.0    null Delta median=2.34 max=4.89 (predicted sqrt(3K)=2.449); fault-free AUC(-Delta vs S_obs)=0.579
+                   un-whitened c-hat on lost channel @500: a_t k0=-10.19, a_t k1=-4.55, a_t-1 k0=-8.44, a_t-1 k1=-4.17, a_t-2 k0=-6.12, a_t-2 k1=-3.11   -> largest slot: a_t k0
+  P_cp2.0_nm2.0    null Delta median=2.34 max=5.19 (predicted sqrt(3K)=2.449); fault-free AUC(-Delta vs S_obs)=0.576
+                   un-whitened c-hat on lost channel @500: a_t k0=-8.46, a_t k1=-3.78, a_t-1 k0=-6.79, a_t-1 k1=-3.50, a_t-2 k0=-4.87, a_t-2 k1=-2.56   -> largest slot: a_t k0
+
+[11] ARM 3 (probed comparator, optional, seed 0 of each family-L base cell), primary @500.
+  L_Nx10_tau0     present   arm3 primary@500 = 1.000
+  L_Nx10_tau0     absent    arm3 primary@500 = 1.000
+  L_Nx10_tau2     present   arm3 primary@500 = 1.000
+  L_Nx10_tau2     absent    arm3 primary@500 = 1.000
+  L_Nx30_tau0     present   arm3 primary@500 = 1.000
+  L_Nx30_tau0     absent    arm3 primary@500 = 1.000
+  L_Nx30_tau2     present   arm3 primary@500 = 1.000
+  L_Nx30_tau2     absent    arm3 primary@500 = 1.000
+
+[12] Probe accounting (arm 1): probes applied per 2000-step episode.
+  n_probes per episode = [99]  (fraction 0.0495);  IBD window units at reads = [25]

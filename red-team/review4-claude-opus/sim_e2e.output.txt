@@ -1,0 +1,347 @@
+Independent end-to-end reproduction, frozen version 442cc4b7da691ca0
+numpy 2.4.4  python 3.12.0
+
+--- spec formula checks ---
+  untied reduction:      spec z=+1.857142857  textbook z=+1.857142857  diff=0.00e+00
+  tied hand fixture:     spec z=-0.942809042  hand z=-0.942809042  diff=0.00e+00
+  sigma_U^2 form1=4.500000000000  form2=4.500000000000  equal=True
+  probe grants: n=100 first=20 last=2000 all_mult_20=True usable=99 realised_fraction=0.05
+  offset  epoch  newest_anchor  units  post_event_units  fraction
+      10   1003           1000     25                 1      0.04
+      50   1043           1040     25                 3      0.12
+     200   1183           1180     25                10      0.40
+     500   1483           1480     25                25      1.00
+    1000   1983           1980     25                25      1.00
+
+================ PRIMARY  family L, tau=0, N_x=10, R0 (in-band linear) ================
+  admissible paired seeds: 40   C=24  positives=3  degenerate_channels=0
+  rho_min observed (present) median = 0.788  (contract floor 0.4); saturation fraction median = 0.0053
+  --- offset 200 ---
+    AUC seq_ibd                          present  n= 40  0.897  [0.841, 0.953]
+    AUC seq_ibd                          absent   n= 40  0.893  [0.830, 0.956]
+    AUC cusum_linear_channel_agnostic    present  n= 40  0.616  [0.595, 0.638]
+    AUC cusum_linear_channel_agnostic    absent   n= 40  0.778  [0.753, 0.803]
+    AUC cusum_linear_probed              present  n= 40  0.624  [0.598, 0.650]
+    AUC cusum_linear_probed              absent   n= 40  0.777  [0.752, 0.803]
+    dAUC(present)  paired n=40  +0.281  95% [+0.219, +0.342]
+    dAUC(absent)   paired n=40  +0.115  95% [+0.044, +0.186]
+    CONFOUNDING BENEFIT [dAUC(pres) - dAUC(abs)]  +0.165  95% [+0.127, +0.204]  -> SUPERIORITY (lb > 0.10)
+    R0-present positive control: lb(dAUC present) = +0.219  (PASS at delta_AUC = 0.10)
+    R0-absent equivalence (90% TOST +-0.05): [+0.057, +0.173] -> NOT EQUIVALENT
+    n_min_sign dropped the SURVIVING actuator's cells in 8% of present episodes at this offset
+    IBD usable (k,h) cells at this epoch: median 6 of 6   channels with a_c == 0: median 0 of 24
+  --- offset 500 ---
+    AUC seq_ibd                          present  n= 40  0.912  [0.856, 0.969]
+    AUC seq_ibd                          absent   n= 40  0.925  [0.874, 0.977]
+    AUC cusum_linear_channel_agnostic    present  n= 40  0.637  [0.610, 0.663]
+    AUC cusum_linear_channel_agnostic    absent   n= 40  0.819  [0.788, 0.851]
+    AUC cusum_linear_probed              present  n= 40  0.645  [0.617, 0.672]
+    AUC cusum_linear_probed              absent   n= 40  0.815  [0.784, 0.846]
+    dAUC(present)  paired n=40  +0.276  95% [+0.210, +0.342]
+    dAUC(absent)   paired n=40  +0.106  95% [+0.046, +0.166]
+    CONFOUNDING BENEFIT [dAUC(pres) - dAUC(abs)]  +0.170  95% [+0.127, +0.213]  -> SUPERIORITY (lb > 0.10)
+    R0-present positive control: lb(dAUC present) = +0.210  (PASS at delta_AUC = 0.10)
+    R0-absent equivalence (90% TOST +-0.05): [+0.057, +0.155] -> NOT EQUIVALENT
+    n_min_sign dropped the SURVIVING actuator's cells in 8% of present episodes at this offset
+    IBD usable (k,h) cells at this epoch: median 6 of 6   channels with a_c == 0: median 0 of 24
+  --- offset 1000 ---
+    AUC seq_ibd                          present  n= 40  0.913  [0.863, 0.964]
+    AUC seq_ibd                          absent   n= 40  0.900  [0.842, 0.959]
+    AUC cusum_linear_channel_agnostic    present  n= 40  0.684  [0.655, 0.712]
+    AUC cusum_linear_channel_agnostic    absent   n= 40  0.838  [0.804, 0.872]
+    AUC cusum_linear_probed              present  n= 40  0.693  [0.664, 0.723]
+    AUC cusum_linear_probed              absent   n= 40  0.841  [0.807, 0.875]
+    dAUC(present)  paired n=40  +0.230  95% [+0.169, +0.290]
+    dAUC(absent)   paired n=40  +0.062  95% [-0.003, +0.128]
+    CONFOUNDING BENEFIT [dAUC(pres) - dAUC(abs)]  +0.167  95% [+0.130, +0.205]  -> SUPERIORITY (lb > 0.10)
+    R0-present positive control: lb(dAUC present) = +0.169  (PASS at delta_AUC = 0.10)
+    R0-absent equivalence (90% TOST +-0.05): [+0.009, +0.116] -> NOT EQUIVALENT
+    n_min_sign dropped the SURVIVING actuator's cells in 12% of present episodes at this offset
+    IBD usable (k,h) cells at this epoch: median 6 of 6   channels with a_c == 0: median 0 of 24
+  --- comparator-spec sec 9 fixtures on these instances ---
+    F1 (l_c on a confounded distractor exceeds l_c on a true positive): holds in 100% of present episodes
+    F1 (episode AUC of q below 0.5 at offset 500, confounder present): holds in 0% ; mean AUC 0.637
+    F2 (q falls on channels LEAVING S_obs,eps, flat on channels remaining): mean dq on lost = -5.8239, on retained = +0.1005
+    innovation-shift term magnitude at offset 500: lost channels 6.658, retained 0.851  (q = l - shift)
+    baseline support term l_c by oracle channel class (present cells, mean over seeds):
+      l[b retained (POSITIVE)       ] =    6.365
+      l[b lost (negative)           ] =    6.386
+      l[d retained (POSITIVE)       ] =    0.048
+      l[d lost (negative)           ] =    0.033
+      l[w exogenous (negative)      ] =    0.044
+      l[x confounded (negative)     ] =    7.147
+      l[x unconfounded (negative)   ] =    0.042
+      l[padding (negative)          ] =    0.035
+    comparator AUC at 500 with downstream d channels dropped from the label set: 0.776 (vs 0.637 with them) -> l_c cannot see downstream support
+
+================ PRIMARY  family L, tau=0, N_x=30, R0 (in-band linear) ================
+  admissible paired seeds: 40   C=44  positives=3  degenerate_channels=0
+  rho_min observed (present) median = 0.783  (contract floor 0.4); saturation fraction median = 0.0042
+  --- offset 200 ---
+    AUC seq_ibd                          present  n= 40  0.916  [0.869, 0.962]
+    AUC seq_ibd                          absent   n= 40  0.927  [0.889, 0.965]
+    AUC cusum_linear_channel_agnostic    present  n= 40  0.574  [0.550, 0.598]
+    AUC cusum_linear_channel_agnostic    absent   n= 40  0.807  [0.778, 0.836]
+    AUC cusum_linear_probed              present  n= 40  0.605  [0.580, 0.630]
+    AUC cusum_linear_probed              absent   n= 40  0.805  [0.776, 0.835]
+    dAUC(present)  paired n=40  +0.341  95% [+0.289, +0.394]
+    dAUC(absent)   paired n=40  +0.120  95% [+0.079, +0.161]
+    CONFOUNDING BENEFIT [dAUC(pres) - dAUC(abs)]  +0.221  95% [+0.183, +0.259]  -> SUPERIORITY (lb > 0.10)
+    R0-present positive control: lb(dAUC present) = +0.289  (PASS at delta_AUC = 0.10)
+    R0-absent equivalence (90% TOST +-0.05): [+0.087, +0.153] -> NOT EQUIVALENT
+    n_min_sign dropped the SURVIVING actuator's cells in 8% of present episodes at this offset
+    IBD usable (k,h) cells at this epoch: median 6 of 6   channels with a_c == 0: median 0 of 44
+  --- offset 500 ---
+    AUC seq_ibd                          present  n= 40  0.933  [0.882, 0.985]
+    AUC seq_ibd                          absent   n= 40  0.929  [0.877, 0.981]
+    AUC cusum_linear_channel_agnostic    present  n= 40  0.599  [0.572, 0.627]
+    AUC cusum_linear_channel_agnostic    absent   n= 40  0.818  [0.788, 0.849]
+    AUC cusum_linear_probed              present  n= 40  0.617  [0.587, 0.646]
+    AUC cusum_linear_probed              absent   n= 40  0.817  [0.787, 0.847]
+    dAUC(present)  paired n=40  +0.334  95% [+0.281, +0.388]
+    dAUC(absent)   paired n=40  +0.110  95% [+0.054, +0.167]
+    CONFOUNDING BENEFIT [dAUC(pres) - dAUC(abs)]  +0.224  95% [+0.190, +0.258]  -> SUPERIORITY (lb > 0.10)
+    R0-present positive control: lb(dAUC present) = +0.281  (PASS at delta_AUC = 0.10)
+    R0-absent equivalence (90% TOST +-0.05): [+0.064, +0.156] -> NOT EQUIVALENT
+    n_min_sign dropped the SURVIVING actuator's cells in 8% of present episodes at this offset
+    IBD usable (k,h) cells at this epoch: median 6 of 6   channels with a_c == 0: median 0 of 44
+  --- offset 1000 ---
+    AUC seq_ibd                          present  n= 40  0.887  [0.830, 0.943]
+    AUC seq_ibd                          absent   n= 40  0.877  [0.811, 0.943]
+    AUC cusum_linear_channel_agnostic    present  n= 40  0.605  [0.581, 0.629]
+    AUC cusum_linear_channel_agnostic    absent   n= 40  0.809  [0.778, 0.839]
+    AUC cusum_linear_probed              present  n= 40  0.624  [0.596, 0.651]
+    AUC cusum_linear_probed              absent   n= 40  0.811  [0.780, 0.841]
+    dAUC(present)  paired n=40  +0.282  95% [+0.218, +0.346]
+    dAUC(absent)   paired n=40  +0.068  95% [-0.006, +0.143]
+    CONFOUNDING BENEFIT [dAUC(pres) - dAUC(abs)]  +0.214  95% [+0.156, +0.271]  -> SUPERIORITY (lb > 0.10)
+    R0-present positive control: lb(dAUC present) = +0.218  (PASS at delta_AUC = 0.10)
+    R0-absent equivalence (90% TOST +-0.05): [+0.008, +0.129] -> NOT EQUIVALENT
+    n_min_sign dropped the SURVIVING actuator's cells in 12% of present episodes at this offset
+    IBD usable (k,h) cells at this epoch: median 6 of 6   channels with a_c == 0: median 0 of 44
+  --- comparator-spec sec 9 fixtures on these instances ---
+    F1 (l_c on a confounded distractor exceeds l_c on a true positive): holds in 100% of present episodes
+    F1 (episode AUC of q below 0.5 at offset 500, confounder present): holds in 15% ; mean AUC 0.599
+    F2 (q falls on channels LEAVING S_obs,eps, flat on channels remaining): mean dq on lost = -7.2772, on retained = -0.1988
+    innovation-shift term magnitude at offset 500: lost channels 7.991, retained 0.941  (q = l - shift)
+    baseline support term l_c by oracle channel class (present cells, mean over seeds):
+      l[b retained (POSITIVE)       ] =    6.375
+      l[b lost (negative)           ] =    6.494
+      l[d retained (POSITIVE)       ] =    0.046
+      l[d lost (negative)           ] =    0.047
+      l[w exogenous (negative)      ] =    0.046
+      l[x confounded (negative)     ] =    7.230
+      l[x unconfounded (negative)   ] =    0.042
+      l[padding (negative)          ] =    0.043
+    comparator AUC at 500 with downstream d channels dropped from the label set: 0.726 (vs 0.599 with them) -> l_c cannot see downstream support
+
+================ IBD ALARM-CHANNEL WARM-UP DIAGNOSTIC (family L, N_x=10) ================
+  stat_warm  = max_c |0 - a_bar_c| / v_c, the value of stat at every epoch before any
+               (k,sign) cell is usable, i.e. on EVERY fresh start (spec sec 5 keeps it in ARL_0)
+   instance 0: first usable epoch t=263  stat_warm=5.68  null q99=4.87  null max=5.10  post-event max=4.67  mean=2.86
+   instance 1: first usable epoch t=143  stat_warm=5.48  null q99=4.55  null max=5.07  post-event max=4.25  mean=3.04
+   instance 2: first usable epoch t=263  stat_warm=5.46  null q99=4.28  null max=4.65  post-event max=4.29  mean=2.70
+
+================ IBD ALARM CHANNEL: ARL_0(h) IS A TWO-VALUED STEP FUNCTION ================
+  p = 3 epochs, r = 1 epoch (spec sec 5).  Fresh-start run length to the first counted alarm,
+  25 event-free episodes; detection = counted alarm in (event_t, event_t + H_det].
+   instance 0: stat_warm=5.48  max stat over full-window null epochs=5.48  -> equal: the null stream CONTAINS the warm-up value
+      full-window NULL epochs at which n_min_sign leaves 0 usable cells (a_c == 0 everywhere, stat = stat_warm): 0.1%
+      h     mean ARL_0 (observed)  censored@2000   P(detect within H_det)
+     3.00                 63.0          0.00                   0.16
+     4.00                 63.0          0.00                   0.04
+     4.50                 63.0          0.00                   0.00
+     5.00                 63.0          0.00                   0.00
+     5.25                 63.0          0.00                   0.00
+     5.50                  nan          1.00                   0.00
+     5.75                  nan          1.00                   0.00
+     6.00                  nan          1.00                   0.00
+     7.00                  nan          1.00                   0.00
+   instance 1: stat_warm=5.68  max stat over full-window null epochs=5.68  -> equal: the null stream CONTAINS the warm-up value
+      full-window NULL epochs at which n_min_sign leaves 0 usable cells (a_c == 0 everywhere, stat = stat_warm): 0.1%
+      h     mean ARL_0 (observed)  censored@2000   P(detect within H_det)
+     3.00                 63.0          0.00                   0.24
+     4.00                 63.0          0.00                   0.08
+     4.50                 63.0          0.00                   0.04
+     5.00                 63.0          0.00                   0.00
+     5.25                 63.0          0.00                   0.00
+     5.50                 63.0          0.00                   0.00
+     5.75                  nan          1.00                   0.00
+     6.00                  nan          1.00                   0.00
+     7.00                  nan          1.00                   0.00
+   instance 2: stat_warm=5.44  max stat over full-window null epochs=5.14  -> warm-up dominates
+      full-window NULL epochs at which n_min_sign leaves 0 usable cells (a_c == 0 everywhere, stat = stat_warm): 0.0%
+      h     mean ARL_0 (observed)  censored@2000   P(detect within H_det)
+     3.00                 63.0          0.00                   0.12
+     4.00                 63.0          0.00                   0.04
+     4.50                 63.0          0.00                   0.00
+     5.00                 63.0          0.00                   0.00
+     5.25                 63.0          0.00                   0.00
+     5.50                  nan          1.00                   0.00
+     5.75                  nan          1.00                   0.00
+     6.00                  nan          1.00                   0.00
+     7.00                  nan          1.00                   0.00
+
+================ COMPARATOR: IS sqrt(n)*mean(r~) A STANDARDISED STATISTIC? ================
+  Null SD of the shift term on fault-free streams; a correctly standardised term has SD 1.
+   tau=0: body=0.97  d=1.04  w=1.01  conf_x=1.07  unconf_x=1.06  pad=1.07
+   tau=2: body=1.22  d=0.93  w=0.99  conf_x=1.06  unconf_x=1.09  pad=0.94
+
+================ UNTESTED REGIONS (no D-9 evidence exists for any of these) ================
+
+================ family L, tau=2, N_x=10 ================
+  admissible paired seeds: 40   C=24  positives=2  degenerate_channels=0
+  rho_min observed (present) median = 0.787  (contract floor 0.4); saturation fraction median = 0.0064
+  --- offset 200 ---
+    AUC seq_ibd                          present  n= 40  0.863  [0.797, 0.928]
+    AUC seq_ibd                          absent   n= 40  0.876  [0.816, 0.935]
+    AUC cusum_linear_channel_agnostic    present  n= 40  0.372  [0.321, 0.423]
+    AUC cusum_linear_channel_agnostic    absent   n= 40  0.711  [0.614, 0.808]
+    AUC cusum_linear_probed              present  n= 40  0.304  [0.244, 0.364]
+    AUC cusum_linear_probed              absent   n= 40  0.715  [0.617, 0.813]
+    dAUC(present)  paired n=40  +0.491  95% [+0.403, +0.579]
+    dAUC(absent)   paired n=40  +0.164  95% [+0.045, +0.283]
+    CONFOUNDING BENEFIT [dAUC(pres) - dAUC(abs)]  +0.327  95% [+0.237, +0.416]  -> SUPERIORITY (lb > 0.10)
+    R0-present positive control: lb(dAUC present) = +0.403  (PASS at delta_AUC = 0.10)
+    R0-absent equivalence (90% TOST +-0.05): [+0.067, +0.261] -> NOT EQUIVALENT
+    n_min_sign dropped the SURVIVING actuator's cells in 8% of present episodes at this offset
+    IBD usable (k,h) cells at this epoch: median 6 of 6   channels with a_c == 0: median 0 of 24
+  --- offset 500 ---
+    AUC seq_ibd                          present  n= 40  0.883  [0.831, 0.934]
+    AUC seq_ibd                          absent   n= 40  0.878  [0.822, 0.933]
+    AUC cusum_linear_channel_agnostic    present  n= 40  0.320  [0.263, 0.378]
+    AUC cusum_linear_channel_agnostic    absent   n= 40  0.540  [0.426, 0.655]
+    AUC cusum_linear_probed              present  n= 40  0.259  [0.199, 0.318]
+    AUC cusum_linear_probed              absent   n= 40  0.544  [0.431, 0.657]
+    dAUC(present)  paired n=40  +0.562  95% [+0.476, +0.648]
+    dAUC(absent)   paired n=40  +0.338  95% [+0.213, +0.462]
+    CONFOUNDING BENEFIT [dAUC(pres) - dAUC(abs)]  +0.225  95% [+0.101, +0.349]  -> SUPERIORITY (lb > 0.10)
+    R0-present positive control: lb(dAUC present) = +0.476  (PASS at delta_AUC = 0.10)
+    R0-absent equivalence (90% TOST +-0.05): [+0.237, +0.438] -> NOT EQUIVALENT
+    n_min_sign dropped the SURVIVING actuator's cells in 8% of present episodes at this offset
+    IBD usable (k,h) cells at this epoch: median 6 of 6   channels with a_c == 0: median 0 of 24
+  --- offset 1000 ---
+    AUC seq_ibd                          present  n= 40  0.868  [0.798, 0.938]
+    AUC seq_ibd                          absent   n= 40  0.853  [0.783, 0.922]
+    AUC cusum_linear_channel_agnostic    present  n= 40  0.342  [0.289, 0.395]
+    AUC cusum_linear_channel_agnostic    absent   n= 40  0.639  [0.533, 0.744]
+    AUC cusum_linear_probed              present  n= 40  0.285  [0.228, 0.342]
+    AUC cusum_linear_probed              absent   n= 40  0.636  [0.535, 0.737]
+    dAUC(present)  paired n=40  +0.526  95% [+0.444, +0.607]
+    dAUC(absent)   paired n=40  +0.214  95% [+0.100, +0.328]
+    CONFOUNDING BENEFIT [dAUC(pres) - dAUC(abs)]  +0.312  95% [+0.187, +0.437]  -> SUPERIORITY (lb > 0.10)
+    R0-present positive control: lb(dAUC present) = +0.444  (PASS at delta_AUC = 0.10)
+    R0-absent equivalence (90% TOST +-0.05): [+0.121, +0.307] -> NOT EQUIVALENT
+    n_min_sign dropped the SURVIVING actuator's cells in 12% of present episodes at this offset
+    IBD usable (k,h) cells at this epoch: median 6 of 6   channels with a_c == 0: median 0 of 24
+  --- comparator-spec sec 9 fixtures on these instances ---
+    F1 (l_c on a confounded distractor exceeds l_c on a true positive): holds in 100% of present episodes
+    F1 (episode AUC of q below 0.5 at offset 500, confounder present): holds in 82% ; mean AUC 0.320
+    F2 (q falls on channels LEAVING S_obs,eps, flat on channels remaining): mean dq on lost = -6.4549, on retained = -0.6928
+    innovation-shift term magnitude at offset 500: lost channels 7.222, retained 1.514  (q = l - shift)
+    baseline support term l_c by oracle channel class (present cells, mean over seeds):
+      l[b retained (POSITIVE)       ] =    0.089
+      l[b lost (negative)           ] =    0.075
+      l[d retained (POSITIVE)       ] =    0.039
+      l[d lost (negative)           ] =    0.042
+      l[w exogenous (negative)      ] =    0.045
+      l[x confounded (negative)     ] =    7.150
+      l[x unconfounded (negative)   ] =    0.037
+      l[padding (negative)          ] =    0.038
+    comparator AUC at 500 with downstream d channels dropped from the label set: 0.324 (vs 0.320 with them) -> l_c cannot see downstream support
+
+================ family N, tau=0, N_x=10 ================
+  admissible paired seeds: 40   C=24  positives=3  degenerate_channels=0
+  rho_min observed (present) median = 0.786  (contract floor 0.4); saturation fraction median = 0.0053
+  --- offset 200 ---
+    AUC seq_ibd                          present  n= 40  0.872  [0.812, 0.932]
+    AUC seq_ibd                          absent   n= 40  0.906  [0.853, 0.958]
+    AUC cusum_linear_channel_agnostic    present  n= 40  0.560  [0.540, 0.580]
+    AUC cusum_linear_channel_agnostic    absent   n= 40  0.792  [0.764, 0.820]
+    AUC cusum_linear_probed              present  n= 40  0.563  [0.540, 0.587]
+    AUC cusum_linear_probed              absent   n= 40  0.786  [0.758, 0.814]
+    dAUC(present)  paired n=40  +0.312  95% [+0.243, +0.380]
+    dAUC(absent)   paired n=40  +0.113  95% [+0.046, +0.181]
+    CONFOUNDING BENEFIT [dAUC(pres) - dAUC(abs)]  +0.198  95% [+0.168, +0.228]  -> SUPERIORITY (lb > 0.10)
+    R0-present positive control: lb(dAUC present) = +0.243  (PASS at delta_AUC = 0.10)
+    R0-absent equivalence (90% TOST +-0.05): [+0.058, +0.169] -> NOT EQUIVALENT
+    n_min_sign dropped the SURVIVING actuator's cells in 8% of present episodes at this offset
+    IBD usable (k,h) cells at this epoch: median 6 of 6   channels with a_c == 0: median 0 of 24
+  --- offset 500 ---
+    AUC seq_ibd                          present  n= 40  0.921  [0.864, 0.979]
+    AUC seq_ibd                          absent   n= 40  0.900  [0.832, 0.968]
+    AUC cusum_linear_channel_agnostic    present  n= 40  0.562  [0.533, 0.591]
+    AUC cusum_linear_channel_agnostic    absent   n= 40  0.807  [0.761, 0.853]
+    AUC cusum_linear_probed              present  n= 40  0.582  [0.555, 0.609]
+    AUC cusum_linear_probed              absent   n= 40  0.806  [0.759, 0.852]
+    dAUC(present)  paired n=40  +0.359  95% [+0.291, +0.427]
+    dAUC(absent)   paired n=40  +0.093  95% [+0.013, +0.173]
+    CONFOUNDING BENEFIT [dAUC(pres) - dAUC(abs)]  +0.266  95% [+0.212, +0.319]  -> SUPERIORITY (lb > 0.10)
+    R0-present positive control: lb(dAUC present) = +0.291  (PASS at delta_AUC = 0.10)
+    R0-absent equivalence (90% TOST +-0.05): [+0.028, +0.158] -> NOT EQUIVALENT
+    n_min_sign dropped the SURVIVING actuator's cells in 8% of present episodes at this offset
+    IBD usable (k,h) cells at this epoch: median 6 of 6   channels with a_c == 0: median 0 of 24
+  --- offset 1000 ---
+    AUC seq_ibd                          present  n= 40  0.908  [0.846, 0.970]
+    AUC seq_ibd                          absent   n= 40  0.889  [0.825, 0.953]
+    AUC cusum_linear_channel_agnostic    present  n= 40  0.571  [0.544, 0.598]
+    AUC cusum_linear_channel_agnostic    absent   n= 40  0.774  [0.724, 0.825]
+    AUC cusum_linear_probed              present  n= 40  0.576  [0.547, 0.605]
+    AUC cusum_linear_probed              absent   n= 40  0.780  [0.729, 0.830]
+    dAUC(present)  paired n=40  +0.337  95% [+0.271, +0.402]
+    dAUC(absent)   paired n=40  +0.114  95% [+0.032, +0.197]
+    CONFOUNDING BENEFIT [dAUC(pres) - dAUC(abs)]  +0.222  95% [+0.180, +0.265]  -> SUPERIORITY (lb > 0.10)
+    R0-present positive control: lb(dAUC present) = +0.271  (PASS at delta_AUC = 0.10)
+    R0-absent equivalence (90% TOST +-0.05): [+0.047, +0.182] -> NOT EQUIVALENT
+    n_min_sign dropped the SURVIVING actuator's cells in 12% of present episodes at this offset
+    IBD usable (k,h) cells at this epoch: median 6 of 6   channels with a_c == 0: median 0 of 24
+  --- comparator-spec sec 9 fixtures on these instances ---
+    F1 (l_c on a confounded distractor exceeds l_c on a true positive): holds in 100% of present episodes
+    F1 (episode AUC of q below 0.5 at offset 500, confounder present): holds in 12% ; mean AUC 0.562
+    F2 (q falls on channels LEAVING S_obs,eps, flat on channels remaining): mean dq on lost = -5.3824, on retained = -0.5227
+    innovation-shift term magnitude at offset 500: lost channels 6.241, retained 1.392  (q = l - shift)
+    baseline support term l_c by oracle channel class (present cells, mean over seeds):
+      l[b retained (POSITIVE)       ] =    4.252
+      l[b lost (negative)           ] =    4.297
+      l[d retained (POSITIVE)       ] =    0.050
+      l[d lost (negative)           ] =    0.046
+      l[w exogenous (negative)      ] =    0.040
+      l[x confounded (negative)     ] =    7.177
+      l[x unconfounded (negative)   ] =    0.038
+      l[padding (negative)          ] =    0.038
+    comparator AUC at 500 with downstream d channels dropped from the label set: 0.652 (vs 0.562 with them) -> l_c cannot see downstream support
+
+================ family L, tau=0, N_x=100 ================
+  admissible paired seeds: 34   C=114  positives=3  degenerate_channels=0
+  rho_min observed (present) median = 0.770  (contract floor 0.4); saturation fraction median = 0.0047
+  --- offset 500 ---
+    AUC seq_ibd                          present  n= 34  0.927  [0.882, 0.973]
+    AUC seq_ibd                          absent   n= 34  0.920  [0.867, 0.973]
+    AUC cusum_linear_channel_agnostic    present  n= 34  0.547  [0.519, 0.575]
+    AUC cusum_linear_channel_agnostic    absent   n= 34  0.841  [0.806, 0.875]
+    AUC cusum_linear_probed              present  n= 34  0.606  [0.572, 0.639]
+    AUC cusum_linear_probed              absent   n= 34  0.841  [0.807, 0.876]
+    dAUC(present)  paired n=34  +0.380  95% [+0.319, +0.441]
+    dAUC(absent)   paired n=34  +0.079  95% [+0.014, +0.144]
+    CONFOUNDING BENEFIT [dAUC(pres) - dAUC(abs)]  +0.301  95% [+0.250, +0.353]  -> SUPERIORITY (lb > 0.10)
+    R0-present positive control: lb(dAUC present) = +0.319  (PASS at delta_AUC = 0.10)
+    R0-absent equivalence (90% TOST +-0.05): [+0.026, +0.132] -> NOT EQUIVALENT
+    n_min_sign dropped the SURVIVING actuator's cells in 9% of present episodes at this offset
+    IBD usable (k,h) cells at this epoch: median 6 of 6   channels with a_c == 0: median 0 of 114
+  --- comparator-spec sec 9 fixtures on these instances ---
+    F1 (l_c on a confounded distractor exceeds l_c on a true positive): holds in 100% of present episodes
+    F1 (episode AUC of q below 0.5 at offset 500, confounder present): holds in 24% ; mean AUC 0.547
+    F2 (q falls on channels LEAVING S_obs,eps, flat on channels remaining): mean dq on lost = -7.0412, on retained = +0.0556
+    innovation-shift term magnitude at offset 500: lost channels 7.866, retained 0.838  (q = l - shift)
+    baseline support term l_c by oracle channel class (present cells, mean over seeds):
+      l[b retained (POSITIVE)       ] =    6.220
+      l[b lost (negative)           ] =    6.300
+      l[d retained (POSITIVE)       ] =    0.052
+      l[d lost (negative)           ] =    0.038
+      l[w exogenous (negative)      ] =    0.038
+      l[x confounded (negative)     ] =    7.173
+      l[x unconfounded (negative)   ] =    0.041
+      l[padding (negative)          ] =    0.036
+    comparator AUC at 500 with downstream d channels dropped from the label set: 0.670 (vs 0.547 with them) -> l_c cannot see downstream support
+
+total runtime 77.0 s

@@ -1,0 +1,12 @@
+G1 h=1  closed-loop: identity [1. 0.]  swapped [1. 0.]  differ=False
+G1 h=1  open-loop : identity [1. 0.]  swapped [1. 0.]  differ=False
+G1 h=2  closed-loop: identity [1.2 0.1]  swapped [0.7 0.4]  differ=True
+G1 h=2  open-loop : identity [0.9 0. ]  swapped [0.9 0. ]  differ=False
+G1 h=3  closed-loop: identity [1.42 0.25]  swapped [0.61 0.68]  differ=True
+G1 h=3  open-loop : identity [0.81 0.  ]  swapped [0.81 0.  ]  differ=False
+G2 A_b^(h-1-tau) with h=1,tau=1 computed as: [[1.1111 0.    ]
+ [0.     1.1111]] (acausal: true response should be 0)
+G2 singular A_b raises: Singular matrix
+G3 corr(obs policy, x_next) = 0.86
+G3 corr(constant probe, x_next) = nan
+G3 corr(randomized do(a), x_next) = -0.0

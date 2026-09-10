@@ -1,0 +1,6 @@
+UM-1 downstream latent d: contract C1 says d has an action ancestor via C_d.
+     reference structural_reach signature: ('A', 'B', 'H') -> no C_d, no d. Gate failures when d is mislabeled: 0
+UM-2 delay: structural_reach(A,B,H=1) with tau=1 -> [True, True] | open_loop_response at h=1, tau=1 -> [0.0, 0.0]
+     C1 and C4 disagree by construction on delayed instances; gate failures: 0
+UM-3 placeholder mutants: gate failures after swapping M2/M5 bodies for constants: 0
+     -> M2 and M5 exercise no implementation; coverage-matrix.md overstates them as covered.

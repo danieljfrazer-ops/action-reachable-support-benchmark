@@ -1,0 +1,10 @@
+{
+  "n_test": 30,
+  "n_distractors": 10,
+  "cusum_support_mapping": "two_sided",
+  "ibd_alarm_h": 2.05,
+  "approx_no_event_mean_run_length": 1042.125,
+  "event_alarm_probability_200": 0.3333333333333333,
+  "no_event_alarm_probability_same_window": 0.23333333333333334,
+  "note": "Captured from the final with-alarm run after observation noise, four padding channels, warm-up epochs, and the exact trailing-window cutoff were implemented. The ARL calibration is an 80-episode approximation, not the contract's 400-run-length certification."
+}

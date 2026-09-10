@@ -1,0 +1,27 @@
+gate clean: 0 failing tests of 34 (run_gate.py's full set)
+
+SURVIVED R4-M1 match_alarms attributes the LAST alarm in the window, not the first
+          failing gate tests: 0
+          differs from the original on the witness input: True
+          original(witness) = ([10], ['detected'], [1100, 1180])
+          mutant  (witness) = ([180], ['detected'], [1010, 1100])
+          admitted by mutants.py's existing PROBES distinctness guard: False   <-- PROBES needs the witness input above
+
+SURVIVED R4-M2 aggregate_primary keeps the FIRST colliding row instead of the last
+          failing gate tests: 0
+          differs from the original on the witness input: True
+          original(witness) = ({0: 100.0}, 0)
+          mutant  (witness) = ({0: 20.0}, 0)
+          admitted by mutants.py's existing PROBES distinctness guard: False   <-- PROBES needs the witness input above
+
+SURVIVED R4-M3 s_obs_eps takes |gain * e| instead of |gain| * e
+          failing gate tests: 0
+          differs from the original on the witness input: True
+          original(witness) = [False]
+          mutant  (witness) = [ True]
+          admitted by mutants.py's existing PROBES distinctness guard: True
+
+3/3 mutants SURVIVED the frozen gate:
+  - R4-M1 match_alarms attributes the LAST alarm in the window, not the first
+  - R4-M2 aggregate_primary keeps the FIRST colliding row instead of the last
+  - R4-M3 s_obs_eps takes |gain * e| instead of |gain| * e

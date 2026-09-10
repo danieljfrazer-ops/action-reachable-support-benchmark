@@ -1,0 +1,128 @@
+# Frozen-generator reproduction (review5-codex)
+python=3.12.13 numpy=2.4.4 PYTHONHASHSEED=0
+instances=10 x episodes=4 for each base cell; no seed reduction
+perturbations=full 3x3 coupling/noise Cartesian product at Nx=10,tau=0,logical seed=0
+choices: predictor fitted separately per instance and confounder condition on episode ids 100..119; scored ids 0..3
+choices: probe RNG is a domain-separated SeedSequence keyed by logical config seed, episode, Nx, tau, coupling, noise
+choices: generator clock used literally (probe action indices 20..1980); impossible terminal t=2000 grant omitted
+choices: passive offset 1000 uses last emitted transition score t=1999; IBD uses last closed epoch <= t=2000
+choices: full post-event S_obs labels; mid-rank AUC; episodes averaged within instance; two-sided t(9) cluster intervals
+choices: no isotonic/operating-point/alarm fit because the requested primary uses raw statistics only
+running base Nx=10 tau=0...
+
+## Base cell Nx=10, tau=0; support-change certified empirically 3/10
+| offset | IBD present | comparator present | IBD absent | comparator absent | confounding benefit | 95% cluster CI | comparator-absent 95% lower |
+|---:|---:|---:|---:|---:|---:|:---:|---:|
+| 200 | 0.785 | 0.733 | 0.775 | 0.917 | 0.195 | [0.159, 0.231] | 0.884 |
+| 500 | 0.815 | 0.688 | 0.801 | 0.878 | 0.204 | [0.153, 0.254] | 0.824 |
+| 1000 | 0.791 | 0.636 | 0.769 | 0.825 | 0.211 | [0.153, 0.268] | 0.755 |
+running base Nx=10 tau=2...
+
+## Base cell Nx=10, tau=2; support-change certified empirically 4/10
+| offset | IBD present | comparator present | IBD absent | comparator absent | confounding benefit | 95% cluster CI | comparator-absent 95% lower |
+|---:|---:|---:|---:|---:|---:|:---:|---:|
+| 200 | 0.795 | 0.722 | 0.800 | 0.858 | 0.132 | [0.088, 0.176] | 0.786 |
+| 500 | 0.836 | 0.675 | 0.824 | 0.810 | 0.148 | [0.104, 0.191] | 0.767 |
+| 1000 | 0.805 | 0.621 | 0.794 | 0.752 | 0.142 | [0.091, 0.193] | 0.659 |
+running base Nx=30 tau=0...
+
+## Base cell Nx=30, tau=0; support-change certified empirically 3/10
+| offset | IBD present | comparator present | IBD absent | comparator absent | confounding benefit | 95% cluster CI | comparator-absent 95% lower |
+|---:|---:|---:|---:|---:|---:|:---:|---:|
+| 200 | 0.821 | 0.660 | 0.803 | 0.918 | 0.276 | [0.222, 0.329] | 0.885 |
+| 500 | 0.807 | 0.606 | 0.801 | 0.878 | 0.278 | [0.208, 0.347] | 0.822 |
+| 1000 | 0.834 | 0.560 | 0.811 | 0.820 | 0.283 | [0.227, 0.340] | 0.752 |
+running base Nx=30 tau=2...
+
+## Base cell Nx=30, tau=2; support-change certified empirically 4/10
+| offset | IBD present | comparator present | IBD absent | comparator absent | confounding benefit | 95% cluster CI | comparator-absent 95% lower |
+|---:|---:|---:|---:|---:|---:|:---:|---:|
+| 200 | 0.815 | 0.647 | 0.814 | 0.860 | 0.213 | [0.132, 0.295] | 0.786 |
+| 500 | 0.821 | 0.591 | 0.801 | 0.807 | 0.237 | [0.166, 0.308] | 0.765 |
+| 1000 | 0.811 | 0.552 | 0.795 | 0.751 | 0.216 | [0.137, 0.294] | 0.656 |
+running perturb coupling=0.5 noise=0.5...
+
+## Perturbation coupling=0.5, noise=0.5, Nx=10, tau=0, seed=0
+| offset | IBD present | comparator present | IBD absent | comparator absent | confounding benefit | 95% cluster CI | comparator-absent 95% lower |
+|---:|---:|---:|---:|---:|---:|:---:|---:|
+| 200 | 0.835 | 0.786 | 0.800 | 0.956 | 0.206 | [NA, NA] | NA |
+| 500 | 0.827 | 0.742 | 0.798 | 0.917 | 0.204 | [NA, NA] | NA |
+| 1000 | 0.796 | 0.667 | 0.796 | 0.833 | 0.167 | [NA, NA] | NA |
+running perturb coupling=0.5 noise=1.0...
+
+## Perturbation coupling=0.5, noise=1.0, Nx=10, tau=0, seed=0
+| offset | IBD present | comparator present | IBD absent | comparator absent | confounding benefit | 95% cluster CI | comparator-absent 95% lower |
+|---:|---:|---:|---:|---:|---:|:---:|---:|
+| 200 | 0.764 | 0.754 | 0.762 | 1.000 | 0.248 | [NA, NA] | NA |
+| 500 | 0.744 | 0.706 | 0.724 | 0.921 | 0.234 | [NA, NA] | NA |
+| 1000 | 0.800 | 0.635 | 0.790 | 0.833 | 0.208 | [NA, NA] | NA |
+running perturb coupling=0.5 noise=2.0...
+
+## Perturbation coupling=0.5, noise=2.0, Nx=10, tau=0, seed=0
+| offset | IBD present | comparator present | IBD absent | comparator absent | confounding benefit | 95% cluster CI | comparator-absent 95% lower |
+|---:|---:|---:|---:|---:|---:|:---:|---:|
+| 200 | 0.778 | 0.754 | 0.800 | 0.992 | 0.216 | [NA, NA] | NA |
+| 500 | 0.563 | 0.694 | 0.544 | 0.885 | 0.210 | [NA, NA] | NA |
+| 1000 | 0.708 | 0.583 | 0.671 | 0.758 | 0.212 | [NA, NA] | NA |
+running perturb coupling=1.0 noise=0.5...
+
+## Perturbation coupling=1.0, noise=0.5, Nx=10, tau=0, seed=0
+| offset | IBD present | comparator present | IBD absent | comparator absent | confounding benefit | 95% cluster CI | comparator-absent 95% lower |
+|---:|---:|---:|---:|---:|---:|:---:|---:|
+| 200 | 0.917 | 0.980 | 0.893 | 1.000 | 0.044 | [NA, NA] | NA |
+| 500 | 0.905 | 0.980 | 0.897 | 1.000 | 0.028 | [NA, NA] | NA |
+| 1000 | 0.873 | 0.960 | 0.851 | 1.000 | 0.062 | [NA, NA] | NA |
+running perturb coupling=1.0 noise=1.0...
+
+## Perturbation coupling=1.0, noise=1.0, Nx=10, tau=0, seed=0
+| offset | IBD present | comparator present | IBD absent | comparator absent | confounding benefit | 95% cluster CI | comparator-absent 95% lower |
+|---:|---:|---:|---:|---:|---:|:---:|---:|
+| 200 | 0.744 | 0.897 | 0.772 | 1.000 | 0.075 | [NA, NA] | NA |
+| 500 | 0.962 | 0.825 | 0.960 | 0.925 | 0.101 | [NA, NA] | NA |
+| 1000 | 0.746 | 0.730 | 0.730 | 0.833 | 0.119 | [NA, NA] | NA |
+running perturb coupling=1.0 noise=2.0...
+
+## Perturbation coupling=1.0, noise=2.0, Nx=10, tau=0, seed=0
+| offset | IBD present | comparator present | IBD absent | comparator absent | confounding benefit | 95% cluster CI | comparator-absent 95% lower |
+|---:|---:|---:|---:|---:|---:|:---:|---:|
+| 200 | 0.899 | 0.857 | 0.871 | 1.000 | 0.171 | [NA, NA] | NA |
+| 500 | 0.806 | 0.802 | 0.802 | 0.940 | 0.143 | [NA, NA] | NA |
+| 1000 | 0.889 | 0.702 | 0.889 | 0.837 | 0.135 | [NA, NA] | NA |
+running perturb coupling=2.0 noise=0.5...
+
+## Perturbation coupling=2.0, noise=0.5, Nx=10, tau=0, seed=0
+| offset | IBD present | comparator present | IBD absent | comparator absent | confounding benefit | 95% cluster CI | comparator-absent 95% lower |
+|---:|---:|---:|---:|---:|---:|:---:|---:|
+| 200 | 0.654 | 0.859 | 0.639 | 0.958 | 0.115 | [NA, NA] | NA |
+| 500 | 0.513 | 0.688 | 0.507 | 0.757 | 0.075 | [NA, NA] | NA |
+| 1000 | 0.509 | 0.556 | 0.582 | 0.613 | -0.015 | [NA, NA] | NA |
+running perturb coupling=2.0 noise=1.0...
+
+## Perturbation coupling=2.0, noise=1.0, Nx=10, tau=0, seed=0
+| offset | IBD present | comparator present | IBD absent | comparator absent | confounding benefit | 95% cluster CI | comparator-absent 95% lower |
+|---:|---:|---:|---:|---:|---:|:---:|---:|
+| 200 | 0.786 | 0.815 | 0.777 | 0.947 | 0.141 | [NA, NA] | NA |
+| 500 | 0.515 | 0.706 | 0.512 | 0.831 | 0.128 | [NA, NA] | NA |
+| 1000 | 0.701 | 0.616 | 0.645 | 0.736 | 0.177 | [NA, NA] | NA |
+running perturb coupling=2.0 noise=2.0...
+
+## Perturbation coupling=2.0, noise=2.0, Nx=10, tau=0, seed=0
+| offset | IBD present | comparator present | IBD absent | comparator absent | confounding benefit | 95% cluster CI | comparator-absent 95% lower |
+|---:|---:|---:|---:|---:|---:|:---:|---:|
+| 200 | 0.729 | 0.764 | 0.707 | 0.905 | 0.163 | [NA, NA] | NA |
+| 500 | 0.661 | 0.671 | 0.642 | 0.810 | 0.157 | [NA, NA] | NA |
+| 1000 | 0.593 | 0.644 | 0.547 | 0.750 | 0.152 | [NA, NA] | NA |
+
+## Perturbation-set aggregate (nine configurations treated as instance clusters)
+| offset | IBD present | comparator present | IBD absent | comparator absent | confounding benefit | 95% cluster CI | comparator-absent 95% lower |
+|---:|---:|---:|---:|---:|---:|:---:|---:|
+| 200 | 0.789 | 0.829 | 0.780 | 0.973 | 0.153 | [0.102, 0.205] | 0.947 |
+| 500 | 0.722 | 0.757 | 0.709 | 0.887 | 0.142 | [0.090, 0.194] | 0.830 |
+| 1000 | 0.735 | 0.677 | 0.722 | 0.799 | 0.135 | [0.079, 0.191] | 0.719 |
+
+## Verdict checks at primary offset 500
+Nx=10 tau=0: benefit=0.204 CI=[0.153,0.254] margin=PASS; comparator absent lower=0.824 competence=FAIL
+Nx=10 tau=2: benefit=0.148 CI=[0.104,0.191] margin=PASS; comparator absent lower=0.767 competence=FAIL
+Nx=30 tau=0: benefit=0.278 CI=[0.208,0.347] margin=PASS; comparator absent lower=0.822 competence=FAIL
+Nx=30 tau=2: benefit=0.237 CI=[0.166,0.308] margin=PASS; comparator absent lower=0.765 competence=FAIL
+elapsed_seconds=594.0

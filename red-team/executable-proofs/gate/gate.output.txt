@@ -1,0 +1,121 @@
+interpreter: /Users/danielfrazer/.pyenv/versions/3.12.0/bin/python3  python 3.12.0
+numpy 2.4.4
+PASS test_gate.test_C1_build_adjacency_keeps_w_and_x_self_edges
+PASS test_gate.test_C1_chain_reaches_at_exactly_H2
+PASS test_gate.test_C1_delay_empties_support_until_arrival
+PASS test_gate.test_C1_delayed_chain_one_hop_per_step
+PASS test_gate.test_C1_no_cross_edges_between_exogenous_blocks
+PASS test_gate.test_C1_reachability_is_sign_pattern_not_magnitude
+PASS test_gate.test_C3_gain_boundary_and_functional_form
+PASS test_gate.test_C3_negative_effect_rejected
+PASS test_gate.test_C3_out_of_range_assign_raises_not_silent
+PASS test_gate.test_C4_family_N_response_depends_on_zbar_and_is_not_odd
+PASS test_gate.test_C4_open_loop_equals_piecewise_jacobian_over_tau_h_grid_rectangular
+PASS test_gate.test_E2_eligibility_and_nan_guard
+PASS test_gate.test_E2_global_max_is_not_the_witness_value
+PASS test_gate.test_E2_pairwise_corr_is_absolute
+PASS test_gate.test_E2_witness_negative_sign_and_nonzero_column_and_max_not_mean
+PASS test_gate.test_G_auc_pre_event_support_restricts_to_pre_support_and_orients_retained_positive
+PASS test_gate.test_G_count_alarms_persistence_and_refractory
+PASS test_gate.test_G_count_alarms_persistence_is_consecutive_not_leaky
+PASS test_gate.test_G_count_alarms_refractory_blocks_burst_inside_window_and_exact_boundary
+PASS test_gate.test_G_count_alarms_timed_persistence_in_emissions_refractory_in_steps
+PASS test_gate.test_G_hpdt_mean_three_events_and_outcomes
+PASS test_gate.test_G_match_alarms_attribution_and_false_alarms
+PASS test_gate.test_G_match_alarms_episode_end_bounds_attribution_and_event_step_is_not_detection
+PASS test_gate.test_G_match_alarms_takes_first_alarm_in_window
+PASS test_gate.test_G_match_alarms_upper_boundary_inclusive
+PASS test_gate.test_G_run_length_from_reset_includes_warm_up_prefix_and_reports_censoring
+PASS test_gate.test_G_spacing_episode_end_strictness_and_order
+PASS test_gate.test_K10_downstream_d_inside_S_and_w_x_outside
+PASS test_gate.test_K11_downstream_chain_through_A_d_with_and_without_delay
+PASS test_gate.test_K1_sensor_swap_moves_observed_support_not_latent_with_reachable_padding_target
+PASS test_gate.test_K3_actuator_remap_changes_R_not_S
+PASS test_gate.test_K4_actuator_loss_label_depends_on_coupling_and_horizon
+PASS test_gate.test_K5_sensor_dropout_changes_observed_support_only
+PASS test_gate.test_K7_partial_actuator_loss_changes_R_not_S_above_gamma_min
+PASS test_gate.test_L12_rectangular_B_indexes_rows
+PASS test_gate.test_M1_rejected_action_leaks_into_distractor
+PASS test_gate.test_M7_rejected_negative_power_formula
+PASS test_gate.test_aggregate_primary_full_key_signed_and_duplicates
+PASS test_gate.test_aggregate_primary_keeps_negative_sign
+PASS test_gate.test_auc_prob_superiority_ties_and_degenerate
+PASS test_generator.test_confirmation_seed_commitment_is_sealed_and_range_is_disjoint_from_development
+PASS test_generator.test_gen_actuator_loss_changes_support_per_oracle_not_event_type
+PASS test_generator.test_gen_burn_in_changes_initial_state
+PASS test_generator.test_gen_certified_instance_meets_contract_bounds
+PASS test_generator.test_gen_cl4_event_changes_support_on_every_certified_instance
+PASS test_generator.test_gen_confounded_half_and_padding_layout
+PASS test_generator.test_gen_confounded_mask_is_first_half_not_inverted
+PASS test_generator.test_gen_cross_process_determinism
+PASS test_generator.test_gen_delay_first_hit_at_tau_plus_one
+PASS test_generator.test_gen_determinism_bitwise
+PASS test_generator.test_gen_faithfulness_bound_and_dense_B_on_all_frozen_seeds
+PASS test_generator.test_gen_family_L_stream_pinned_bitwise_after_family_N_refactor
+PASS test_generator.test_gen_family_N_certifies_bounded_stationary_cl4_and_label_consistent
+PASS test_generator.test_gen_family_N_divergent_subseed_is_rejected_not_certified
+PASS test_generator.test_gen_family_N_reduces_to_family_L_when_nonlinearity_is_switched_off
+PASS test_generator.test_gen_family_N_response_is_not_odd_and_uses_zbar
+PASS test_generator.test_gen_noise_mult_does_not_scale_confounder_driver
+PASS test_generator.test_gen_noise_mult_scales_innovation_streams
+PASS test_generator.test_gen_noise_streams_independent_across_variables_and_keyed
+PASS test_generator.test_gen_perturbation_set_still_certifies
+PASS test_generator.test_gen_probe_replaces_action_and_is_clipped
+PASS test_generator.test_gen_rollout_batch_chains_are_independent_and_match_family_dynamics
+PASS test_generator.test_gen_run_timing_first_hit_at_tau_plus_one_in_rollout
+PASS test_generator.test_gen_soft_loss_breaks_label_consistency_and_is_detected
+PASS test_generator.test_gen_structural_no_action_path_into_w_or_x
+PASS test_proof_theatre.test_print_only_script_exits_zero_with_wrong_formula
+
+tests: 66 passed, 0 failed
+KILLED   D11-M1 pre-event AUC over all channels: 1 failing tests
+KILLED   D11-M2 pre-event AUC positives inverted: 1 failing tests
+KILLED   D11-M3 pre-event AUC no tie credit: 1 failing tests
+KILLED   D11-M4 timed refractory in emissions: 1 failing tests
+KILLED   D11-M5 timed leaky persistence: 1 failing tests
+KILLED   D11-M6 timed refractory strict boundary: 1 failing tests
+KILLED   D11-M7 run length drops censoring flag: 1 failing tests
+KILLED   R4-GM-M1 w->x edge: 1 failing tests
+KILLED   R4-CX abs aggregate: 1 failing tests
+KILLED   R4-M2 aggregate last-wins: 1 failing tests
+KILLED   R4-M1 match last alarm: 1 failing tests
+KILLED   R4-M3 |gain*e|: 1 failing tests
+KILLED   D9-CX world/distractor edges dropped: 1 failing tests
+KILLED   D9-GM-M1 pairwise_corr signed: 1 failing tests
+KILLED   D9-GM-M2 match_alarms strict upper: 1 failing tests
+KILLED   R3-M1 count_alarms ignores refractory: 2 failing tests
+KILLED   R3-M2 leaky persistence: 1 failing tests
+KILLED   R3-M8/GM3-6 refractory off by one: 1 failing tests
+KILLED   R3-M4 match_alarms drops episode_end: 1 failing tests
+KILLED   GM3-5 alarm at event step counted: 1 failing tests
+KILLED   R3-M5/GM3-1 aggregate median: 2 failing tests
+KILLED   CX3 aggregate ignores delay: 2 failing tests
+KILLED   R3-M7 s_obs silent out-of-range: 2 failing tests
+KILLED   R3-M9 corr returns witness not max: 1 failing tests
+KILLED   CL r1 no-delay reachability: 4 failing tests
+KILLED   CL r1 no-downstream: 2 failing tests
+KILLED   GM r1 999B: 1 failing tests
+KILLED   GM r1 skip-H2: 5 failing tests
+KILLED   CX r1 tau-cap: 1 failing tests
+KILLED   GM2-1 premature delayed propagation: 2 failing tests
+KILLED   CX2/OP-M15 A_d omitted: 1 failing tests
+KILLED   FB-M13 magnitude>0.25 edges: 1 failing tests
+KILLED   FB-M3/OP-M4 padding guard dropped: 2 failing tests
+KILLED   FB-M4/OP-M5 >= at boundary: 2 failing tests
+KILLED   FB-M5 gain squared: 2 failing tests
+KILLED   M8 gain ignored: 1 failing tests
+KILLED   FB-M1 abs dropped: 2 failing tests
+KILLED   FB-M2 column 0 only: 2 failing tests
+KILLED   OP-M8 mean not max: 2 failing tests
+KILLED   FB-M9/OP-M1 HPDT median: 1 failing tests
+KILLED   FB-M10 two outcome classes only: 1 failing tests
+KILLED   HPDT censoring excluded: 1 failing tests
+KILLED   FB-M6/OP-M2 spacing ignores episode end: 1 failing tests
+KILLED   FB-M7/OP-M3 spacing strict: 1 failing tests
+KILLED   FB-M8 spacing unsorted: 1 failing tests
+KILLED   FB-M11/OP-M7 zbar ignored: 1 failing tests
+KILLED   M7 negative power: 2 failing tests
+
+47/47 mutants killed
+GATE PASS: tests 66/66, mutation exit 0
+GATE_DONE exit=0

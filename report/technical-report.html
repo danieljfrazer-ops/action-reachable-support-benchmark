@@ -1,0 +1,496 @@
+<!doctype html><html><head><meta charset='utf-8'><title>Technical report</title><style>
+@page { size: A4; margin: 22mm 20mm 24mm 20mm; }
+body { font-family: "Charter", "Georgia", "Times New Roman", serif; font-size: 10.6pt; line-height: 1.42; color: #111;
+       max-width: 168mm; margin: 0 auto; padding: 0 4mm; }
+h1 { font-size: 17pt; line-height: 1.25; margin: 0 0 6pt 0; font-weight: 700; }
+h2 { font-size: 12.5pt; margin: 18pt 0 6pt 0; border-bottom: 0.6pt solid #999; padding-bottom: 2pt; }
+h3 { font-size: 11pt; margin: 12pt 0 4pt 0; }
+p { margin: 0 0 7pt 0; text-align: justify; hyphens: auto; }
+table { border-collapse: collapse; margin: 6pt auto 4pt auto; font-size: 9.3pt; width: 100%; }
+th, td { border-top: 0.5pt solid #444; border-bottom: 0.5pt solid #444; padding: 3pt 5pt; vertical-align: top; text-align: left; }
+th { background: #f1f1f1; }
+table + p { font-size: 9.3pt; color: #333; margin-top: 0; }
+ul { margin: 0 0 7pt 18pt; padding: 0; } li { margin-bottom: 3pt; }
+code { font-family: "Menlo", monospace; font-size: 9pt; }
+strong { font-weight: 700; }
+</style></head><body><h1>Which sensors do my actions control? A negative result on sequential interventional boundary tracking under a shared-cause confounder</h1>
+<p><strong>Daniel Frazer</strong> (independent). Technical report, September 2026.</p>
+<h2>Abstract</h2>
+<p>An embodied agent needs to know which of its sensors its actions actually reach, when a hidden cause makes some sensors move in step with its actions and when its actuators fail without warning. Interventional Boundary Discovery (IBD) answers the static version of this question by randomising actions. This report tests the sequential version: whether an in-task, sign-randomised probing estimator at a 5 percent probe budget tracks a changing controllable boundary better than a passive residual monitor under a shared-cause confounder. On a certified linear-Gaussian testbed, three independent implementations of both estimators agreed to within Monte Carlo error in one experiment, part of that spread being a seeding defect that gave each process different trajectories, and to three decimal places in a second after the defect was repaired. The interventional estimator was not degraded by the confounder that cost a frozen passive monitor about 0.2 AUC on the full channel set in the base cells, which reproduces IBD&rsquo;s principle online; that gap rests on a two-implementation secondary measure, the first experiment&rsquo;s version of it being inadmissible under the study&rsquo;s own competence rule. On the separate task of ranking which controlled channel an actuator loss removed, a passive delay-aware covariance monitor equalled or beat the probed estimator in every linear-family cell, and the ordering reversed on the one nonlinear family, on five seeds. The two endpoints were measured on different channel sets under different effective confounding regimes and do not establish a dissociation. A re-posed primary measure scored only channels the confounder never reaches, so the benefit it was meant to measure was zero by construction, and a population-limit analysis showed that moving the confounder onto the controlled channels would not yield an identifiability claim: the policy&rsquo;s own action noise is an instrument, and only a restricted class of passive models fails. The programme&rsquo;s claim is unsupported. The testbed, gate and review record are released.</p>
+<h2>1. Introduction</h2>
+<p>An agent that runs continuously in a body needs a working model of which observation channels its actions influence. Call this its action-reachable observed support: the set of sensors whose readings a unit action moves by more than a threshold within a short horizon. A hidden cause can drive both the agent&rsquo;s actions and some sensors it does not control, so those sensors correlate with actions without being reachable. Actuators and sensors fail, so the support changes without announcement.</p>
+<p>The starting point was a research roadmap I wrote in early September 2026 for a solo programme on persistent, adaptive agents, whose second candidate project proposed an &ldquo;adversarial causal self-boundary&rdquo; learned by intervention. A single-model red team of that roadmap, run before the protocol of Appendix A existed, found that the central hypothesis, intervention beats correlation for discovering what an agent controls, had already been tested and confirmed: Liu, Cheng and Bogdan (2026) showed that randomising actions recovers the controllable boundary in the static case, including under distractors that mimic controllable variables, and proved the estimator&rsquo;s invariance to confounders. Their design is a one-shot, two-branch experiment with a dedicated probing policy. What it does not cover is a boundary that changes during deployment, distractors synchronised with the policy&rsquo;s actions through a shared cause in a sequential setting, and calibration of the estimate during transitions. The claim tested here sits at that intersection: that passive residual monitors detect body change quickly but attribute control wrongly under a shared-cause confounder, while a sign-randomised interventional estimator ranks the controllable support correctly at a 5 percent probe budget, insensitive to the confounder, at a measurable cost in alarm speed.</p>
+<p>The contribution is a negative result with a reusable testbed. Two experiments and one analysis, each run by three independent implementations or derivations with the per-number exceptions flagged where they occur, show that the claim is unsupported on the testbed built to confirm it: its attribution half is IBD&rsquo;s result in an online form, and its adaptation half was never tested under confounding on the channels the primary scored, because the one design that put confounding and change together did so on channels the confounder could not reach. The verification protocol and the errors it caught are in the appendices. Each table and figure traces to an archived input, implementation, captured output and adjudication through a file map released with the archive; the historical freeze hashes in Table A1 are round-log assertions and are the exception.</p>
+<h2>2. Setting</h2>
+<h3>2.1 Generator</h3>
+<p>The reference generator draws instances of a linear-Gaussian structural causal model from a seeded configuration family. Latents are a body block b (four components), a downstream block d (two) fed by the body, an exogenous world block w (four), and a distractor block x (ten or thirty). A scalar context u follows an AR(1) process with autocorrelation 0.8. The policy is linear feedback on the body channels plus a context term plus noise, clipped. Actions enter the body with a delay of zero or two steps. Half the distractors are children of u, so they correlate with actions through the shared cause; none has an action parent. Observation channels are one per latent plus four padding channels, all with additive observation noise. A nonlinear family N replaces the linear body drive with a saturating tanh and a clipped quadratic self-term and is certified by empirical boundedness and stationarity rather than a spectral radius. Figure 1 draws the plant.</p>
+<div style="text-align:center;margin:8pt 0 2pt 0"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" style="max-width:100%;height:auto" font-family="Charter, Georgia, serif">
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#222"/></marker></defs>
+<rect x="30" y="130" width="120" height="46" rx="6" fill="#ffffff" stroke="#222" stroke-width="1.2"/><text x="90.0" y="153.0" text-anchor="middle" font-size="14" font-weight="600">u</text><text x="90.0" y="169.0" text-anchor="middle" font-size="10.5" fill="#333">context, AR(1), latent</text>
+<rect x="220" y="50" width="90" height="46" rx="6" fill="#ffffff" stroke="#222" stroke-width="1.2"/><text x="265.0" y="73.0" text-anchor="middle" font-size="14" font-weight="600">a</text><text x="265.0" y="89.0" text-anchor="middle" font-size="10.5" fill="#333">actions, K = 2</text>
+<rect x="400" y="50" width="90" height="46" rx="6" fill="#ffffff" stroke="#222" stroke-width="1.2"/><text x="445.0" y="73.0" text-anchor="middle" font-size="14" font-weight="600">b</text><text x="445.0" y="89.0" text-anchor="middle" font-size="10.5" fill="#333">body, 4</text>
+<rect x="570" y="50" width="100" height="46" rx="6" fill="#ffffff" stroke="#222" stroke-width="1.2"/><text x="620.0" y="73.0" text-anchor="middle" font-size="14" font-weight="600">d</text><text x="620.0" y="89.0" text-anchor="middle" font-size="10.5" fill="#333">downstream, 2</text>
+<rect x="200" y="210" width="150" height="46" rx="6" fill="#f6f6f6" stroke="#222" stroke-width="1.2"/><text x="275.0" y="233.0" text-anchor="middle" font-size="14" font-weight="600">x</text><text x="275.0" y="249.0" text-anchor="middle" font-size="10.5" fill="#333">distractors, 10 or 30</text>
+<rect x="570" y="210" width="100" height="46" rx="6" fill="#ffffff" stroke="#222" stroke-width="1.2"/><text x="620.0" y="233.0" text-anchor="middle" font-size="14" font-weight="600">w</text><text x="620.0" y="249.0" text-anchor="middle" font-size="10.5" fill="#333">world, 4</text>
+<text x="200" y="22" text-anchor="middle" font-size="11.5">ε<tspan baseline-shift="super" font-size="8">a</tspan> action noise (the instrument of Section 4.4)</text>
+<path d="M200,28 L250,50" fill="none" stroke="#444" stroke-width="1.4" marker-end="url(#arr)"/>
+<path d="M150,148 L222,80" fill="none" stroke="#222" stroke-width="1.4" marker-end="url(#arr)"/><text x="172" y="104" text-anchor="middle" font-size="11" fill="#222">W_u</text>
+<path d="M150,160 L222,222" fill="none" stroke="#222" stroke-width="1.4" marker-end="url(#arr)"/><text x="150" y="205" text-anchor="start" font-size="11" fill="#222">G_x, to half of x</text>
+<path d="M310,73 L398,73" fill="none" stroke="#222" stroke-width="1.4" marker-end="url(#arr)"/><text x="354.0" y="45" text-anchor="middle" font-size="11" fill="#222">B, delay τ</text>
+<path d="M490,73 L568,73" fill="none" stroke="#222" stroke-width="1.4" marker-end="url(#arr)"/><text x="529.0" y="64" text-anchor="middle" font-size="11" fill="#222">C_d</text>
+<line x1="349" y1="63" x2="361" y2="83" stroke="#a00" stroke-width="2"/><line x1="361" y1="63" x2="349" y2="83" stroke="#a00" stroke-width="2"/>
+<text x="355" y="34" text-anchor="middle" font-size="10.5" fill="#a00">event: column 0 of B set to zero</text>
+<path d="M430,96 Q355,135 280,96" fill="none" stroke="#555" stroke-width="1.4" stroke-dasharray="6,4" marker-end="url(#arr)"/><text x="355" y="140" text-anchor="middle" font-size="11" fill="#555">W_o feedback, reads the body channels</text>
+<path d="M150,170 Q300,185 420,96" fill="none" stroke="#a00" stroke-width="1.4" stroke-dasharray="6,4" marker-end="url(#arr)"/><text x="330" y="200" text-anchor="middle" font-size="11" fill="#a00">G_b: body-confounded plant of Section 4.4 only, never built</text>
+<rect x="30" y="292" width="700" height="46" rx="6" fill="#eef3f8" stroke="#222" stroke-width="1.2"/>
+<text x="380" y="311" text-anchor="middle" font-size="12" font-weight="600">o = [b, d, w, x, four padding channels] + ε<tspan baseline-shift="super" font-size="8">o</tspan>    (observation layer; all channels noisy; the estimators see o and a only)</text>
+<text x="380" y="328" text-anchor="middle" font-size="10.5" fill="#333">pre-event support = the b and d channels (b only at delay 2); confounded channels = half of x; the two sets are disjoint</text>
+<path d="M445,96 L445,290" fill="none" stroke="#888" stroke-width="1.4" marker-end="url(#arr)"/>
+<path d="M660,96 L700,290" fill="none" stroke="#888" stroke-width="1.4" marker-end="url(#arr)"/>
+<path d="M620,256 L620,290" fill="none" stroke="#888" stroke-width="1.4" marker-end="url(#arr)"/>
+<path d="M275,256 L275,290" fill="none" stroke="#888" stroke-width="1.4" marker-end="url(#arr)"/>
+</svg></div>
+
+<p>Figure 1. The plant of the frozen generator (family L). Solid edges are the structural equations; the dashed grey edge is the policy&rsquo;s feedback from the body channels; the action noise entering a is the instrument that Section 3.3 relies on. The context u reaches the observation layer only through the confounded half of the distractors, so the pre-event support (b and d channels; b alone at delay 2) and the confounded channels are disjoint, which is the mechanism of error 3 in Appendix B and the reason Experiment 2&rsquo;s confounding benefit was zero by construction. The dashed red edge G_b exists only in the body-confounded plant analysed in Section 3.3 and was never built. Source: <code>figures/make_figures.py</code>, checked against the contract&rsquo;s structural equations.</p>
+<p>Each instance is certified before use: closed-loop spectral radius on the delay-augmented state, saturation fraction, a confounding witness (maximum action-distractor correlation at least 0.4) that vanishes under randomised actions, a faithfulness floor on nonzero coefficients, agreement between graph reachability and zero-noise interventional response on every latent, and, from the second experiment onward, a structural guarantee that the confirmatory event removes at least one observed channel from the support. Instances failing certification are resampled at the next sub-seed and the count is recorded. The ground truth is an oracle in the evaluator: the operational effect of each unit probe on each latent at each horizon, from which the observed support follows through assignment, gain and availability. The confirmatory event is complete loss of actuator 0 at step 1000 of a 2000-step episode.</p>
+<h3>2.2 The two estimators</h3>
+<p><strong>Sequential IBD.</strong> Every twentieth step the estimator replaces the policy&rsquo;s action with a unit probe on one actuator, sign and actuator drawn in balanced pre-randomised blocks independent of state. For each channel, horizon and actuator it computes a tie-corrected Mann-Whitney rank-sum statistic (Mann and Whitney, 1947) contrasting signed increments after positive probes against those after negative probes over a trailing window of 500 steps, and reports the maximum absolute statistic over horizons and actuators. Its raw statistic never sees a label, a reward or the event time; the calibrated-probability tier, which was never run, would consume a harness-fitted calibrator trained on oracle labels. This is an in-task, budgeted departure from IBD&rsquo;s one-shot two-branch design: there is no baseline branch and no dedicated probing policy, and none of IBD&rsquo;s guarantees are inherited.</p>
+<p><strong>Delay-aware passive comparator.</strong> A frozen linear one-step predictor of the observation from the previous observation, the current action and two action lags, ridge-fitted on fault-free episodes of the same instance with standardised features. Its support baseline is the iterated-prediction sensitivity of each channel to the action over horizons one to three. In Experiment 1 its change statistic was the shift in the mean of standardised innovations over a trailing window, by analogy with a CUSUM on residuals (Page, 1954; Basseville and Nikiforov, 1993). Experiment 2 replaced that, for the reason given in Section 3.1, with a score-type statistic on the covariance between innovations and lagged actions, whitened by the fit-split action covariance.</p>
+<p>A probed variant of the comparator, run on the identical probe-carrying stream, was specified to separate having interventions from using them. It was optional and was not scored, so that mechanism is untested here; in particular the second statement of Section 4 cannot separate &ldquo;probes are unnecessary on this event&rdquo; from &ldquo;probes are being wasted on this event&rdquo;.</p>
+<h3>2.3 Measures</h3>
+<p>The primary outcome is a threshold-free AUC of an estimator&rsquo;s raw per-channel statistic against the oracle support at fixed offsets after the event, primary offset 500 steps, scored per episode, paired by instance and cell, with intervals clustered by instance; ten instances and four episode seeds per cell. The confounding benefit is the difference in the two arms&rsquo; AUC gap between the confounder-present and confounder-absent conditions, the absent condition being the same instance and noise streams with the confounder&rsquo;s coupling set to zero. A competence floor requires the comparator&rsquo;s AUC without confounding to have a lower interval bound of at least 0.85 in every cell, so that a benefit cannot come from a broken baseline. Experiment 1 scored the AUC over all observation channels. Experiment 2 scored it over the pre-event support only: which channels the agent controlled before the event remain controlled after it, so that a channel-constant statistic scores exactly 0.5 and the full-channel AUC becomes a secondary measure.</p>
+<p>Each experiment was run by three independent implementations of both estimators, written from the specifications alone by three AI systems (Claude, Codex and Gemini) on one frozen generator; the protocol is in Appendix A. Where a number below comes from fewer than three implementations, it says so.</p>
+<h2>3. Results</h2>
+<h3>3.1 Experiment 1: full-channel ranking</h3>
+<p>Three independent implementations agreed to within Monte Carlo error on every number. Table 1 gives the base cell.</p>
+<table>
+<thead>
+<tr>
+<th>Quantity (offset 500, ten distractors, delay 0, confounder present)</th>
+<th>Claude</th>
+<th>Codex</th>
+<th>Gemini</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sequential IBD AUC</td>
+<td>0.800</td>
+<td>0.815</td>
+<td>0.831</td>
+</tr>
+<tr>
+<td>Passive comparator AUC</td>
+<td>0.691</td>
+<td>0.688</td>
+<td>0.675</td>
+</tr>
+<tr>
+<td>Passive comparator AUC, confounder absent</td>
+<td>0.875</td>
+<td>0.878</td>
+<td>0.863</td>
+</tr>
+<tr>
+<td>Confounding benefit</td>
+<td>+0.187</td>
+<td>+0.204</td>
+<td>+0.190</td>
+</tr>
+<tr>
+<td>Benefit, thirty distractors, delay 2</td>
+<td>+0.240</td>
+<td>+0.237</td>
+<td>+0.228</td>
+</tr>
+</tbody>
+</table>
+<p>Table 1. Experiment 1 on frozen version 0468104f6431b050; ten instances, four episode seeds per cell. Lower 95 percent bounds on the base-cell benefit, clustered by instance: 0.155, 0.153, 0.158. This generator keyed its noise streams with a per-process salted string hash, so the three implementations ran the same specification and configuration seeds but not the same trajectories; one reviewer&rsquo;s own code moved the base-cell benefit from +0.187 to +0.210 across two hash seeds. The key was made deterministic before Experiment 2, which is why Experiment 2 agrees to three decimals and Experiment 1 only to Monte Carlo error.</p>
+<p>The perturbation set over coupling and noise scale is in Table 1b.</p>
+<table>
+<thead>
+<tr>
+<th>Coupling × noise scale (seed 0, ten distractors, delay 0)</th>
+<th>Codex</th>
+<th>Claude</th>
+<th>Gemini</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.5 × 0.5</td>
+<td>+0.204</td>
+<td>+0.183</td>
+<td>+0.175</td>
+</tr>
+<tr>
+<td>0.5 × 1</td>
+<td>+0.234</td>
+<td>+0.221</td>
+<td>not run</td>
+</tr>
+<tr>
+<td>0.5 × 2</td>
+<td>+0.210</td>
+<td>+0.207</td>
+<td>+0.198</td>
+</tr>
+<tr>
+<td>1 × 0.5</td>
+<td>+0.028</td>
+<td>+0.032</td>
+<td>not run</td>
+</tr>
+<tr>
+<td>1 × 1</td>
+<td>+0.101</td>
+<td>+0.126</td>
+<td>not run</td>
+</tr>
+<tr>
+<td>1 × 2</td>
+<td>+0.143</td>
+<td>+0.147</td>
+<td>not run</td>
+</tr>
+<tr>
+<td>2 × 0.5</td>
+<td>+0.075</td>
+<td>+0.035</td>
+<td>+0.067</td>
+</tr>
+<tr>
+<td>2 × 1</td>
+<td>+0.128</td>
+<td>+0.081</td>
+<td>not run</td>
+</tr>
+<tr>
+<td>2 × 2</td>
+<td>+0.157</td>
+<td>+0.106</td>
+<td>+0.137</td>
+</tr>
+</tbody>
+</table>
+<p>Table 1b. Experiment 1 confounding benefit per perturbation configuration at offset 500, one instance each, no interval. Aggregate over the nine configurations as clusters (Codex): +0.142 with lower bound 0.090, below the 0.10 margin; pooled over all three offsets the adjudication recorded individual values from −0.015 to +0.25. These are Experiment 1 numbers: the passive statistic was the one the same experiment found defective, the baseline failed the competence floor, and the three implementations did not share trajectories, so the table describes where the margin failed and is not evidence for the surviving claim. Gemini ran a subset of the grid.</p>
+<p>Three things followed. The interventional arm was reproducible, at 0.80 to 0.85 across distractor levels, delays and the perturbation set, and insensitive to the confounder. The confounding benefit cleared the pre-declared margin of 0.10 in every base cell, but not on the perturbation set, where the aggregate lower bound was 0.090 and individual configurations ran from −0.015 to +0.25. And the result was inadmissible, because the competence floor failed: without confounding the comparator&rsquo;s lower bound was 0.64 to 0.83 against the required 0.85, in every base cell for two implementations and in ten of twelve cell-offsets for the third.</p>
+<p>The cause was identified analytically by Codex and measured by the other two. Under a centred policy, losing an actuator does not shift the mean of the predictor&rsquo;s innovations; it changes their variance and their covariance with the action. The comparator&rsquo;s change statistic was a mean-shift test and therefore could not see the event, and the loading term alone ranked the support at 0.99 without confounding. The baseline was not weak; it was specified with a statistic blind to the change it was meant to detect.</p>
+<p>A fourth finding, from the same runs, was worse for the design. The generator did not guarantee that losing actuator 0 removed any observed channel from the support, and on 60 to 70 percent of frozen instances it removed none; all three implementations found this. The primary was therefore mostly a test of static structure. One implementation measured what that means. With the confounder absent, on the three instances of ten where the event did change the support, a per-channel vector fixed at fit time scored 0.975. It had never seen the scored episode or the event. The interventional arm scored 0.774 in the same cell and the comparator 0.845. The delay-2 subgroup, four instances, gives 0.969 against 0.882 and 0.831. That figure is single-model and was not reproduced. What all three reported is that the event usually changes nothing.</p>
+<h3>3.2 Experiment 2: ranking over the pre-event support</h3>
+<p>I adopted six changes in response (decision D-11 in the archive). The first had two parts: certify the event structurally so that it always removes at least one channel, and score the primary over the pre-event support only, so that a channel-constant statistic scores exactly 0.5. The others: replace the comparator&rsquo;s change statistic with the covariance score; seal a held-out set of confirmation seeds behind a hash commitment; implement family N; run every estimator&rsquo;s alarm clock from reset; fit every learned artefact per instance. Fresh-context Claude agents redrafted both estimator specifications against the new contract, and a new version was frozen.</p>
+<p>Experiment 2 reproduced to three decimal places across the three implementations. Table 2 gives the family L base cells.</p>
+<table>
+<thead>
+<tr>
+<th>Cell (offset 500)</th>
+<th>Sequential IBD, present and absent</th>
+<th>Comparator, present</th>
+<th>Comparator, absent</th>
+<th>Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ten or thirty distractors, delay 0</td>
+<td>0.813</td>
+<td>0.879</td>
+<td>0.863</td>
+<td>−0.017</td>
+</tr>
+<tr>
+<td>Ten or thirty distractors, delay 2</td>
+<td>0.687</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>0.000</td>
+</tr>
+</tbody>
+</table>
+<p>Table 2. Experiment 2 on frozen version 38d161e762a3de76; ten instances, four episode seeds per cell. Lower 95 percent bounds on the comparator&rsquo;s absent AUC at delay 0 were 0.70 to 0.73 depending on the implementation&rsquo;s interval estimator, which the contract had not fixed. The channel-constant control scored exactly 0.500 in every cell. The static loading vector scored 0.422 at delay 0 and 0.200 at delay 2.</p>
+<p>The benefit was zero because the pre-event support contains only body and downstream channels, the confounder enters only the distractor block, and the absent condition keeps the policy unchanged. All three implementations found this and verified that the present and absent observation streams coincide on every channel the primary scores; I inspected the generator source and agree with the argument, without an independent execution. The interventional statistic, which reads each channel&rsquo;s increments in isolation, is therefore identical across conditions. The comparator&rsquo;s small present-absent difference at delay 0 comes through its fit: its predictor regresses each channel on all observation channels including the distractors, so the fitted coefficients differ between conditions even though the scored streams do not. The re-posed primary measured adaptation on channels the treatment provably cannot reach. I had recommended that primary without checking the channel sets against each other; a one-line check would have caught it (Appendix B, error 3).</p>
+<p>The passive comparator beat the interventional arm in every family L cell and every perturbation cell. With the covariance score, noticing that a controlled channel has gone quiet is a matter of watching innovations correlate with actions, which the passive arm does at every step while the probed arm sees about six probes per sign per actuator in its window. At delay 2 the comparator was perfect on every instance; note that the delay-2 cells score a different estimand from the delay-0 cells, since with a support horizon of three steps and a two-step delay no propagation hop survives, so the pre-event support there is exactly the four body channels on every draw and contains no downstream channel. On family N, five seeds with wide intervals, the ordering reversed: sequential IBD 0.84 against the comparator&rsquo;s 0.73 at delay 0, with the comparator&rsquo;s competence floor failing there. Family N was a reproduction target, not part of the exit condition, and five seeds cannot settle the sign.</p>
+<p>Two further defects were found three of three. The lost channel is, by the construction that guarantees the event changes something, the dominant body component of actuator 0, typically the strongest pre-event channel; a static loading vector therefore scores below chance, and its negation, an event-blind and probe-free statistic, scores 0.80 at delay 2 against the interventional arm&rsquo;s 0.687. And losing actuator 1 removes no channel on any seed, so the benchmark tests one hand-wired coordinate. Two implementations also showed that the covariance score is not blind before the event: on fault-free episodes it ranked the support at 0.55 to 0.66 in every cell, above chance, because the closed loop induces action-innovation covariance the null model does not account for.</p>
+<p>The confounding effect was still visible, but only in the secondary full-channel measure: the comparator&rsquo;s static loading ranked confounded distractors as controlled, scoring 0.73 to 0.80 with the confounder present against 0.96 to 0.98 without it, while the interventional arm scored 0.75 to 0.87 across the four base cells and moved by at most 0.013 between conditions (the Experiment 2 adjudication&rsquo;s earlier figure of 0.85 to 0.87 was a delay-0 read, corrected by erratum). These secondary numbers are from two of the three implementations; the third&rsquo;s secondary read was found to be taken at the wrong step and was excluded.</p>
+<h3>3.3 Analysis: identifiability when the confounder reaches the body</h3>
+<p>The natural repair is a plant in which the context also drives the body, so that confounding and change act on the same channels. I had routed the programme toward it on the premise that passive support tracking would then be non-identifiable in principle, and before building it asked the three systems to derive, in the population limit, whether passive support tracking is then non-identifiable in principle, what the frozen comparator converges to, what the probe contrast identifies, and what a single execution round could confirm. Write the body-confounded plant as</p>
+<p>u_t = ρ_u u_{t−1} + ε^u_t,  a_t = W_o o_t + W_u u_t + ε^a_t,  b_{t+1} = A_b b_t + B a_{t−τ} + G_b u_t + ε^b_t,</p>
+<p>with u never observed and G_b the new coupling. The three derivations were reconciled to the same four conclusions in adjudication: Codex and Claude derived them directly; Gemini&rsquo;s stated theorem concerned the apparent coefficient of a no-latent estimator, and its accompanying remark conceded the same knife-edge condition for equality of the full observational law.</p>
+<p>First, exact non-identifiability is a knife-edge, not an open set. The observational law of (o, a) at all lags contains the independent action noise ε^a, which acts as an instrument: the covariance between the body and the action has a discontinuity at the causal lag τ that the smooth AR(1) confounder path cannot produce, and it pins B separately from G_b. Exact confusion between an actuator loss and a support-preserving change in G_b requires the action noise to vanish in the affected direction. The premise I had adopted was false. The instrument is weak at the contract&rsquo;s own constants, action noise 0.1 against context noise 1.0, so identifiability in the population limit says little about what a latent-modelling passive method would achieve at the window sizes used here; one derivation put the support-flipped twin about ninety steps of evidence away, another noted that in finite samples the two laws are close to indistinguishable.</p>
+<p>Second, what fails on an open set is the model class the claim is about: any predictor without a latent context variable. Its fitted action coefficient converges to</p>
+<p>β_a → B + κ G_b W_uᵀ  (delay 0),  κ = v_u / (σ_a² + v_u ‖W_u‖²),  v_u = Var(u_t | the predictor&rsquo;s own past-measurable regressors) ≥ σ_u²,</p>
+<p>so a channel with a small true entry of B and a large entry of G_b W_uᵀ is labelled controlled when it is not, on a set of parameters with non-empty interior. With a causal delay the confounding term is spread across the predictor&rsquo;s lag slots and attenuated by the confounder&rsquo;s persistence over each lag; the three derivations bookkeep that case differently and only the delay-0 form is reproduced here. The lower bound on v_u holds for every past-measurable conditioning set, which is why no depth of action lags repairs the bias.</p>
+<p>Third, the frozen comparator cannot distinguish an actuator loss from a change in G_b: its change score diverges as √n under both, and under body confounding the confuser&rsquo;s signal is comparable to or larger than the loss&rsquo;s, on channels the loss never touches.</p>
+<p>Fourth, the sign-randomised contrast identifies the column of B at the first reachable horizon regardless of G_b, W_u and ρ_u, drops to zero under loss, and is unchanged under a change in G_b.</p>
+<p>The one prediction whose sign all three fixed in advance is the confuser dissociation of Table 3.</p>
+<table>
+<thead>
+<tr>
+<th>Plant</th>
+<th>Frozen passive monitor</th>
+<th>Sign-randomised probing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Confounder reaches the body (G_b ≠ 0)</td>
+<td>reports false loss of support</td>
+<td>invariant</td>
+</tr>
+<tr>
+<td>Confounder does not reach the body (G_b = 0)</td>
+<td>exactly blind to the change</td>
+<td>invariant</td>
+</tr>
+</tbody>
+</table>
+<p>Table 3. Population-limit response to a support-preserving change in the confounder&rsquo;s coupling, in G_b or in the policy&rsquo;s context gain W_u, by plant and arm. Derived by three systems and reconciled in adjudication, one having initially concluded the opposite on the identifiability question. The table covers a confounder-coupling change only. The response to an actual actuator loss under body confounding was not settled: one system predicted the passive arm still wins, one predicted the probe arm wins, and one said the sign is not determined without further inequalities. Two of the three rescored the body-confounded plant at 3 on the roadmap&rsquo;s five-point novelty scale, the same as the repaired benchmark paper, and the third reframed what is unoccupied about it as body confounding plus a restricted estimator; one of the three made the referee&rsquo;s obvious rebuttal, why not fit a state-space model with the confounder as a latent AR(1), a design requirement, and proposed answering it with a deconfounded passive third arm.</p>
+<h3>3.4 Relation to prior work</h3>
+<p>Three reviewers scored four candidate claims on the roadmap&rsquo;s one-to-five novelty scale after reading the IBD paper in full and, in two cases, the active fault-diagnosis literature (Table 4).</p>
+<table>
+<thead>
+<tr>
+<th>Candidate claim</th>
+<th>Codex</th>
+<th>Gemini</th>
+<th>Claude</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Attribution only, online, at a 5 percent probe budget</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>The negative adaptation result on its own</td>
+<td>1</td>
+<td>1.5</td>
+<td>1</td>
+</tr>
+<tr>
+<td>A combined benchmark-and-findings paper</td>
+<td>3</td>
+<td>3.2</td>
+<td>2.5 (3 if both endpoints share one regime)</td>
+</tr>
+<tr>
+<td>A plant in which the confounder reaches the controlled channels</td>
+<td>4 (the question only; no evidence)</td>
+<td>3.8</td>
+<td>3.5</td>
+</tr>
+</tbody>
+</table>
+<p>Table 4. Novelty scores from the prior-art review (round 7 in Appendix A). After the identifiability analysis of Section 3.3, two of the three rescored the last row at 3 and the third reframed its unoccupied condition.</p>
+<p>The attribution result is IBD&rsquo;s Proposition 3.3 (invariance to confounders) in an online form; the IBD paper&rsquo;s Section 3.2 states that any confounder-independent probe distribution is valid, which covers the sign-randomised variant. The negative adaptation result is the textbook condition of passive fault detection: active input design earns its cost only when normal closed-loop data are not diagnostic (Willsky, 1976; Heirung and Mesbah, 2019). The combined benchmark-and-findings paper reaches a 3 only after the event is repaired and both endpoints are measured under one confounding regime; after Section 3.3, two of the three rescored the body-confounded plant at the same level and the third reframed what is unoccupied about it. All three rejected the sentence &ldquo;interventions buy attribution, not adaptation&rdquo; as a finding: the two results were measured on different channel sets under different regimes, so they do not constitute a dissociation. After the identifiability analysis, no candidate claim scored above 3 with any reviewer, which is the basis for stopping at a technical report.</p>
+<h2>4. What the results support</h2>
+<p><strong>Sign-randomised probing, online and at a 5 percent probe budget, was not degraded by the shared-cause confounder that reduced a frozen passive residual monitor&rsquo;s full-channel AUC by about 0.2 in the base cells.</strong> The passive monitor&rsquo;s loss came from crediting confounded distractors with control; the probed estimator&rsquo;s own score barely moved between conditions, 0.851 against 0.863 at delay 0 and 0.753 against 0.751 at delay 2 on ten distractors in Experiment 2. The gap was measured on the full channel set twice, on different passive statistics: by three implementations in Experiment 1 on the comparator&rsquo;s full score (0.691 against 0.875 in the base cell; the probed arm 0.80 to 0.83; the benefit did not clear its margin on the perturbation set), on a statistic the same experiment found defective and a baseline that failed the pre-declared competence floor, so that half is inadmissible under the contract&rsquo;s own rule; and by two implementations in Experiment 2 on the loading-only secondary, a fit-time vector that never sees the scored episode (0.73 to 0.80 against 0.96 to 0.98), which is the measurement the statement rests on. These are two estimators measured once each, not one quantity replicated. This is a replication of IBD&rsquo;s principle in a sequential setting, not a new result.</p>
+<p><strong>On the linear family studied, a passive delay-aware covariance monitor equals or beats sign-randomised probing at ranking which controlled channel an actuator loss removed.</strong> Measured once by three implementations. The caveats are load-bearing: the confounder did not reach the scored channels, the lost coordinate was chosen by construction to be dominant, the event usually removed one channel, the delay-2 cells where the passive arm is perfect score a four-channel body-only estimand, and the ordering reversed on the nonlinear family on five seeds. The result is best read as a diagnosis of the event, and of the value of probes when ordinary closed-loop data are already diagnostic, rather than as a general fact about interventions.</p>
+<p><strong>When a body-reaching confounder is present, the failure of passive support tracking is a property of a model class, not of the information set.</strong> Derived by three systems in the population limit. Predictors without a latent context variable are systematically wrong on an open set; a passive method that models the context can in principle recover the coupling through the policy&rsquo;s own action noise, which at the contract&rsquo;s constants is a weak instrument, so the practical gap is a finite-sample question the derivations did not settle.</p>
+<p>What the results do not support is the claim the programme was built to test: that an interventional estimator tracks a changing controllable boundary better than a passive one under confounding. On this generator the claim is unsupported. Its attribution half is IBD&rsquo;s result, and its adaptation half was never tested under confounding on the scored channels, because the only design that put confounding and change together did so on channels the confounder could not reach. What would reopen the question is a preregistered execution round on a plant where the confounder reaches the scored channels, with the confuser dissociation of Table 3 as the primary and a latent-modelling passive third arm whose finite-sample power at the contract&rsquo;s weak action-noise instrument would itself be a result. Nothing in this report is evidence for how that round would come out.</p>
+<h2>5. Limitations</h2>
+<ul>
+<li>The generator is one linear-Gaussian family with a scalar context, plus one nonlinear variant run on five seeds whose result reversed the linear family&rsquo;s ordering.</li>
+<li>All results are on development seeds; the sealed confirmation set was never opened, and no confirmatory run exists.</li>
+<li>Agreement between implementations of one specification on one generator is evidence that the specification is implementable, not evidence of external validity.</li>
+<li>The alarm channel, its false-alarm calibration and the calibrated-probability tier were never run; every result here is a threshold-free ranking. The probed comparator was not scored.</li>
+<li>The per-episode primary in Experiment 2 was an AUC with one or two negatives against three to five positives. Its lattice has at most six values when one channel is lost and nine when two are. The interval estimator was never specified. That is why the competence-floor verdict at delay 0 is undetermined rather than failed.</li>
+<li>The comparator&rsquo;s ridge constant was selected on development outcomes in Experiment 1, and its covariance score ranks above chance before any event.</li>
+<li>The Experiment 1 attribution benefit did not clear its margin on the perturbation set, and Experiment 1&rsquo;s implementations did not run the same trajectories.</li>
+<li>The gate at the final frozen version exits 0, but three reviewer-written mutants survive it. One widens the primary metric&rsquo;s channel set undetected, because every fixture happens to satisfy the containment the metric assumes. The mutation runner iterates the metric tests only, so no mutant against the generator can be registered.</li>
+<li>Specification defects found in Experiment 2, including colliding episode-seed registries between the two estimators and an interface that could not carry per-instance artefacts across episodes, were recorded but not repaired, because no further version was frozen.</li>
+<li>Five of the readiness protocol&rsquo;s six conditions were never satisfied (Appendix A). No version was readiness-certified.</li>
+<li>The identifiability result of Section 3.3 is a population-limit statement. The instrument it relies on, the policy&rsquo;s own action noise, is weak at the contract&rsquo;s constants, so the finite-sample gap between a latent-modelling passive method and the probed estimator is unmeasured, and the third arm proposed in Section 4 is a proposal, not a prediction.</li>
+<li>The adjudicating session that drafted the contract, the prompts and the adjudications shares a model family with one of the three reviewers, and no run of this report&rsquo;s own review had more than two model families (Appendix A).</li>
+</ul>
+<h2>6. Reproducibility and availability</h2>
+<p>The archive contains every prompt, review, adjudication, frozen manifest and hash; the contract through version 3.9; the interface specification through version 5; both estimator specifications with their superseded drafts; the reference generator with families L and N; the reference implementations of the metrics; the test gate (66 tests and 47 mutants at the final frozen version, with the surviving mutants listed in the Experiment 2 adjudication); and the three Experiment 2 implementations of both estimators with their captured output. A file map traces each table and figure in this report to the archived input, implementation, captured output and adjudication. The confirmation-seed commitment is recorded; the secret was never opened.</p>
+<p>The gate runs under a Python 3.12 interpreter with the pinned NumPy from the requirements file and refuses any other interpreter; the requirements file cannot install Python itself, so a reader must provide 3.12. A stale Python 3.14 virtual environment that a reviewer had left inside the gate directory, and the bytecode caches from three interpreters, were removed before publication; the archive as published has not been run from a clean checkout, and the gate result quoted above is from the author&rsquo;s machine. No per-version snapshot of the archive was retained, so the historical freeze hashes in Table A1 are assertions from the round log and are not recomputable from the archive as it stands; the archive today hashes to the final frozen version plus the decision entries added after it. A public release should be accompanied by a repository whose commits fix this from that point on.</p>
+<p>Repository: <code>github.com/danieljfrazer-ops/action-reachable-support-benchmark</code> (archival DOI via Zenodo to be minted on release). Documents are under CC BY 4.0, code under MIT.</p>
+<h2>7. Disclosure</h2>
+<p>The specifications, simulator, gate, round prompts and adjudications were drafted by a Claude (Anthropic) session acting as my agent; the two estimator specifications were drafted by separate fresh-context Claude agents from that session&rsquo;s adjudicated decisions; the reviews, implementations and derivations in each round came from Codex (OpenAI), Gemini (Google) and another fresh-context Claude agent, working from identical prompts under the protocol of Appendix A. I set the question, made every design decision and estimand choice from the adjudicating session&rsquo;s recommendations, ran the Codex and Gemini sessions, and directed each step. This report was drafted by the same Claude session from the archived adjudications, reviewed against the archive by a fresh-context Claude agent and by a cross-model review tool (Appendix A), and edited and approved by me. The errors in Appendix B are mine. No part of the work was funded.</p>
+<h2>Appendix A. Verification protocol</h2>
+<p>One protocol governed the eight review rounds. Its rules, as they ran (round 9, the review of this report, is listed in Table A1 for completeness and did not run under the three-family rule):</p>
+<ul>
+<li><strong>Freeze.</strong> A version is a listed set of files with one SHA-256 hash over their concatenation. No file in a frozen version is edited while any reviewer is working on it. Repairs land only after all reviewers have reported, and produce a new version. Rounds 1 to 6 reviewed frozen versions; rounds 7 and 8 reviewed the archived record without a new freeze.</li>
+<li><strong>Three model families, one prompt.</strong> Each round the identical prompt went to Codex (OpenAI), Gemini (Google) and a fresh-context Claude agent (Anthropic), Opus in every round whose adjudication names the model. Round 2 used a fourth Claude-family reviewer on a different model (Fable, the model that ran round 0); the round-3 prompt asked for a different Claude model, although the round-3 adjudication records Opus. The Claude reviewer was started without memory of previous rounds each time; the Codex and Gemini sessions were run by me and were not certified fresh. Reviewers could read each other&rsquo;s reports only after writing their own. In execution rounds each reviewer implemented both estimators from the specifications alone.</li>
+<li><strong>Adjudication separate from review.</strong> One Claude session, acting as my agent, drafted the roadmap, the contract, the interface specification, the prompts and the adjudications. Separate fresh-context Claude agents drafted the two estimator specifications and redrafted them after round 5; they worked from the contract, the interface specification, the round-5 adjudication and the D-11 decision record, and they neither reviewed nor adjudicated. That session never reviewed or implemented. Two weaknesses of the design as run: the adjudicating session shares a model family with one of the three reviewers, and the specification agents implemented its adjudicated decisions rather than forming an independent channel.</li>
+<li><strong>Executable exit criteria.</strong> The readiness protocol set six conditions for a version. (1) No normative item lacks a test identifier. (2) Every registered mutant makes at least one test fail, and a reintroduced historical bug fails the gate. (3) An independent black-box acceptance suite, written by an agent other than the builder from the interface specification alone, passes. (4) A hand-computed reference case matches both the pipeline and the reference implementation. (5) A runtime pilot has recorded per-cell durations. (6) The three-reviewer convergence rule is satisfied. Only condition 6 was met: the convergence rule ran in rounds 1 to 8. The gate&rsquo;s exit code tested condition 2&rsquo;s mutant clause and nothing else. Nothing in the gate reads the coverage matrix, which at the final frozen version still lists four uncovered normative groups, so condition 1 failed. The historical-bug clause and conditions 3, 4 and 5 were never attempted. No version was readiness-certified.</li>
+<li><strong>Single-model results are unverified.</strong> Any simulation run by one system, including by the adjudicating session, was treated as unverified until a second system reproduced it.</li>
+<li><strong>Design changes need a round.</strong> No change to what is measured was treated as confirmed without a cross-model round on it. The rule did not require a round before adoption, and error 3 in Appendix B is what that cost.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Round</th>
+<th>Date</th>
+<th>Type</th>
+<th>Frozen version reviewed</th>
+<th>Gate as frozen</th>
+<th>What it did</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>6 Sep</td>
+<td>single-model prose</td>
+<td>none</td>
+<td>none</td>
+<td>Red team of the original roadmap; prior-art check; found IBD</td>
+</tr>
+<tr>
+<td>1</td>
+<td>6 Sep</td>
+<td>prose</td>
+<td>version 1, c197652c0d8e846b</td>
+<td>gate present; count not logged</td>
+<td>Review of the re-aimed plan (roadmap v4, contract v3)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>6 Sep</td>
+<td>prose + gate</td>
+<td>version 2, d23960e6da441de7</td>
+<td>17 tests, 8 mutants</td>
+<td>Contract v3.1, interface v2; four reviewers</td>
+</tr>
+<tr>
+<td>3</td>
+<td>7 Sep</td>
+<td>prose + implementation</td>
+<td>version 3, e662b7429b6b347d</td>
+<td>25 tests, 23 mutants</td>
+<td>Contract v3.3, IBD spec draft 2; each reviewer built its own simulation</td>
+</tr>
+<tr>
+<td>4</td>
+<td>7 Sep</td>
+<td>prose + implementation</td>
+<td>version 4, 442cc4b7da691ca0</td>
+<td>34 tests, 35 mutants</td>
+<td>Both estimator specs; each reviewer implemented both arms on instances of its own</td>
+</tr>
+<tr>
+<td>5</td>
+<td>7 Sep</td>
+<td>execution (Experiment 1)</td>
+<td>version 5, 0468104f6431b050</td>
+<td>47 tests, 40 mutants</td>
+<td>Three implementations on one frozen generator</td>
+</tr>
+<tr>
+<td>6</td>
+<td>7 Sep</td>
+<td>execution (Experiment 2)</td>
+<td>version 6, 38d161e762a3de76</td>
+<td>66 tests, 47 mutants</td>
+<td>Same, on the re-posed primary; families L and N</td>
+</tr>
+<tr>
+<td>7</td>
+<td>8 Sep</td>
+<td>prose</td>
+<td>archived record</td>
+<td></td>
+<td>Novelty of what survived, against the literature (Section 3.4)</td>
+</tr>
+<tr>
+<td>8</td>
+<td>9 Sep</td>
+<td>derivation</td>
+<td>archived record</td>
+<td></td>
+<td>Identifiability under a body-reaching confounder (Section 3.3)</td>
+</tr>
+<tr>
+<td>9</td>
+<td>9 to 15 Sep</td>
+<td>prose, outside the protocol</td>
+<td>archived record</td>
+<td></td>
+<td>Review of this report (two model families per run)</td>
+</tr>
+</tbody>
+</table>
+<p>Table A1. The rounds. Hashes are the first sixteen hex digits of the SHA-256 over each version&rsquo;s manifest in manifest order, as recorded in the round log at the time of the freeze. The manifest and <code>freeze.py</code> were introduced as a repair after round 2, so rows 1 and 2 record hashes taken before that convention existed and are not manifest-order digests. No per-version snapshot was retained: files were superseded in place, so every row is an assertion from the round log. Running <code>freeze.py</code> on the archive today prints 1fcd1c5784a78fda, which reproduces no row, because the manifest includes the decision log, which gained two entries after round 6 closed and was overwritten in place; every other version-6 manifest file is byte-identical to the reviewed version. Gate counts are for the version as frozen, not after the repairs the round prompted; row 3&rsquo;s count is confirmed by a round-3 reviewer&rsquo;s run on that hash. The whole programme ran on one laptop; the round-6 runs took 5 to 21 minutes each, and reviewer implementation and analysis time was not recorded.</p>
+<p><strong>Review of this report.</strong> Two things reviewed it against the archive: a fresh-context Claude Opus agent, and a cross-model review tool. The tool ran ten times: once on draft 1 with the archive out of scope, once on each of drafts 1 to 7, once on a proposal for the figures, and once on the restructured draft; every run&rsquo;s report is archived under <code>review9-tool/</code>, and one run number is unused because I aborted that run before any reviewer reported. The Anthropic reviewer reported on every run. The OpenAI reviewer reported on drafts 1 to 3 only; it declined the first run for lack of the archive and errored on every later run. The Google reviewer reported on drafts 4, 5 and 6 and on the restructured draft, was out of scope on the first run, quota-exhausted on drafts 1 to 3, and returned nothing readable on draft 7 and the figures proposal, so those two runs had one usable family. No single run had all three families. On every draft, one of the two families that reviewed it is the family that drafted it. The Claude agent that fact-checked the restructured draft against draft 10 and the archive was a fresh context, and its findings with checked evidence were applied before this version was built.</p>
+<h2>Appendix B. Errors and their provenance</h2>
+<p>The execution rounds and the derivation round exposed four design errors of mine, each of which changed the benchmark&rsquo;s estimand or its verdict. The review of this report identified two further errors in the adjudication step, one of them a rejection made in round 4 of a finding that round 5 established. Table B1 gives the provenance of all six.</p>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Entered</th>
+<th>Named</th>
+<th>Established</th>
+<th>Rejected in adjudication first</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Change score blind to the change</td>
+<td>version 4</td>
+<td>round 4 (Gemini, R4-GM-02)</td>
+<td>round 5, three of three</td>
+<td>yes</td>
+<td>one extra round</td>
+</tr>
+<tr>
+<td>2. Event not certified to change the support</td>
+<td>the first generator, frozen at version 5</td>
+<td>round 5, three of three</td>
+<td>round 5</td>
+<td>no</td>
+<td>the Experiment 1 primary measured static structure</td>
+</tr>
+<tr>
+<td>3. Primary scored channels the treatment cannot reach</td>
+<td>version 6 (D-11.1a)</td>
+<td>round 6, three of three</td>
+<td>round 6</td>
+<td>no</td>
+<td>Experiment 2&rsquo;s exit condition unattainable</td>
+</tr>
+<tr>
+<td>4. Premise that passive tracking is non-identifiable in principle</td>
+<td>D-12 (8 September)</td>
+<td>round 8 (Codex and Claude)</td>
+<td>round 8 adjudication</td>
+<td>no</td>
+<td>none built</td>
+</tr>
+<tr>
+<td>5. Adjudication: rejecting R4-GM-02</td>
+<td>round-4 adjudication</td>
+<td>round 9 (report review)</td>
+<td>round 5 had established the finding</td>
+<td>not applicable</td>
+<td>error 1&rsquo;s extra round</td>
+</tr>
+<tr>
+<td>6. Adjudication: secondary range narrowed to a delay-0 read</td>
+<td>round-6 adjudication</td>
+<td>round 9 (report review)</td>
+<td>erratum, 10 September</td>
+<td>not applicable</td>
+<td>a wrong range in the archive for two days</td>
+</tr>
+</tbody>
+</table>
+<p>Table B1. Provenance of the six errors: the version or step in which each entered, the round that first named it, the round that established it, whether the adjudication step rejected it before it was established, and what it cost.</p>
+<p><strong>1. A change score that could not see the change.</strong> The comparator&rsquo;s innovation-mean-shift statistic was specified by analogy with a CUSUM on residuals. Under a centred policy an actuator loss leaves the residual mean unchanged. The statistic entered at version 4 and survived round 4, where three models implemented both arms on instances of their own and disagreed by 0.2 AUC on the comparator. Round 4 found the comparator structurally incapable, three of three, and the next version rewrote its features and loading. One round-4 reviewer (Gemini, finding R4-GM-02, high) also named the change term itself, showing by simulation that under a zero-mean policy lost and retained channels receive the same score. I rejected the mechanism in adjudication, on the ground that the identity is exact only in the population while the statistic uses a finite-window mean, and folded the observation into the structural rewrite. The finding was correct and the rejection was wrong. The blindness was established in round 5, the first round on a single frozen generator, by one reviewer&rsquo;s algebra and two reviewers&rsquo; measurements.</p>
+<p><strong>2. A primary that mostly measured static structure.</strong> The generator&rsquo;s event was not certified to change anything, and on most instances it did not. A fit-time vector beat both arms. Found in round 5, which was the first round in which the generator was frozen and the event therefore testable. Any change-detection benchmark needs a control that never sees the change and must be shown to score at chance.</p>
+<p><strong>3. A primary the treatment could not reach.</strong> My repair restricted scoring to the pre-event support, which contains no confounded channels, so the benefit was identically zero. The two redrafting agents encoded it from the adjudication without checking the channel sets, and the execution round that followed was the first place it was checked, by all three reviewers. Before adopting a primary, confirm on the generator that the treatment changes the streams the primary scores.</p>
+<p><strong>4. A premise a derivation refuted.</strong> I routed the programme toward a body-reaching confounder on the belief that passive support tracking would be non-identifiable there in principle. All three systems showed it is not: the policy&rsquo;s own action noise is an instrument, so exact non-identifiability is a knife-edge. Found in round 8, a prose round whose three derivations ran to several hundred lines each and initially disagreed on whether the equivalence set was open before adjudication reconciled them; the cheapest of the four, since nothing was built.</p>
+<p><strong>5 and 6. Adjudication errors.</strong> No cross-model round caught either, because the adjudication step is the one place in the protocol with a single model. The first is the rejection of R4-GM-02 above. The second is that the round-6 adjudication narrowed the interventional arm&rsquo;s secondary full-channel AUC to 0.85 to 0.87, a delay-0 read of outputs that also contain 0.75 at delay 2; the range stood in the archive for two days and was found by the review of this report, not by any round (erratum of 10 September 2026 appended to the round-6 tally). In both cases the reviewers had produced the evidence and the adjudicating step misread it.</p>
+<h2>References</h2>
+<p>Basseville, M. and Nikiforov, I. V. (1993). <em>Detection of Abrupt Changes: Theory and Application</em>. Prentice Hall.</p>
+<p>Heirung, T. A. N. and Mesbah, A. (2019). Input design for active fault diagnosis. <em>Annual Reviews in Control</em>, 47, 35–50.</p>
+<p>Liu, J., Cheng, A. and Bogdan, P. (2026). Discovering what you can control: Interventional boundary discovery for reinforcement learning. arXiv:2603.18257v2.</p>
+<p>Mann, H. B. and Whitney, D. R. (1947). On a test of whether one of two random variables is stochastically larger than the other. <em>Annals of Mathematical Statistics</em>, 18(1), 50–60.</p>
+<p>Page, E. S. (1954). Continuous inspection schemes. <em>Biometrika</em>, 41(1/2), 100–115.</p>
+<p>Willsky, A. S. (1976). A survey of design methods for failure detection in dynamic systems. <em>Automatica</em>, 12(6), 601–611.</p></body></html>

@@ -1,0 +1,154 @@
+==========================================================================================
+A1. T-E2d delta_inv = 0.05 on max |corr| over K x N_x pairs, no multiplicity control
+    Data are INDEPENDENT by construction (perfectly severed). Failure here = false rejection.
+==========================================================================================
+    T=  4000  N_x= 10  K=3:  false-failure rate of T-E2d =  9.0%   (E[max|corr|] ~ sqrt(2 ln(30)/T) = 0.041)
+    T=  4000  N_x= 30  K=3:  false-failure rate of T-E2d =  9.0%   (E[max|corr|] ~ sqrt(2 ln(90)/T) = 0.047)
+    T=  4000  N_x=100  K=3:  false-failure rate of T-E2d = 35.0%   (E[max|corr|] ~ sqrt(2 ln(300)/T) = 0.053)
+    T= 20000  N_x= 10  K=3:  false-failure rate of T-E2d =  0.0%   (E[max|corr|] ~ sqrt(2 ln(30)/T) = 0.018)
+    T= 20000  N_x= 30  K=3:  false-failure rate of T-E2d =  0.0%   (E[max|corr|] ~ sqrt(2 ln(90)/T) = 0.021)
+    T= 20000  N_x=100  K=3:  false-failure rate of T-E2d =  0.0%   (E[max|corr|] ~ sqrt(2 ln(300)/T) = 0.024)
+    T=100000  N_x= 10  K=3:  false-failure rate of T-E2d =  0.0%   (E[max|corr|] ~ sqrt(2 ln(30)/T) = 0.008)
+    T=100000  N_x= 30  K=3:  false-failure rate of T-E2d =  0.0%   (E[max|corr|] ~ sqrt(2 ln(90)/T) = 0.009)
+    T=100000  N_x=100  K=3:  false-failure rate of T-E2d =  0.0%   (E[max|corr|] ~ sqrt(2 ln(300)/T) = 0.011)
+    -> at distractor_level=100 the severed-confounding test rejects CORRECT instances unless
+       T is very large; delta_inv is a fixed constant applied to a max over a growing pair set.
+
+==========================================================================================
+A2. ARL_0 = 1000 +- 10% from >= 20,000 stationary steps: attainable precision
+==========================================================================================
+       20000 steps: expected alarms=  20.0  95% range of ARL_0-hat [  689.7,  1666.7]  P(estimate within +-10%) = 31.6%
+      100000 steps: expected alarms= 100.0  95% range of ARL_0-hat [  840.3,  1265.8]  P(estimate within +-10%) = 71.2%
+      400000 steps: expected alarms= 400.0  95% range of ARL_0-hat [  909.1,  1101.9]  P(estimate within +-10%) = 95.7%
+     1000000 steps: expected alarms=1000.0  95% range of ARL_0-hat [  941.6,  1061.6]  P(estimate within +-10%) = 99.7%
+    -> 20,000 steps gives ~20 alarms; relative SE ~ 1/sqrt(20) = 22%. A +-10% tolerance is
+       NOT verifiable at that sample size. ~385 alarms (~385,000 steps) are needed for +-10%
+       at 95% confidence: n_alarms = (1.96/0.10)^2 = 384.
+    -> per estimator, per cell, per regime: the calibration cost is ~19x what the contract states.
+
+==========================================================================================
+A3. rho_cl bounds only the b-block loop; the b->d->o->a->b loop is unconstrained
+==========================================================================================
+    contract quantity rho(A_b + B W_o diag(gain*avail) Assign_b) = 0.3000   (<= 0.98 PASSES)
+    true closed-loop rho over z = [b; d]                        = 2.3000   (> 1 => DIVERGES)
+    UNCLIPPED simulation |z|_inf at t=0,20,40,60: 0.01, 8.6e+04, 1.47e+12, 2.53e+19
+    -> the LINEARISED closed loop of an instance passing every stability clause is unstable.
+
+    Now with the contract's action clip a_max = 2.0 in place (honest correction: the clip DOES
+    keep the latents bounded, so the failure mode is PERMANENT SATURATION, not divergence):
+    action saturation fraction over 20000 steps = 100.0%   (contract B: 'saturation fraction logged',
+      but NO bound on it anywhere in the contract)
+    |corr(a, x)| in the saturated closed loop = 0.004   vs contract rho_min = 0.40 required by T-E2c
+    -> the instance passes rho_cl <= 0.98 but is unusable: the policy is pinned at the clip,
+       the confounding witness collapses, and probes on a saturated actuator move nothing.
+       rho_cl as written is NOT a closed-loop bound: it omits every loop that leaves the
+       b-block (b -> d -> o -> a -> b), which exists whenever any d channel is observed.
+
+==========================================================================================
+A4. CartPole-v1 after complete actuator loss: how long until termination?
+==========================================================================================
+    initial pole angle  0.001 rad ( 0.06 deg), zero force: terminates at step 80
+    initial pole angle  0.010 rad ( 0.57 deg), zero force: terminates at step 49
+    initial pole angle  0.050 rad ( 2.86 deg), zero force: terminates at step 28
+    initial pole angle  0.100 rad ( 5.73 deg), zero force: terminates at step 19
+    -> after complete actuator loss CartPole terminates in ~30-60 steps, far inside H_det = 200.
+       Contract G scores 'terminated' as H_det for BOTH arms, so HPDT = 200 for both and
+       Delta = RMDT(CUSUM) - RMDT(IBD) is identically 0 on CartPole by construction.
+       roadmap v4 requires the sign to hold on both T2 environments (v4.1 E5: point estimate > 0).
+       Also: ARL_0 = 1000 steps exceeds the CartPole-v1 episode cap of 500 steps entirely,
+       and event_spacing = 250 permits at most ONE event per 500-step episode.
+
+==========================================================================================
+A5. probe_budget = 0.05 vs the published IBD probe phase of 32,000 steps
+==========================================================================================
+    1 IBD mask estimation(s) at published config:   32,000 probe steps =>     640,000 environment steps per run at a 5% budget
+        at ARL_0 = 1000 steps that single run contains ~     640 EXPECTED FALSE ALARMS
+    2 IBD mask estimation(s) at published config:   64,000 probe steps =>   1,280,000 environment steps per run at a 5% budget
+        at ARL_0 = 1000 steps that single run contains ~   1,280 EXPECTED FALSE ALARMS
+    4 IBD mask estimation(s) at published config:  128,000 probe steps =>   2,560,000 environment steps per run at a 5% budget
+        at ARL_0 = 1000 steps that single run contains ~   2,560 EXPECTED FALSE ALARMS
+    confirmation-design.csv has 1764 rows; at 1 mask/run that is 1,128,960,000 environment steps of simulation.
+    HONEST CORRECTION (see throughput.py, measured on this arm64 host at 168,190 bare SCM
+    steps/s): 1.13e9 bare SCM steps is only ~1.9 h, so raw stepping is NOT the binding
+    constraint and a 'too slow' claim here would be wrong. The binding problem is STATISTICAL:
+      * a run long enough for one published-configuration IBD mask contains ~640 expected
+        false alarms at ARL_0 = 1000 steps, against ~1 change event. No one operates a change
+        detector at that point; the HPDT event-matching machinery (p=3, r=20, w_T=50) is
+        swamped -- P(a false alarm lands inside w_T=50 of the event) ~ 50/1000 = 5% per event,
+        which is spurious 'detection' at zero delay for BOTH arms.
+      * either ARL_0 must scale with the run length (e.g. a fixed false-alarm probability over
+        the run), or the run must be short and sequential IBD must run at a probe configuration
+        far below the published one -- at which point 'IBD as published, reproduced to numerical
+        anchors' (contract H) no longer describes the confirmatory arm.
+    confirmation-design.csv declares no steps_per_run and no events_per_run column, so this
+    trade-off is currently invisible in the frozen run matrix.
+
+==========================================================================================
+A9. Oracle C2 certification cost, measured
+==========================================================================================
+    N_z= 20 K=3 |H|=3: one full C2 certification =    12.5 ms (vectorised, CRN)
+        1764 rows x 1 event each:     22.0 s ; x 4 events/run:     87.9 s
+    N_z= 60 K=3 |H|=3: one full C2 certification =    23.5 ms (vectorised, CRN)
+        1764 rows x 1 event each:     41.4 s ; x 4 events/run:    165.5 s
+    N_z=120 K=4 |H|=3: one full C2 certification =    76.4 ms (vectorised, CRN)
+        1764 rows x 1 event each:    134.7 s ; x 4 events/run:    538.7 s
+    -> C2 certification is cheap when vectorised. The FEASIBILITY risk is not arithmetic:
+       it is the T2 arm (Gymnasium python stepping, MLP residual models trained to
+       convergence on 200,000 steps per contract F, per cell) and the ~19x calibration
+       inflation from A2 -- none of which has a measured number anywhere in the plan.
+
+==========================================================================================
+A6. Required true effect for 80% power, and the conjunctive rule
+==========================================================================================
+    n=10 seeds, between-seed SD of the paired HPDT difference =  10 steps:  need a TRUE effect of   28.6 steps for 80% power on 'lower bound > delta=20'
+    n=10 seeds, between-seed SD of the paired HPDT difference =  20 steps:  need a TRUE effect of   37.2 steps for 80% power on 'lower bound > delta=20'
+    n=10 seeds, between-seed SD of the paired HPDT difference =  40 steps:  need a TRUE effect of   54.4 steps for 80% power on 'lower bound > delta=20'
+    n=10 seeds, between-seed SD of the paired HPDT difference =  60 steps:  need a TRUE effect of   71.5 steps for 80% power on 'lower bound > delta=20'
+    n=20 seeds, between-seed SD of the paired HPDT difference =  10 steps:  need a TRUE effect of   25.8 steps for 80% power on 'lower bound > delta=20'
+    n=20 seeds, between-seed SD of the paired HPDT difference =  20 steps:  need a TRUE effect of   31.6 steps for 80% power on 'lower bound > delta=20'
+    n=20 seeds, between-seed SD of the paired HPDT difference =  40 steps:  need a TRUE effect of   43.2 steps for 80% power on 'lower bound > delta=20'
+    n=20 seeds, between-seed SD of the paired HPDT difference =  60 steps:  need a TRUE effect of   54.7 steps for 80% power on 'lower bound > delta=20'
+    The R1 superiority rule is a CONJUNCTION of 6 conditions (v4 sec.4 + v4.1 E1/E5):
+      LB(Delta) > 20 on scm_L and scm_N; LB(I) > 0 on scm_L and scm_N; sign on cartpole and pendulum.
+      if each condition independently had power 0.90, joint power = 0.531
+      if each condition independently had power 0.80, joint power = 0.262
+      if each condition independently had power 0.70, joint power = 0.118
+    The interaction I is a difference of FOUR cell means; if the four Delta estimates were
+    independent its SD would be ~2x that of a single Delta (var x 4), so LB(I) > 0 is the
+    weakest link, and nothing in the plan sizes it.
+    Note also: HPDT is bounded in [0, H_det=200] with an atom at 200, so the between-seed SD
+    is driven by the MISS RATE, not by delay. delta = 20 HPDT steps == a 10 percentage-point
+    difference in miss rate at zero delay difference: the 'detection delay' framing is not
+    what the primary estimand measures.
+
+==========================================================================================
+A7. R0 negative control admits an unbounded failure in the other direction
+==========================================================================================
+    true Delta =     0 steps (IBD faster than CUSUM): expected upper bound =    11.6  -> R0 rule 'UB < delta0 = 10' says anomaly
+    true Delta =    -5 steps (IBD slower than CUSUM): expected upper bound =     6.6  -> R0 rule 'UB < delta0 = 10' says VALIDATED
+    true Delta =   -50 steps (IBD slower than CUSUM): expected upper bound =   -38.4  -> R0 rule 'UB < delta0 = 10' says VALIDATED
+    true Delta =  -150 steps (IBD slower than CUSUM): expected upper bound =  -138.4  -> R0 rule 'UB < delta0 = 10' says VALIDATED
+    -> R0 'validates' even when sequential IBD is 150 steps SLOWER than the classical
+       comparator in the clean regime. A negative control needs two-sided equivalence
+       (TOST: |Delta| bounded by delta0), not one-sided non-superiority.
+
+==========================================================================================
+A8. Near-cancellation rate: how often is a structurally reachable component's
+    zero-noise response tiny? (contract B: 'above eps_faith ... otherwise resample';
+    eps_faith is NOT in the section 0 constants registry)
+==========================================================================================
+    N_b=4 K=2: P(min response over reachable comps < 0.05) =  1.3%
+    N_b=4 K=2: P(min response over reachable comps < 0.02) =  0.1%
+    N_b=4 K=2: P(min response over reachable comps < 0.01) =  0.0%
+    N_b=6 K=3: P(min response over reachable comps < 0.05) =  0.1%
+    N_b=6 K=3: P(min response over reachable comps < 0.02) =  0.0%
+    N_b=6 K=3: P(min response over reachable comps < 0.01) =  0.0%
+    N_b=8 K=3: P(min response over reachable comps < 0.05) =  0.1%
+    N_b=8 K=3: P(min response over reachable comps < 0.02) =  0.0%
+    N_b=8 K=3: P(min response over reachable comps < 0.01) =  0.0%
+    -> the resample rate depends entirely on eps_faith, which has no value. Contract L4 caps
+       the rejection rate at 20%; at eps = 0.05 that cap is already close to binding, and the
+       rejection ALSO conditions the instance population on effects being far from eps --
+       a selection effect that removes exactly the hard cases the estimand is about.
+
+done.

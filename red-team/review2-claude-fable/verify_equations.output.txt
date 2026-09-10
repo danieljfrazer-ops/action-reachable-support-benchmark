@@ -1,0 +1,11 @@
+(1) C4 closed form vs paired-CRN simulation over h=1..5, tau=2, 2K=4 probes: max abs error 4.81e-14
+    h<=tau responses are exactly zero: True
+(2) H=1 tau=2: graph [0, 0, 0, 0, 0] numeric [0, 0, 0, 0, 0] agree=True
+(2) H=2 tau=2: graph [0, 0, 0, 0, 0] numeric [0, 0, 0, 0, 0] agree=True
+(2) H=3 tau=2: graph [1, 1, 0, 0, 0] numeric [1, 1, 0, 0, 0] agree=True
+(2) H=4 tau=2: graph [1, 1, 1, 1, 0] numeric [1, 1, 1, 1, 0] agree=True
+(2) H=5 tau=2: graph [1, 1, 1, 1, 1] numeric [1, 1, 1, 1, 1] agree=True
+(2) H=6 tau=2: graph [1, 1, 1, 1, 1] numeric [1, 1, 1, 1, 1] agree=True
+(2) H=7 tau=2: graph [1, 1, 1, 1, 1] numeric [1, 1, 1, 1, 1] agree=True
+(2) graph reachability == numeric Jacobian pattern for all H: True
+(3) family L CRN paired difference has zero variance (asserted above): certification intervals are degenerate for L; the n_oracle=4096 / Bonferroni machinery only does work on family N.

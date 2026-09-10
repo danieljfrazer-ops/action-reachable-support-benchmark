@@ -1,0 +1,166 @@
+------------------------------------------------------------------------------
+C1  passive projection bias:  beta_a(lag tau) =?= B + kappa G_b W_u^T
+    kappa = v_u / (sigma_a^2 + v_u ||W_u||^2),  v_u = Var(u_t | o_t)
+------------------------------------------------------------------------------
+  (a) clean case: 1-lag regression [o_t, a_t], tau = 0 -- formula must be exact
+      sig_o=0.0: v_u=1.04288 kappa=1.11162 max|beta_a - (B + kappa G_b W_u^T)| = 1.685e-14  max|bias| = 0.3557
+      sig_o=0.05: v_u=1.04617 kappa=1.11166 max|beta_a - (B + kappa G_b W_u^T)| = 9.796e-04  max|bias| = 0.3557
+  (b) frozen design: 3 action lags, the bias splits across lag slots
+      tau=0: kappa(o_t only)=1.1117
+        lag 0: beta_a - B_struct =
+[[ 0.35602 -0.22252]
+                       [ 0.22206 -0.13879]
+                       [ 0.00012 -0.00007]]
+        lag 1: beta_a - B_struct =
+[[ 0.01217 -0.0266 ]
+                       [-0.00528  0.00874]
+                       [-0.02177  0.01594]]
+        lag 2: beta_a - B_struct =
+[[-0.00361 -0.02194]
+                       [ 0.0012   0.01966]
+                       [-0.00843  0.00434]]
+      tau=2: kappa(o_t only)=1.1137
+        lag 0: beta_a - B_struct =
+[[ 0.35573 -0.22233]
+                       [ 0.22222 -0.13889]
+                       [ 0.00068 -0.00042]]
+        lag 1: beta_a - B_struct =
+[[ 0.00058 -0.01932]
+                       [ 0.00531 -0.01025]
+                       [-0.00863 -0.00218]]
+        lag 2: beta_a - B_struct =
+[[-0.00366 -0.01405]
+                       [ 0.00001 -0.00635]
+                       [-0.01191 -0.00984]]
+------------------------------------------------------------------------------
+C2  can conditioning on MORE observables remove the bias?
+    v_u = Var(u_t | conditioning set).  Floor for any PAST-measurable set
+    is sigma_u^2 = 1.0, because u_t = rho_u u_{t-1} + eps^u and eps^u_t has
+    no trace at time t outside a_t itself.
+------------------------------------------------------------------------------
+    sigma_u^2 = 1.000, Var(u_t) stationary = 2.7778, 1/||W_u||^2 = 1.1236
+      o_t only               v_u =  1.04288   kappa = 1.11162   max|kappa G_b W_u^T| = 0.3557
+      o_t..o_{t-2}           v_u =  1.00328   kappa = 1.11115   max|kappa G_b W_u^T| = 0.3556
+      o_t..o_{t-8}           v_u =  1.00328   kappa = 1.11115   max|kappa G_b W_u^T| = 0.3556
+      SMOOTHER: + o_{t+1}    v_u =  0.00513   kappa = 0.35202   max|kappa G_b W_u^T| = 0.1126
+    -> the number of confounded distractors is irrelevant to a causal predictor:
+      n_conf=0: v_u(8 lags)=1.00984  max|beta_a - B| = 0.3557
+      n_conf=2: v_u(8 lags)=1.00328  max|beta_a - B| = 0.3557
+      n_conf=4: v_u(8 lags)=1.00197  max|beta_a - B| = 0.3557
+------------------------------------------------------------------------------
+C3  exact observational equivalence needs a ZERO exogenous action part.
+    theta' = (A_b - D W_b, B + D, G_b - D W_u); compare Gamma_y(0..12).
+------------------------------------------------------------------------------
+Delta (support-flipping, |entry| up to 0.22 > eps=0.05):
+[[0.   0.22]
+ [0.18 0.  ]
+ [0.   0.  ]]
+  sigma_a=0.00 sigma_o=0.00:  rel. max |Gamma_y diff| lags 0..12 = 9.761e-17  (Sigma_b uncompensated: 9.761e-17)
+  sigma_a=0.10 sigma_o=0.00:  rel. max |Gamma_y diff| lags 0..12 = 3.022e-05  (Sigma_b uncompensated: 4.974e-05)
+  sigma_a=0.00 sigma_o=0.05:  rel. max |Gamma_y diff| lags 0..12 = 1.889e-06  (Sigma_b uncompensated: 1.454e-06)
+  sigma_a=0.10 sigma_o=0.05:  rel. max |Gamma_y diff| lags 0..12 = 3.088e-05  (Sigma_b uncompensated: 5.070e-05)
+------------------------------------------------------------------------------
+C3b how far from the knife-edge?  per-step Kullback-Leibler rate between
+     the true law and the support-flipped twin (Gaussian spectral formula).
+------------------------------------------------------------------------------
+  sigma_a=0.00 sigma_o=0.00: KL rate = 0.000e+00 nats/step -> ~1e+300 steps for one nat of evidence
+  sigma_a=0.10 sigma_o=0.00: KL rate = 3.303e-02 nats/step -> ~30.3 steps for one nat of evidence
+  sigma_a=0.00 sigma_o=0.05: KL rate = 7.414e-05 nats/step -> ~1.35e+04 steps for one nat of evidence
+  sigma_a=0.10 sigma_o=0.05: KL rate = 2.121e-02 nats/step -> ~47.2 steps for one nat of evidence
+  sigma_a=0.4 sigma_o=0.05: compensated Sigma_b not PSD (min eig -3.39e-02) -- twin infeasible at this Delta
+------------------------------------------------------------------------------
+C3c PROFILE distinguishability: minimise the KL rate over the nuisances
+    (A_b', G_b', Sigma_b') holding B' = B + Delta fixed.  This is how much
+    passive information about the SUPPORT really survives.
+------------------------------------------------------------------------------
+  sigma_a=0.10 sigma_o=0.05: min KL rate over nuisances = 1.081e-02 nats/step -> ~92.5 steps for one nat
+      best G_b' = [0.51042 0.10546 0.00012]   (true G_b = [0.4  0.25 0.  ])
+  sigma_a=0.02 sigma_o=0.05: min KL rate over nuisances = 3.212e-04 nats/step -> ~3113 steps for one nat
+      best G_b' = [0.50992 0.10589 0.00001]   (true G_b = [0.4  0.25 0.  ])
+------------------------------------------------------------------------------
+C4  probe sign-contrast at h = tau+1 equals 2*B[:,k], whatever G_b (MC).
+------------------------------------------------------------------------------
+tau=0 G_b scale= 0.0: contrast=[ 1.39999 -0.00077  0.00239]  2*B[:,0]=[1.4 0.  0. ]  max err=0.0024  (n+=9912, n-=10088)
+tau=0 G_b scale= 1.0: contrast=[1.40632 0.00285 0.00212]  2*B[:,0]=[1.4 0.  0. ]  max err=0.0063  (n+=9912, n-=10088)
+tau=0 G_b scale= 4.0: contrast=[1.4253  0.01369 0.00133]  2*B[:,0]=[1.4 0.  0. ]  max err=0.0253  (n+=9912, n-=10088)
+tau=2 G_b scale= 0.0: contrast=[ 1.41503 -0.0038   0.00104]  2*B[:,0]=[1.4 0.  0. ]  max err=0.0150  (n+=9912, n-=10088)
+tau=2 G_b scale= 1.0: contrast=[ 1.42717 -0.00033  0.00463]  2*B[:,0]=[1.4 0.  0. ]  max err=0.0272  (n+=9912, n-=10088)
+tau=2 G_b scale= 4.0: contrast=[1.46358 0.01007 0.01538]  2*B[:,0]=[1.4 0.  0. ]  max err=0.0636  (n+=9912, n-=10088)
+------------------------------------------------------------------------------
+C5  Delta_c population limit:  Delta_c/sqrt(n) = || S_a^{-1/2} [S_phi^post
+    (beta^post - beta^pre)]_a || / sigma_c   under E1 / E2 / E3.
+------------------------------------------------------------------------------
+
+  tau=0  G_b = 0  (regime C-)  sigma_o=0.0   [per-channel Delta_c/sqrt(n)]
+    event                b0     b1     b2     x0     x1     x2     x3    
+    E1 (lose act 0)      24.512  0.000  0.000  0.055  0.047  0.000  0.000
+    E2 (G_b x2)           0.000  0.000  0.000  0.000  0.000  0.000  0.000
+    E2' (W_u change)      0.000  0.000  0.000 15.583 13.443  0.000  0.000
+    E3 (gamma=0.5)        5.433  0.000  0.000  0.012  0.010  0.000  0.000
+
+  tau=0  G_b = 0  (regime C-)  sigma_o=0.05   [per-channel Delta_c/sqrt(n)]
+    event                b0     b1     b2     x0     x1     x2     x3    
+    E1 (lose act 0)      23.725  1.125  0.359  0.096  0.081  0.000  0.000
+    E2 (G_b x2)           0.000  0.000  0.000  0.000  0.000  0.000  0.000
+    E2' (W_u change)      4.679  1.940  0.312 13.989 11.818  0.000  0.000
+    E3 (gamma=0.5)        5.105  0.187  0.054  0.019  0.016  0.000  0.000
+
+  tau=0  G_b != 0 (regime C+)  sigma_o=0.0   [per-channel Delta_c/sqrt(n)]
+    event                b0     b1     b2     x0     x1     x2     x3    
+    E1 (lose act 0)       9.175  0.011  0.000  0.029  0.025  0.000  0.000
+    E2 (G_b x2)          10.609  6.958  0.000  0.049  0.042  0.000  0.000
+    E2' (W_u change)      3.915  2.568  0.000  6.936  5.984  0.000  0.000
+    E3 (gamma=0.5)        3.387  0.004  0.000  0.010  0.008  0.000  0.000
+
+  tau=0  G_b != 0 (regime C+)  sigma_o=0.05   [per-channel Delta_c/sqrt(n)]
+    event                b0     b1     b2     x0     x1     x2     x3    
+    E1 (lose act 0)       8.159  0.108  0.179  0.028  0.024  0.000  0.000
+    E2 (G_b x2)           9.715  6.454  0.623  0.083  0.070  0.000  0.000
+    E2' (W_u change)      2.862  2.038  0.072  6.210  5.246  0.000  0.000
+    E3 (gamma=0.5)        2.993  0.042  0.060  0.009  0.008  0.000  0.000
+
+  tau=2  G_b = 0  (regime C-)  sigma_o=0.0   [per-channel Delta_c/sqrt(n)]
+    event                b0     b1     b2     x0     x1     x2     x3    
+    E1 (lose act 0)      18.324  0.000  0.000  0.002  0.002  0.000  0.000
+    E2 (G_b x2)           0.000  0.000  0.000  0.000  0.000  0.000  0.000
+    E2' (W_u change)      0.000  0.000  0.000 12.373 10.674  0.000  0.000
+    E3 (gamma=0.5)        5.048  0.000  0.000  0.001  0.001  0.000  0.000
+
+  tau=2  G_b = 0  (regime C-)  sigma_o=0.05   [per-channel Delta_c/sqrt(n)]
+    event                b0     b1     b2     x0     x1     x2     x3    
+    E1 (lose act 0)      16.344  0.975  0.619  0.022  0.019  0.000  0.000
+    E2 (G_b x2)           0.000  0.000  0.000  0.000  0.000  0.000  0.000
+    E2' (W_u change)      2.593  2.340  1.817 11.140  9.411  0.000  0.000
+    E3 (gamma=0.5)        4.423  0.159  0.095  0.004  0.004  0.000  0.000
+
+  tau=2  G_b != 0 (regime C+)  sigma_o=0.0   [per-channel Delta_c/sqrt(n)]
+    event                b0     b1     b2     x0     x1     x2     x3    
+    E1 (lose act 0)       8.129  0.003  0.000  0.008  0.007  0.000  0.000
+    E2 (G_b x2)          10.330  6.775  0.000  0.009  0.008  0.000  0.000
+    E2' (W_u change)      3.639  2.387  0.000  6.446  5.561  0.000  0.000
+    E3 (gamma=0.5)        3.475  0.001  0.000  0.003  0.003  0.000  0.000
+
+  tau=2  G_b != 0 (regime C+)  sigma_o=0.05   [per-channel Delta_c/sqrt(n)]
+    event                b0     b1     b2     x0     x1     x2     x3    
+    E1 (lose act 0)       7.125  0.082  0.012  0.012  0.010  0.000  0.000
+    E2 (G_b x2)           9.313  6.347  0.328  0.043  0.036  0.000  0.000
+    E2' (W_u change)      2.884  1.993  0.431  5.767  4.872  0.000  0.000
+    E3 (gamma=0.5)        3.041  0.033  0.008  0.005  0.004  0.000  0.000
+
+------------------------------------------------------------------------------
+C6  finite-sample scale: sd of the h=tau+1 increment vs the 2*B effect,
+    at p=0.05, W=500 steps, K=2  ->  25 units, ~6.25 per (k,sign) cell.
+------------------------------------------------------------------------------
+tau=0: sd(D^1) body = [1.06055 0.19431 0.30355], 2|B[:,0]| = [1.4 0.  0. ]
+        SE(contrast) = [0.59994 0.10992 0.17172],  SE/effect = 0.43   inf   inf
+tau=2: sd(D^3) body = [2.60825 0.78143 0.54521], 2|B[:,0]| = [1.4 0.  0. ]
+        SE(contrast) = [1.47545 0.44204 0.30842],  SE/effect = 1.05   inf   inf
+------------------------------------------------------------------------------
+C7  exogenous action variation: policy noise vs deliberate probe
+------------------------------------------------------------------------------
+Cov(zeta) = W_b Sigma_eo W_b^T + sigma_a^2 I  diag = [0.01025 0.01022]
+  of which sigma_a^2 = 0.01000, policy-read obs noise = [0.00025 0.00022]
+probe: variance 1.0 on fraction p/K = 0.0250 of steps per actuator -> 0.0250 per step
+ratio probe:passive per step per actuator = 2.44 : 1
+------------------------------------------------------------------------------
+END OF CHECKS -- nothing above is a result.

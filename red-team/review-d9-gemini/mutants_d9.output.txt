@@ -1,0 +1,22 @@
+================================================================================
+mutants_d9.py: Evaluating New Mutants Against Frozen Gate
+================================================================================
+Base gate run: 0 failing tests (clean baseline required: 0)
+
+--- Mutant D9-GM-M1: pairwise_corr drops abs() ---
+  Probe input: negatively correlated pair
+  Reference output : 0.9999999999999999
+  Mutant output    : -0.9999999999999999
+  Gate result: 0 failing tests
+  -> SURVIVED THE GATE! (Finding: test suite lacks negative-correlation witness assertion)
+
+--- Mutant D9-GM-M2: match_alarms strict upper bound (< end instead of <= end) ---
+  Probe input: alarm exactly at e + H_det (t=1200, e=1000, H_det=200)
+  Reference output : ([200], ['detected'], [])
+  Mutant output    : ([200], ['missed'], [1200])
+  Gate result: 0 failing tests
+  -> SURVIVED THE GATE! (Finding: test suite lacks exact upper boundary attribution test)
+
+================================================================================
+Summary: 2/2 new mutants survived the gate: ['D9-GM-M1', 'D9-GM-M2']
+================================================================================

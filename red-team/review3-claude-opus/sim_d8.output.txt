@@ -1,0 +1,221 @@
+====================================================================================================
+sim_d8.py -- independent D-8 refutation attempt, review3-claude-opus
+seeds: scored=30, calibration episodes=40 (half with event), null streams=24 x 6000 steps
+====================================================================================================
+
+--- spec section 4 window table, recomputed from the epoch grid ---
+offset | spec frac | actual frac | post-event units / total units | epoch time
+    10 |      0.02 |       0.006 |         1 / 25          | 1003
+    50 |      0.10 |       0.086 |         3 / 25          | 1043
+   200 |      0.40 |       0.366 |        10 / 25          | 1183
+   500 |      1.00 |       0.966 |        25 / 25          | 1483
+  1000 |      1.00 |       1.000 |        25 / 25          | 1983
+[    0.0s] cell R0-conf-present-Nx10: simulating 40 calibration episodes ...
+[    2.0s]   cert R0-conf-present-Nx10: rho_cl=0.900/0.900 sat=0.0005 max|corr(a,x)|=0.472 |S|=6->3 probe/RMS=1.73 probes=99
+[    2.0s] cell R0-conf-present-Nx10: pass-0 a-traces ...
+[    5.5s] cell R0-conf-present-Nx10: ARL_0 bisection on 24 null streams ...
+[   12.3s]   ARL_0: IBD h=2.020 -> 982 | CUSUM h=2.34 -> 996
+[   12.3s] cell R0-conf-present-Nx10: 30 scored + 30 control episodes ...
+
+--- attack: is the rank null exact under exchangeability? (channels with no action parent, no event) ---
+  z_h1: (0.06372064441349319, 1.0455349065919661)
+  z_h2: (0.04998079344330602, 0.9945474903959346)
+  z_h3: (0.004381766624949007, 0.985202128576652)
+  a_signed_maxabs: (0.018305653757023276, 1.4201117487866233)
+  P(|a|>1.96): 0.13710317460317462
+  (exact exchangeability would give mean 0, sd 1 for each z_h, and P(|a|>1.96) ~ 0.05 only if a were a single z)
+[   20.1s] cell R0-conf-absent-Nx10: simulating 40 calibration episodes ...
+[   21.9s]   cert R0-conf-absent-Nx10: rho_cl=0.900/0.900 sat=0.0005 max|corr(a,x)|=0.078 |S|=6->3 probe/RMS=1.73 probes=99
+[   21.9s] cell R0-conf-absent-Nx10: pass-0 a-traces ...
+[   25.2s] cell R0-conf-absent-Nx10: ARL_0 bisection on 24 null streams ...
+[   31.6s]   ARL_0: IBD h=2.020 -> 982 | CUSUM h=2.26 -> 989
+[   31.6s] cell R0-conf-absent-Nx10: 30 scored + 30 control episodes ...
+[   38.1s] cell R0-conf-present-Nx30: simulating 40 calibration episodes ...
+[   40.5s]   cert R0-conf-present-Nx30: rho_cl=0.900/0.900 sat=0.0005 max|corr(a,x)|=0.435 |S|=6->3 probe/RMS=1.68 probes=99
+[   40.5s] cell R0-conf-present-Nx30: pass-0 a-traces ...
+[   45.5s] cell R0-conf-present-Nx30: ARL_0 bisection on 24 null streams ...
+[   54.1s]   ARL_0: IBD h=2.063 -> 1042 | CUSUM h=2.03 -> 1105
+[   54.1s] cell R0-conf-present-Nx30: 30 scored + 30 control episodes ...
+[   63.4s] cell R1-conf-present-Nx10: simulating 40 calibration episodes ...
+[   65.2s]   cert R1-conf-present-Nx10: rho_cl=0.935/0.935 sat=0.0005 max|corr(a,x)|=0.335 |S|=6->3 probe/RMS=1.75 probes=99
+[   65.2s] cell R1-conf-present-Nx10: pass-0 a-traces ...
+[   68.6s] cell R1-conf-present-Nx10: ARL_0 bisection on 24 null streams ...
+[   75.0s]   ARL_0: IBD h=1.774 -> 946 | CUSUM h=2.33 -> 1061
+[   75.0s] cell R1-conf-present-Nx10: 30 scored + 30 control episodes ...
+[   81.6s] cell R1-conf-absent-Nx10: simulating 40 calibration episodes ...
+[   83.4s]   cert R1-conf-absent-Nx10: rho_cl=0.935/0.935 sat=0.0005 max|corr(a,x)|=0.081 |S|=6->3 probe/RMS=1.75 probes=99
+[   83.4s] cell R1-conf-absent-Nx10: pass-0 a-traces ...
+[   86.8s] cell R1-conf-absent-Nx10: ARL_0 bisection on 24 null streams ...
+[   93.6s]   ARL_0: IBD h=1.778 -> 1016 | CUSUM h=2.24 -> 1016
+[   93.6s] cell R1-conf-absent-Nx10: 30 scored + 30 control episodes ...
+
+====================================================================================================
+A. ALARM CHANNEL  (D-8's original claim: no power for the confirmatory event)
+====================================================================================================
+cell                         h_IBD    ARL0  P(det<=H_det)   control |    h_CUS    ARL0   P(det)   control
+R0-conf-present-Nx10         2.020     982           0.43      0.43 |     2.34     996     1.00      0.03
+R0-conf-absent-Nx10          2.020     982           0.37      0.40 |     2.26     989     1.00      0.20
+R0-conf-present-Nx30         2.063    1042           0.37      0.37 |     2.03    1105     1.00      0.13
+R1-conf-present-Nx10         1.774     946           0.33      0.40 |     2.33    1061     1.00      0.03
+R1-conf-absent-Nx10          1.778    1016           0.37      0.40 |     2.24    1016     1.00      0.20
+
+====================================================================================================
+B. NEW PRIMARY (D-8a): F1 of thresholded p_c vs S^obs,eps, per offset
+====================================================================================================
+
+cell R0-conf-present-Nx10   |S_post| = 3 of 6 pre-event, C = 22 channels
+   offset            seq_ibd  seq_ibd_cleanband   seq_ibd_onesided   seq_ibd_signrand      cusum_literal      cusum_actinfo       cusum_probed
+      200              0.050              0.097              0.050              0.435              0.000              0.000              0.500
+      500              0.077              0.093              0.077              0.430              0.000              0.000              0.500
+     1000              0.050              0.078              0.050              0.566              0.000              0.000              0.500
+    npred               0.30               0.50               0.30               2.17               0.00               0.00               1.00
+  AUC@500              0.514              0.514              0.542              0.750              0.473              0.540              0.595
+  AUC@1000              0.534              0.534              0.506              0.826              0.474              0.546              0.569
+    Delta_F1(seq_ibd          - cusum_literal  ) @500 = +0.077  [+0.011,+0.142] n=30  -> vs delta_F1=0.10: inconclusive
+    Delta_F1(seq_ibd          - cusum_actinfo  ) @500 = +0.077  [+0.011,+0.142] n=30  -> vs delta_F1=0.10: inconclusive
+    Delta_F1(seq_ibd          - cusum_probed   ) @500 = -0.423  [-0.489,-0.358] n=30  -> vs delta_F1=0.10: futile
+    Delta_F1(seq_ibd_signrand - cusum_literal  ) @500 = +0.430  [+0.331,+0.528] n=30  -> vs delta_F1=0.10: SUPERIOR
+    Delta_F1(seq_ibd_signrand - cusum_actinfo  ) @500 = +0.430  [+0.331,+0.528] n=30  -> vs delta_F1=0.10: SUPERIOR
+    Delta_F1(seq_ibd_signrand - cusum_probed   ) @500 = -0.070  [-0.169,+0.028] n=30  -> vs delta_F1=0.10: futile
+
+cell R0-conf-absent-Nx10   |S_post| = 3 of 6 pre-event, C = 22 channels
+   offset            seq_ibd  seq_ibd_cleanband   seq_ibd_onesided   seq_ibd_signrand      cusum_literal      cusum_actinfo       cusum_probed
+      200              0.050              0.050              0.050              0.423              0.000              0.510              0.500
+      500              0.033              0.077              0.033              0.434              0.000              0.699              0.500
+     1000              0.050              0.047              0.050              0.553              0.000              0.737              0.500
+    npred               0.13               0.30               0.13               1.93               0.00               1.73               1.00
+  AUC@500              0.521              0.521              0.531              0.749              0.486              0.981              0.839
+  AUC@1000              0.539              0.539              0.486              0.808              0.538              0.984              0.874
+    Delta_F1(seq_ibd          - cusum_literal  ) @500 = +0.033  [-0.014,+0.081] n=30  -> vs delta_F1=0.10: futile
+    Delta_F1(seq_ibd          - cusum_actinfo  ) @500 = -0.666  [-0.736,-0.595] n=30  -> vs delta_F1=0.10: futile
+    Delta_F1(seq_ibd          - cusum_probed   ) @500 = -0.467  [-0.514,-0.419] n=30  -> vs delta_F1=0.10: futile
+    Delta_F1(seq_ibd_signrand - cusum_literal  ) @500 = +0.434  [+0.337,+0.531] n=30  -> vs delta_F1=0.10: SUPERIOR
+    Delta_F1(seq_ibd_signrand - cusum_actinfo  ) @500 = -0.265  [-0.370,-0.160] n=30  -> vs delta_F1=0.10: futile
+    Delta_F1(seq_ibd_signrand - cusum_probed   ) @500 = -0.066  [-0.163,+0.031] n=30  -> vs delta_F1=0.10: futile
+
+cell R0-conf-present-Nx30   |S_post| = 3 of 6 pre-event, C = 42 channels
+   offset            seq_ibd  seq_ibd_cleanband   seq_ibd_onesided   seq_ibd_signrand      cusum_literal      cusum_actinfo       cusum_probed
+      200              0.017              0.017              0.017              0.346              0.000              0.000              0.500
+      500              0.017              0.017              0.017              0.372              0.000              0.000              0.500
+     1000              0.000              0.000              0.000              0.269              0.000              0.000              0.500
+    npred               0.10               0.10               0.10               1.23               0.00               0.00               1.00
+  AUC@500              0.536              0.536              0.478              0.765              0.445              0.434              0.549
+  AUC@1000              0.435              0.435              0.495              0.805              0.463              0.424              0.558
+    Delta_F1(seq_ibd          - cusum_literal  ) @500 = +0.017  [-0.017,+0.051] n=30  -> vs delta_F1=0.10: futile
+    Delta_F1(seq_ibd          - cusum_actinfo  ) @500 = +0.017  [-0.017,+0.051] n=30  -> vs delta_F1=0.10: futile
+    Delta_F1(seq_ibd          - cusum_probed   ) @500 = -0.483  [-0.517,-0.449] n=30  -> vs delta_F1=0.10: futile
+    Delta_F1(seq_ibd_signrand - cusum_literal  ) @500 = +0.372  [+0.244,+0.500] n=30  -> vs delta_F1=0.10: SUPERIOR
+    Delta_F1(seq_ibd_signrand - cusum_actinfo  ) @500 = +0.372  [+0.244,+0.500] n=30  -> vs delta_F1=0.10: SUPERIOR
+    Delta_F1(seq_ibd_signrand - cusum_probed   ) @500 = -0.128  [-0.256,+0.000] n=30  -> vs delta_F1=0.10: futile
+
+cell R1-conf-present-Nx10   |S_post| = 3 of 6 pre-event, C = 22 channels
+   offset            seq_ibd  seq_ibd_cleanband   seq_ibd_onesided   seq_ibd_signrand      cusum_literal      cusum_actinfo       cusum_probed
+      200              0.000              0.000              0.000              0.439              0.000              0.000              0.500
+      500              0.000              0.000              0.000              0.401              0.000              0.000              0.500
+     1000              0.000              0.000              0.000              0.514              0.000              0.000              0.500
+    npred               0.00               0.00               0.00               1.77               0.00               0.00               1.00
+  AUC@500              0.437              0.437              0.442              0.677              0.480              0.550              0.606
+  AUC@1000              0.459              0.459              0.398              0.746              0.473              0.553              0.588
+    Delta_F1(seq_ibd          - cusum_literal  ) @500 = +0.000  [+0.000,+0.000] n=30  -> vs delta_F1=0.10: futile
+    Delta_F1(seq_ibd          - cusum_actinfo  ) @500 = +0.000  [+0.000,+0.000] n=30  -> vs delta_F1=0.10: futile
+    Delta_F1(seq_ibd          - cusum_probed   ) @500 = -0.500  [-0.500,-0.500] n=30  -> vs delta_F1=0.10: futile
+    Delta_F1(seq_ibd_signrand - cusum_literal  ) @500 = +0.401  [+0.314,+0.488] n=30  -> vs delta_F1=0.10: SUPERIOR
+    Delta_F1(seq_ibd_signrand - cusum_actinfo  ) @500 = +0.401  [+0.314,+0.488] n=30  -> vs delta_F1=0.10: SUPERIOR
+    Delta_F1(seq_ibd_signrand - cusum_probed   ) @500 = -0.099  [-0.186,-0.012] n=30  -> vs delta_F1=0.10: futile
+
+cell R1-conf-absent-Nx10   |S_post| = 3 of 6 pre-event, C = 22 channels
+   offset            seq_ibd  seq_ibd_cleanband   seq_ibd_onesided   seq_ibd_signrand      cusum_literal      cusum_actinfo       cusum_probed
+      200              0.000              0.000              0.000              0.426              0.000              0.500              0.500
+      500              0.000              0.000              0.000              0.400              0.000              0.500              0.500
+     1000              0.000              0.000              0.000              0.502              0.000              0.500              0.500
+    npred               0.00               0.00               0.00               1.60               0.00               1.00               1.00
+  AUC@500              0.439              0.439              0.423              0.678              0.477              0.967              0.821
+  AUC@1000              0.461              0.461              0.380              0.742              0.529              0.975              0.851
+    Delta_F1(seq_ibd          - cusum_literal  ) @500 = +0.000  [+0.000,+0.000] n=30  -> vs delta_F1=0.10: futile
+    Delta_F1(seq_ibd          - cusum_actinfo  ) @500 = -0.500  [-0.500,-0.500] n=30  -> vs delta_F1=0.10: futile
+    Delta_F1(seq_ibd          - cusum_probed   ) @500 = -0.500  [-0.500,-0.500] n=30  -> vs delta_F1=0.10: futile
+    Delta_F1(seq_ibd_signrand - cusum_literal  ) @500 = +0.400  [+0.315,+0.485] n=30  -> vs delta_F1=0.10: SUPERIOR
+    Delta_F1(seq_ibd_signrand - cusum_actinfo  ) @500 = -0.100  [-0.185,-0.015] n=30  -> vs delta_F1=0.10: futile
+    Delta_F1(seq_ibd_signrand - cusum_probed   ) @500 = -0.100  [-0.185,-0.015] n=30  -> vs delta_F1=0.10: futile
+
+====================================================================================================
+C. CO-PRIMARY P2: mean p_c on oracle-labelled confounded distractors (negative control = unconfounded)
+====================================================================================================
+
+cell R0-conf-present-Nx10
+   offset            seq_ibd  seq_ibd_cleanband   seq_ibd_onesided   seq_ibd_signrand      cusum_literal      cusum_actinfo       cusum_probed
+       10              0.221              0.235              0.221              0.154              0.248              0.266              0.177
+       50              0.221              0.235              0.221              0.147              0.248              0.266              0.177
+      200              0.222              0.237              0.222              0.153              0.248              0.266              0.177
+   unconf              0.226              0.241              0.227              0.171              0.248              0.230              0.175
+
+cell R0-conf-present-Nx30
+   offset            seq_ibd  seq_ibd_cleanband   seq_ibd_onesided   seq_ibd_signrand      cusum_literal      cusum_actinfo       cusum_probed
+       10              0.117              0.125              0.117              0.084              0.130              0.126              0.088
+       50              0.119              0.127              0.119              0.095              0.130              0.126              0.088
+      200              0.115              0.123              0.115              0.106              0.130              0.126              0.088
+   unconf              0.120              0.128              0.120              0.106              0.130              0.126              0.088
+
+cell R1-conf-present-Nx10
+   offset            seq_ibd  seq_ibd_cleanband   seq_ibd_onesided   seq_ibd_signrand      cusum_literal      cusum_actinfo       cusum_probed
+       10              0.232              0.248              0.233              0.166              0.248              0.269              0.177
+       50              0.232              0.248              0.233              0.159              0.248              0.269              0.177
+      200              0.232              0.248              0.233              0.166              0.248              0.269              0.177
+   unconf              0.233              0.249              0.234              0.177              0.248              0.230              0.175
+
+====================================================================================================
+D. R0 / R1 decision-rule check (contract G under D-8a)
+====================================================================================================
+
+interventional arm = seq_ibd   comparator = cusum_actinfo
+  Delta_F1 @500 R0-conf-present-Nx10     = +0.077 [+0.011,+0.142]
+  Delta_F1 @500 R0-conf-absent-Nx10      = -0.666 [-0.736,-0.595]
+  Delta_F1 @500 R1-conf-present-Nx10     = +0.000 [+0.000,+0.000]
+  Delta_F1 @500 R1-conf-absent-Nx10      = -0.500 [-0.500,-0.500]
+  interaction I (v4.1 E1, restated for Delta_F1) = -0.242   [simple confounding contrast in R0 = +0.742]
+  contract-G R0 rule (TOST inside +-delta0_F1=0.05) on the confounder-PRESENT cell: NOT validated -> classified an anomaly
+
+interventional arm = seq_ibd   comparator = cusum_literal
+  Delta_F1 @500 R0-conf-present-Nx10     = +0.077 [+0.011,+0.142]
+  Delta_F1 @500 R0-conf-absent-Nx10      = +0.033 [-0.014,+0.081]
+  Delta_F1 @500 R1-conf-present-Nx10     = +0.000 [+0.000,+0.000]
+  Delta_F1 @500 R1-conf-absent-Nx10      = +0.000 [+0.000,+0.000]
+  interaction I (v4.1 E1, restated for Delta_F1) = -0.043   [simple confounding contrast in R0 = +0.043]
+  contract-G R0 rule (TOST inside +-delta0_F1=0.05) on the confounder-PRESENT cell: NOT validated -> classified an anomaly
+
+interventional arm = seq_ibd_signrand   comparator = cusum_actinfo
+  Delta_F1 @500 R0-conf-present-Nx10     = +0.430 [+0.331,+0.528]
+  Delta_F1 @500 R0-conf-absent-Nx10      = -0.265 [-0.370,-0.160]
+  Delta_F1 @500 R1-conf-present-Nx10     = +0.401 [+0.314,+0.488]
+  Delta_F1 @500 R1-conf-absent-Nx10      = -0.100 [-0.185,-0.015]
+  interaction I (v4.1 E1, restated for Delta_F1) = -0.194   [simple confounding contrast in R0 = +0.695]
+  contract-G R0 rule (TOST inside +-delta0_F1=0.05) on the confounder-PRESENT cell: NOT validated -> classified an anomaly
+
+====================================================================================================
+E. CALIBRATION-PROTOCOL GATES AND THE TRANSITION BAND
+====================================================================================================
+  R0-conf-present-Nx10       distinct g values=   31 minority=0.235 monotone=True max g=1.000 (clean band 1.000) pairs in transition band=0.139
+  R0-conf-absent-Nx10        distinct g values=   31 minority=0.235 monotone=True max g=1.000 (clean band 1.000) pairs in transition band=0.139
+  R0-conf-present-Nx30       distinct g values=   33 minority=0.123 monotone=True max g=1.000 (clean band 1.000) pairs in transition band=0.139
+  R1-conf-present-Nx10       distinct g values=   15 minority=0.235 monotone=True max g=1.000 (clean band 1.000) pairs in transition band=0.139
+  R1-conf-absent-Nx10        distinct g values=   11 minority=0.235 monotone=True max g=1.000 (clean band 1.000) pairs in transition band=0.139
+
+====================================================================================================
+G. IS a_c MONOTONE IN SUPPORT? ablation of the task-policy null (12 episodes each)
+====================================================================================================
+  setting                                                direct  indirect  non-reach  max|corr(a,x)|  probe/RMS
+  registry: W_u=0.45, rho_u=0.8                           +1.04     -0.39      -0.03           0.491       1.65
+  W_u=0   (policy not confounded; violates rho_min)       +3.68     +3.20      -0.03           0.019       9.60
+  rho_u=0 (shared cause white; violates registry)         +1.11     +0.78      -0.07           0.174       2.13
+  W_u=0.20 (weaker confounding)                           +2.57     +0.62      -0.03           0.466       3.50
+  (support-monotone would need direct > indirect > non-reach; p_c = g(a_c) with g non-decreasing can only be correct if that ordering holds)
+
+====================================================================================================
+F. CERTIFICATIONS
+====================================================================================================
+  R0-conf-present-Nx10       rho_cl 0.900/0.900 (<= 0.98) sat 0.0005 (<0.05) max|corr(a,x)| 0.472 (>= 0.4 required when confounded) probes 99 (<= 100) s_change True min|e-eps| 0.050 probe/RMS 1.73
+  R0-conf-absent-Nx10        rho_cl 0.900/0.900 (<= 0.98) sat 0.0005 (<0.05) max|corr(a,x)| 0.078 (>= 0.4 required when confounded) probes 99 (<= 100) s_change True min|e-eps| 0.050 probe/RMS 1.73
+  R0-conf-present-Nx30       rho_cl 0.900/0.900 (<= 0.98) sat 0.0005 (<0.05) max|corr(a,x)| 0.435 (>= 0.4 required when confounded) probes 99 (<= 100) s_change True min|e-eps| 0.050 probe/RMS 1.68
+  R1-conf-present-Nx10       rho_cl 0.935/0.935 (<= 0.98) sat 0.0005 (<0.05) max|corr(a,x)| 0.335 (>= 0.4 required when confounded) probes 99 (<= 100) s_change True min|e-eps| 0.050 probe/RMS 1.75
+  R1-conf-absent-Nx10        rho_cl 0.935/0.935 (<= 0.98) sat 0.0005 (<0.05) max|corr(a,x)| 0.081 (>= 0.4 required when confounded) probes 99 (<= 100) s_change True min|e-eps| 0.050 probe/RMS 1.75
+[  103.0s] done

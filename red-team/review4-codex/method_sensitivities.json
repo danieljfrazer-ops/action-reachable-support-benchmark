@@ -1,0 +1,102 @@
+{
+  "tie_fixture": {
+    "ranks": [
+      2.0,
+      2.0,
+      4.0,
+      2.0,
+      5.5,
+      5.5
+    ],
+    "tie_sizes": [
+      3,
+      2
+    ],
+    "variance": 4.5,
+    "z": -1.1785113019775793
+  },
+  "probe_clock": {
+    "applied": 100,
+    "usable": 99,
+    "first": [
+      20,
+      40,
+      60
+    ],
+    "last": [
+      1960,
+      1980,
+      2000
+    ]
+  },
+  "nmin_randomness": {
+    "per_actuator_usable": 0.9358375,
+    "at_least_one_actuator_unusable": 0.12729
+  },
+  "after_action_anchor": [
+    {
+      "nx": 10,
+      "confounder": "absent",
+      "mean_auc": 0.8404761904761905,
+      "se": 0.03295397245022236
+    },
+    {
+      "nx": 10,
+      "confounder": "present",
+      "mean_auc": 0.8438492063492063,
+      "se": 0.03196074558104677
+    },
+    {
+      "nx": 30,
+      "confounder": "absent",
+      "mean_auc": 0.8385162601626016,
+      "se": 0.032611396446991334
+    },
+    {
+      "nx": 30,
+      "confounder": "present",
+      "mean_auc": 0.8455284552845528,
+      "se": 0.031007317204625413
+    }
+  ],
+  "delay_aware_comparator_tau2_nx30": [
+    {
+      "confounder": "absent",
+      "mean_auc": 0.9970238095238095,
+      "se": 0.001330992843749875
+    },
+    {
+      "confounder": "present",
+      "mean_auc": 0.9970238095238095,
+      "se": 0.001330992843749875
+    }
+  ],
+  "ridge_unit_scaling": {
+    "lambda_before": 4.795612860247629,
+    "lambda_after": 8038.388545409389,
+    "loading_before": [
+      2.005325280444748,
+      1.5052929585672095,
+      1.1313801753434027
+    ],
+    "loading_after": [
+      1.5832408797813626,
+      1.092012762971582,
+      0.8291501720384551
+    ],
+    "relative_change": [
+      -0.21048176312312483,
+      -0.2745513378266262,
+      -0.2671339041389983
+    ]
+  },
+  "copy_noise": {
+    "median_abs_q_difference": 0.34644039147632855,
+    "max_abs_q_difference": 1.7914764442306272,
+    "fraction_below_1e-6": 0.0
+  },
+  "noise_padding": {
+    "transition_sd": 0.04996543353497606,
+    "degenerate_under_1e-3": false
+  }
+}

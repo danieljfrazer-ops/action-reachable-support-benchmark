@@ -1,0 +1,5 @@
+KILLED   adjacency transposed (edge direction reversed): 3 failing ['test_C1_chain_reaches_at_exactly_H2', 'test_K10_downstream_d_inside_S_and_w_x_outside', 'test_K4_actuator_loss_label_depends_on_coupling_and_horizon']
+KILLED   reachability propagates one step too few: 2 failing ['test_C1_chain_reaches_at_exactly_H2', 'test_K4_actuator_loss_label_depends_on_coupling_and_horizon']
+KILLED   open-loop action held for tau+1 steps: 1 failing ['test_C4_open_loop_equals_piecewise_jacobian_over_tau_h_grid_rectangular']
+KILLED   signed gain instead of |gain|: 1 failing ['test_L5_gain_changes_observed_support']
+KILLED   HPDT scores missed as 0: 1 failing ['test_G_hpdt_and_spacing']

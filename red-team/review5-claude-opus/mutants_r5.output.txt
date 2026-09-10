@@ -1,0 +1,27 @@
+baseline failures on the unmutated tree: 0  []
+SURVIVED R5-M1 certify drops sat<=0.05 (contract B / OP-16): 0 failing tests
+SURVIVED R5-M2 certify drops min_margin>0 (contract C2 eps-margin): 0 failing tests
+SURVIVED R5-M3 certify drops rho_severed bound (contract E2d): 0 failing tests
+SURVIVED R5-M4 certify drops rho_cl bound (contract B stability): 0 failing tests   [!! witness shows NO behavioural difference - not a real mutant]
+KILLED   R5-M5 certify uses T=200 not 4000 (contract T_E2=20000): 1 failing tests
+           -> ['test_generator.test_gen_certified_instance_meets_contract_bounds']
+SURVIVED R5-M6 A_b prune at c_min not c_min/2 (contract B faithfulness): 0 failing tests
+SURVIVED R5-M7 actuator_loss -> 1e-9 not 0 (contract D / E1b): 0 failing tests
+SURVIVED R5-M8 observe() ignores gain (contract C3): 0 failing tests
+SURVIVED R5-M9 confounded_channels INVERTED (co-primary P2 oracle): 0 failing tests
+SURVIVED R5-M10 event applied AFTER the action at event_t: 0 failing tests   [!! witness shows NO behavioural difference - not a real mutant]
+KILLED   R5-M11 [control] draw_certified ignores cert['ok']: 1 failing tests   [!! witness shows NO behavioural difference - not a real mutant]
+           -> ['test_generator.test_gen_perturbation_set_still_certifies']
+SURVIVED R5-M12 _noise drops the variable key (contract B CRN): 0 failing tests
+
+2 killed, 8 SURVIVED, 2 were behaviourally indistinguishable from the original (reported as failed attacks, not survivors).
+  SURVIVOR  R5-M1 certify drops sat<=0.05 (contract B / OP-16)
+  SURVIVOR  R5-M2 certify drops min_margin>0 (contract C2 eps-margin)
+  SURVIVOR  R5-M3 certify drops rho_severed bound (contract E2d)
+  SURVIVOR  R5-M6 A_b prune at c_min not c_min/2 (contract B faithfulness)
+  SURVIVOR  R5-M7 actuator_loss -> 1e-9 not 0 (contract D / E1b)
+  SURVIVOR  R5-M8 observe() ignores gain (contract C3)
+  SURVIVOR  R5-M9 confounded_channels INVERTED (co-primary P2 oracle)
+  SURVIVOR  R5-M12 _noise drops the variable key (contract B CRN)
+  NOT-A-MUTANT (no witness difference)  R5-M4 certify drops rho_cl bound (contract B stability)
+  NOT-A-MUTANT (no witness difference)  R5-M10 event applied AFTER the action at event_t

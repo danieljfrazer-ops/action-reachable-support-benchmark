@@ -1,0 +1,8 @@
+H1 uncoupled H=1: full=[ True  True]  after-loss=[ True False]
+H1 uncoupled H=3: full=[ True  True]  after-loss=[ True False]
+H1 coupled   H=1: full=[ True  True]  after-loss=[ True False]
+H1 coupled   H=3: full=[ True  True]  after-loss=[ True  True]
+H1: with coupling and H>=2, actuator loss changes R but not S. Label must come from reachability, not the event type.
+H3 overlapping: Delta_pAUC=2.504 (shared integer delays 4..8); SOEI ln2=0.693
+H3/I2 disjoint: Delta_pAUC=2.890 (disjoint (A faster); boundary diff 2.890; declare dominance)
+I2 aggregation over mixed seeds works: 2.697

@@ -1,0 +1,33 @@
+(A) ARL_0 estimation precision
+  T=   20,000 steps: expected alarms ~  19.6; P(|rel err| <= 10%) = 0.348; 95% rel-err band = [-0.30, +0.78]
+  T=  100,000 steps: expected alarms ~  98.0; P(|rel err| <= 10%) = 0.666; 95% rel-err band = [-0.17, +0.24]
+  T=  384,000 steps: expected alarms ~ 376.5; P(|rel err| <= 10%) = 0.956; 95% rel-err band = [-0.09, +0.10]
+  T=1,000,000 steps: expected alarms ~ 980.4; P(|rel err| <= 10%) = 0.998; 95% rel-err band = [-0.06, +0.07]
+  -> at 20,000 steps the tolerance is met by luck (<40%); ~384k steps are needed for 95% within +-10%.
+(B) T-E2d null false-failure rate (max |corr| > 0.05 when actions are truly randomised)
+  N_x= 10 T=  4000: P(false fail) = 0.07
+  N_x= 10 T= 20000: P(false fail) = 0.00
+  N_x= 10 T= 50000: P(false fail) = 0.00
+  N_x= 30 T=  4000: P(false fail) = 0.12
+  N_x= 30 T= 20000: P(false fail) = 0.00
+  N_x= 30 T= 50000: P(false fail) = 0.00
+  N_x=100 T=  4000: P(false fail) = 0.46
+  N_x=100 T= 20000: P(false fail) = 0.00
+  N_x=100 T= 50000: P(false fail) = 0.00
+(C) CartPole complete actuator loss (force = 0 forever) from the balanced start region
+  from reset distribution, zero force: steps to termination median 37, max 137, P(term within H_det=200) = 1.000
+  from |theta|=1e-3 rad, zero force: steps to termination 80..80
+  reference: random +-10 N policy (no loss): median 18 steps, P(<=200) = 1.000
+  -> with K=1, 'complete actuator loss' on CartPole terminates every episode long before H_det=200,
+     so HPDT = 200 for BOTH detectors, Delta = 0 exactly, and the T2 sign rule (point estimate > 0) cannot hold.
+(D) power to claim R1 superiority (lower 95% bound > delta=20) with n=10 seeds
+  true Delta=30, SD(per-seed diff)=20: power=0.29
+  true Delta=30, SD(per-seed diff)=40: power=0.11
+  true Delta=30, SD(per-seed diff)=80: power=0.06
+  true Delta=40, SD(per-seed diff)=20: power=0.80
+  true Delta=40, SD(per-seed diff)=40: power=0.29
+  true Delta=40, SD(per-seed diff)=80: power=0.11
+  true Delta=60, SD(per-seed diff)=20: power=1.00
+  true Delta=60, SD(per-seed diff)=40: power=0.80
+  true Delta=60, SD(per-seed diff)=80: power=0.28
+  -> no power analysis exists in the plan; with HPDT censored at 200 the per-seed SD is plausibly 40-80 steps.

@@ -1,0 +1,111 @@
+{
+  "simulation": "independent family-L contract-B instance",
+  "seeds": 40,
+  "cells": [
+    {
+      "nx": 10,
+      "tau": 0,
+      "confounder": "absent",
+      "n": 40,
+      "auc_ibd_mean": 0.8954365079365079,
+      "auc_ibd_se": 0.02750151519786821,
+      "auc_comparator_mean": 0.8075396825396824,
+      "auc_comparator_se": 0.01716541104424834,
+      "delta_mean": 0.0878968253968254,
+      "delta_se": 0.03255529805385306
+    },
+    {
+      "nx": 10,
+      "tau": 0,
+      "confounder": "present",
+      "n": 40,
+      "auc_ibd_mean": 0.9001984126984126,
+      "auc_ibd_se": 0.027178083108376508,
+      "auc_comparator_mean": 0.7095238095238094,
+      "auc_comparator_se": 0.011355530170626203,
+      "delta_mean": 0.1906746031746032,
+      "delta_se": 0.029206923618734264
+    },
+    {
+      "nx": 30,
+      "tau": 0,
+      "confounder": "absent",
+      "n": 40,
+      "auc_ibd_mean": 0.8931910569105692,
+      "auc_ibd_se": 0.026452008118934386,
+      "auc_comparator_mean": 0.8044715447154471,
+      "auc_comparator_se": 0.017671091959189512,
+      "delta_mean": 0.08871951219512195,
+      "delta_se": 0.03148325803915365
+    },
+    {
+      "nx": 30,
+      "tau": 0,
+      "confounder": "present",
+      "n": 40,
+      "auc_ibd_mean": 0.896849593495935,
+      "auc_ibd_se": 0.027228571437838217,
+      "auc_comparator_mean": 0.6560975609756097,
+      "auc_comparator_se": 0.011542542523210702,
+      "delta_mean": 0.24075203252032518,
+      "delta_se": 0.030338906604185735
+    },
+    {
+      "nx": 30,
+      "tau": 2,
+      "confounder": "absent",
+      "n": 40,
+      "auc_ibd_mean": 0.8648809523809525,
+      "auc_ibd_se": 0.030185628387896138,
+      "auc_comparator_mean": 0.725,
+      "auc_comparator_se": 0.04226158231316911,
+      "delta_mean": 0.13988095238095238,
+      "delta_se": 0.05400549960904499
+    },
+    {
+      "nx": 30,
+      "tau": 2,
+      "confounder": "present",
+      "n": 40,
+      "auc_ibd_mean": 0.8599702380952381,
+      "auc_ibd_se": 0.0319118082940764,
+      "auc_comparator_mean": 0.31279761904761905,
+      "auc_comparator_se": 0.03357174112680211,
+      "delta_mean": 0.547172619047619,
+      "delta_se": 0.04265538691573074
+    }
+  ],
+  "confounding_benefit": [
+    {
+      "nx": 10,
+      "tau": 0,
+      "n": 40,
+      "confounding_benefit_mean": 0.10277777777777777,
+      "confounding_benefit_se": 0.014100086203824714
+    },
+    {
+      "nx": 30,
+      "tau": 0,
+      "n": 40,
+      "confounding_benefit_mean": 0.15203252032520326,
+      "confounding_benefit_se": 0.016972114235999355
+    },
+    {
+      "nx": 30,
+      "tau": 2,
+      "n": 40,
+      "confounding_benefit_mean": 0.4072916666666667,
+      "confounding_benefit_se": 0.03811674710201071
+    }
+  ],
+  "choices": [
+    "R0 only; the mandatory prompt did not request an R1 transform.",
+    "A fixed admissible instance is shared across seeds; predictor fits are per nx/tau/confounder cell.",
+    "IBD o(t_p) means the pre-action observation at probe step t_p, matching contract C1/C4.",
+    "AUC is computed across all observation channels per episode with mid-ties and noise-only padding retained.",
+    "The passive comparator receives a non-probed stream; IBD receives its own probes; exogenous noise is keyed identically.",
+    "The comparator predictor uses 20 fault-free non-probed episodes and the specified float64 Cholesky ridge solve.",
+    "Raw statistics only: no isotonic fit, alarm threshold, or operating point is needed for the primary.",
+    "Score at offset 500 uses IBD's last closed epoch (newest anchor 1480) and comparator residual steps 1001..1500."
+  ]
+}

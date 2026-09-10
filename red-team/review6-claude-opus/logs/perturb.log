@@ -1,0 +1,10 @@
+[perturb] P_cp0.5_nm0.5 seed 0 done  t=27s
+[perturb] P_cp0.5_nm1.0 seed 0 done  t=57s
+[perturb] P_cp0.5_nm2.0 seed 0 done  t=88s
+[perturb] P_cp1.0_nm0.5 seed 0 done  t=121s
+[perturb] P_cp1.0_nm1.0 seed 0 done  t=154s
+[perturb] P_cp1.0_nm2.0 seed 0 done  t=188s
+[perturb] P_cp2.0_nm0.5 seed 0 done  t=221s
+[perturb] P_cp2.0_nm1.0 seed 0 done  t=255s
+[perturb] P_cp2.0_nm2.0 seed 0 done  t=285s
+[perturb] wrote 18 rows in 285s

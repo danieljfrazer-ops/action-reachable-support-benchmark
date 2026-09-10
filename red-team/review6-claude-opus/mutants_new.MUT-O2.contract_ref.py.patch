@@ -1,0 +1,12 @@
+--- ../executable-proofs/gate/contract_ref.py	2026-09-07 19:34:27
++++ mutant_gate2/contract_ref.py	2026-09-07 20:30:28
+@@ -163,7 +163,8 @@
+     NaN if the restricted set has no positive or no negative; CL-4 certification guarantees >= 1 negative."""
+     s = np.asarray(scores, float); pre = np.asarray(pre_S, bool); post = np.asarray(post_S, bool)
+     if s.shape != pre.shape or pre.shape != post.shape: raise ValueError("scores, pre_S and post_S must have one entry per channel")
+-    return auc_prob_superiority(s[pre], post[pre])
++    sel = pre | post                                                          # MUT-O2
++    return auc_prob_superiority(s[sel], post[sel])                            # MUT-O2
+ 
+ # ---------- D-11.5 timestamp-aware alarm bookkeeping (contract G, v3.9) ----------
+ def count_alarms_timed(raises, times, p, r):

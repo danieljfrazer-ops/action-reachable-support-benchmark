@@ -1,0 +1,28 @@
+SURVIVED FB-M1 E2 corr abs() dropped (negative confounding invisible): 0 failing tests 
+SURVIVED FB-M2 E2 only action column 0 scanned: 0 failing tests 
+SURVIVED FB-M3 C3 padding guard removed (assign=-1 -> last latent): 0 failing tests 
+SURVIVED FB-M4 C3 boundary >= instead of >: 0 failing tests 
+SURVIVED FB-M5 C3 gain^2 instead of |gain|: 0 failing tests 
+SURVIVED FB-M6 G spacing ignores episode end: 0 failing tests 
+SURVIVED FB-M7 G spacing strict > instead of >=: 0 failing tests 
+SURVIVED FB-M8 G spacing does not sort events: 0 failing tests 
+SURVIVED FB-M9 G HPDT median instead of mean: 0 failing tests 
+SURVIVED FB-M10 G HPDT unknown outcome classes scored as detected: 0 failing tests 
+SURVIVED FB-M11 C4 family N response ignores zbar: 0 failing tests 
+SURVIVED FB-M12 C1 magnitude threshold 0.15 instead of sign pattern: 0 failing tests 
+SURVIVED FB-M13 C1 magnitude threshold 0.25 (> c_min) instead of sign pattern: 0 failing tests 
+
+13/13 mutants SURVIVED the frozen gate:
+  - FB-M1 E2 corr abs() dropped (negative confounding invisible)
+  - FB-M2 E2 only action column 0 scanned
+  - FB-M3 C3 padding guard removed (assign=-1 -> last latent)
+  - FB-M4 C3 boundary >= instead of >
+  - FB-M5 C3 gain^2 instead of |gain|
+  - FB-M6 G spacing ignores episode end
+  - FB-M7 G spacing strict > instead of >=
+  - FB-M8 G spacing does not sort events
+  - FB-M9 G HPDT median instead of mean
+  - FB-M10 G HPDT unknown outcome classes scored as detected
+  - FB-M11 C4 family N response ignores zbar
+  - FB-M12 C1 magnitude threshold 0.15 instead of sign pattern
+  - FB-M13 C1 magnitude threshold 0.25 (> c_min) instead of sign pattern

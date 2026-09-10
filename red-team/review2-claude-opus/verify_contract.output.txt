@@ -1,0 +1,118 @@
+=== V1: C4 family-L open-loop response vs closed-form Jacobian (brute force, CRN) ===
+PASS  V1 trial0 N_b=3 K=3 tau=0 h=1  max|diff|=0.00e+00
+PASS  V1 trial0 N_b=3 K=3 tau=0 h=2  max|diff|=1.11e-16
+PASS  V1 trial0 N_b=3 K=3 tau=0 h=3  max|diff|=5.55e-17
+PASS  V1 trial0 N_b=3 K=3 tau=0 h=4  max|diff|=3.33e-16
+PASS  V1 trial0 N_b=3 K=3 tau=0 h=5  max|diff|=6.66e-16
+PASS  V1 trial0 N_b=3 K=3 tau=0 h=6  max|diff|=8.88e-16
+PASS  V1 trial0 N_b=3 K=3 tau=1 h=1  max|diff|=0.00e+00
+PASS  V1 trial0 N_b=3 K=3 tau=1 h=2  max|diff|=0.00e+00
+PASS  V1 trial0 N_b=3 K=3 tau=1 h=3  max|diff|=4.44e-16
+PASS  V1 trial0 N_b=3 K=3 tau=1 h=4  max|diff|=2.22e-16
+PASS  V1 trial0 N_b=3 K=3 tau=1 h=5  max|diff|=3.33e-16
+PASS  V1 trial0 N_b=3 K=3 tau=1 h=6  max|diff|=8.88e-16
+PASS  V1 trial0 N_b=3 K=3 tau=2 h=1  max|diff|=0.00e+00
+PASS  V1 trial0 N_b=3 K=3 tau=2 h=2  max|diff|=0.00e+00
+PASS  V1 trial0 N_b=3 K=3 tau=2 h=3  max|diff|=4.44e-16
+PASS  V1 trial0 N_b=3 K=3 tau=2 h=4  max|diff|=1.67e-16
+PASS  V1 trial0 N_b=3 K=3 tau=2 h=5  max|diff|=3.33e-16
+PASS  V1 trial0 N_b=3 K=3 tau=2 h=6  max|diff|=2.78e-16
+PASS  V1 trial0 N_b=3 K=3 tau=3 h=1  max|diff|=0.00e+00
+PASS  V1 trial0 N_b=3 K=3 tau=3 h=2  max|diff|=0.00e+00
+PASS  V1 trial0 N_b=3 K=3 tau=3 h=3  max|diff|=0.00e+00
+PASS  V1 trial0 N_b=3 K=3 tau=3 h=4  max|diff|=1.11e-16
+PASS  V1 trial0 N_b=3 K=3 tau=3 h=5  max|diff|=5.55e-17
+PASS  V1 trial0 N_b=3 K=3 tau=3 h=6  max|diff|=6.66e-16
+PASS  V1 trial1 N_b=2 K=2 tau=0 h=1  max|diff|=0.00e+00
+PASS  V1 trial1 N_b=2 K=2 tau=0 h=2  max|diff|=2.78e-17
+PASS  V1 trial1 N_b=2 K=2 tau=0 h=3  max|diff|=4.44e-16
+PASS  V1 trial1 N_b=2 K=2 tau=0 h=4  max|diff|=1.11e-16
+PASS  V1 trial1 N_b=2 K=2 tau=0 h=5  max|diff|=4.44e-16
+PASS  V1 trial1 N_b=2 K=2 tau=0 h=6  max|diff|=1.11e-16
+PASS  V1 trial1 N_b=2 K=2 tau=1 h=1  max|diff|=0.00e+00
+PASS  V1 trial1 N_b=2 K=2 tau=1 h=2  max|diff|=0.00e+00
+PASS  V1 trial1 N_b=2 K=2 tau=1 h=3  max|diff|=8.88e-16
+PASS  V1 trial1 N_b=2 K=2 tau=1 h=4  max|diff|=2.22e-16
+PASS  V1 trial1 N_b=2 K=2 tau=1 h=5  max|diff|=1.39e-17
+PASS  V1 trial1 N_b=2 K=2 tau=1 h=6  max|diff|=1.11e-16
+PASS  V1 trial1 N_b=2 K=2 tau=2 h=1  max|diff|=0.00e+00
+PASS  V1 trial1 N_b=2 K=2 tau=2 h=2  max|diff|=0.00e+00
+PASS  V1 trial1 N_b=2 K=2 tau=2 h=3  max|diff|=2.22e-16
+PASS  V1 trial1 N_b=2 K=2 tau=2 h=4  max|diff|=2.22e-16
+PASS  V1 trial1 N_b=2 K=2 tau=2 h=5  max|diff|=2.78e-17
+PASS  V1 trial1 N_b=2 K=2 tau=2 h=6  max|diff|=1.39e-17
+PASS  V1 trial1 N_b=2 K=2 tau=3 h=1  max|diff|=0.00e+00
+PASS  V1 trial1 N_b=2 K=2 tau=3 h=2  max|diff|=0.00e+00
+PASS  V1 trial1 N_b=2 K=2 tau=3 h=3  max|diff|=0.00e+00
+PASS  V1 trial1 N_b=2 K=2 tau=3 h=4  max|diff|=4.44e-16
+PASS  V1 trial1 N_b=2 K=2 tau=3 h=5  max|diff|=4.44e-16
+PASS  V1 trial1 N_b=2 K=2 tau=3 h=6  max|diff|=1.39e-17
+PASS  V1 trial2 N_b=2 K=3 tau=0 h=1  max|diff|=5.55e-17
+PASS  V1 trial2 N_b=2 K=3 tau=0 h=2  max|diff|=5.55e-17
+PASS  V1 trial2 N_b=2 K=3 tau=0 h=3  max|diff|=2.22e-16
+PASS  V1 trial2 N_b=2 K=3 tau=0 h=4  max|diff|=4.44e-16
+PASS  V1 trial2 N_b=2 K=3 tau=0 h=5  max|diff|=2.78e-17
+PASS  V1 trial2 N_b=2 K=3 tau=0 h=6  max|diff|=1.11e-16
+PASS  V1 trial2 N_b=2 K=3 tau=1 h=1  max|diff|=0.00e+00
+PASS  V1 trial2 N_b=2 K=3 tau=1 h=2  max|diff|=0.00e+00
+PASS  V1 trial2 N_b=2 K=3 tau=1 h=3  max|diff|=2.78e-17
+PASS  V1 trial2 N_b=2 K=3 tau=1 h=4  max|diff|=2.22e-16
+PASS  V1 trial2 N_b=2 K=3 tau=1 h=5  max|diff|=2.22e-16
+PASS  V1 trial2 N_b=2 K=3 tau=1 h=6  max|diff|=0.00e+00
+PASS  V1 trial2 N_b=2 K=3 tau=2 h=1  max|diff|=0.00e+00
+PASS  V1 trial2 N_b=2 K=3 tau=2 h=2  max|diff|=0.00e+00
+PASS  V1 trial2 N_b=2 K=3 tau=2 h=3  max|diff|=0.00e+00
+PASS  V1 trial2 N_b=2 K=3 tau=2 h=4  max|diff|=6.94e-17
+PASS  V1 trial2 N_b=2 K=3 tau=2 h=5  max|diff|=4.44e-16
+PASS  V1 trial2 N_b=2 K=3 tau=2 h=6  max|diff|=1.11e-16
+PASS  V1 trial2 N_b=2 K=3 tau=3 h=1  max|diff|=0.00e+00
+PASS  V1 trial2 N_b=2 K=3 tau=3 h=2  max|diff|=0.00e+00
+PASS  V1 trial2 N_b=2 K=3 tau=3 h=3  max|diff|=0.00e+00
+PASS  V1 trial2 N_b=2 K=3 tau=3 h=4  max|diff|=1.11e-16
+PASS  V1 trial2 N_b=2 K=3 tau=3 h=5  max|diff|=1.11e-16
+PASS  V1 trial2 N_b=2 K=3 tau=3 h=6  max|diff|=2.22e-16
+PASS  V1 trial3 N_b=3 K=3 tau=0 h=1  max|diff|=0.00e+00
+PASS  V1 trial3 N_b=3 K=3 tau=0 h=2  max|diff|=3.33e-16
+PASS  V1 trial3 N_b=3 K=3 tau=0 h=3  max|diff|=1.11e-16
+PASS  V1 trial3 N_b=3 K=3 tau=0 h=4  max|diff|=2.22e-16
+PASS  V1 trial3 N_b=3 K=3 tau=0 h=5  max|diff|=4.44e-16
+PASS  V1 trial3 N_b=3 K=3 tau=0 h=6  max|diff|=4.44e-16
+PASS  V1 trial3 N_b=3 K=3 tau=1 h=1  max|diff|=0.00e+00
+PASS  V1 trial3 N_b=3 K=3 tau=1 h=2  max|diff|=2.22e-16
+PASS  V1 trial3 N_b=3 K=3 tau=1 h=3  max|diff|=4.44e-16
+PASS  V1 trial3 N_b=3 K=3 tau=1 h=4  max|diff|=2.22e-16
+PASS  V1 trial3 N_b=3 K=3 tau=1 h=5  max|diff|=1.67e-16
+PASS  V1 trial3 N_b=3 K=3 tau=1 h=6  max|diff|=2.22e-16
+PASS  V1 trial3 N_b=3 K=3 tau=2 h=1  max|diff|=0.00e+00
+PASS  V1 trial3 N_b=3 K=3 tau=2 h=2  max|diff|=0.00e+00
+PASS  V1 trial3 N_b=3 K=3 tau=2 h=3  max|diff|=0.00e+00
+PASS  V1 trial3 N_b=3 K=3 tau=2 h=4  max|diff|=1.11e-16
+PASS  V1 trial3 N_b=3 K=3 tau=2 h=5  max|diff|=4.44e-16
+PASS  V1 trial3 N_b=3 K=3 tau=2 h=6  max|diff|=3.33e-16
+PASS  V1 trial3 N_b=3 K=3 tau=3 h=1  max|diff|=0.00e+00
+PASS  V1 trial3 N_b=3 K=3 tau=3 h=2  max|diff|=0.00e+00
+PASS  V1 trial3 N_b=3 K=3 tau=3 h=3  max|diff|=0.00e+00
+PASS  V1 trial3 N_b=3 K=3 tau=3 h=4  max|diff|=2.22e-16
+PASS  V1 trial3 N_b=3 K=3 tau=3 h=5  max|diff|=2.22e-16
+PASS  V1 trial3 N_b=3 K=3 tau=3 h=6  max|diff|=1.39e-16
+
+=== V2: C4 as an expectation difference, CRN vs independent sampling ===
+PASS  V2 CRN estimator is exact (zero variance)  sd=[5.94654398e-14 1.44875971e-14]
+PASS  V2 independent-noise estimator is unbiased  mean=[0.85206776 0.35885248] truth=[0.85 0.35] se=[0.00969777 0.00860232]
+
+=== V3: C1 reachability over full latent stack, numeric vs graph, incl. delay ===
+PASS  V3 graph == finite-difference on 200 sign-positive instances x tau x H  mismatches=0
+NOTE  V3b signed-entry instances where numeric != graph (path cancellation): 0 of 3200 (contract B faithfulness margin c_min=0.2 does NOT prevent this)
+
+=== V4: C3 observed support incl. gain (contract K8 case) ===
+PASS  V4 K8 gain=0 removed  
+PASS  V4 K8 gain=0.01 removed  0.01*1.0=0.01 !> 0.05
+PASS  V4 K8 gain=-1 kept  sign flip keeps membership
+
+=== V5: G horizon-penalised detection time, hand-computed ===
+PASS  V5 all detected  
+PASS  V5 one missed  
+PASS  V5 delay beyond horizon is capped  
+PASS  V5 three events, one terminated  =76.6667
+
+106/106 checks passed

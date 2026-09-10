@@ -1,0 +1,17 @@
+Verifying baseline unmutated gate passes:
+Baseline: 0 failures across 47 tests.
+
+Evaluating Mutants against Gate:
+[SURVIVED] R5-GM-M1 (Contract B c_min faithfulness violation in A_b)
+  Observable Difference: YES | Gate Failures: 0
+[SURVIVED] R5-GM-M2 (Contract D/E1b soft actuator loss B*=1e-8)
+  Observable Difference: NO | Gate Failures: 0
+[SURVIVED] R5-GM-M3 (Co-primary P2 confounded_channels inverted)
+  Observable Difference: YES | Gate Failures: 0
+[SURVIVED] R5-GM-M4 (Contract B CRN noise drops variable key)
+  Observable Difference: YES | Gate Failures: 0
+
+Total Surviving Valid Mutants: 3 / 4
+  * R5-GM-M1 (Contract B c_min faithfulness violation in A_b)
+  * R5-GM-M3 (Co-primary P2 confounded_channels inverted)
+  * R5-GM-M4 (Contract B CRN noise drops variable key)

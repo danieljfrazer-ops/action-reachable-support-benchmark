@@ -1,0 +1,78 @@
+SINGLE-MODEL, SINGLE-INSTANCE DIAGNOSTIC (not a result). numpy 2.4.4
+draw_certified({}, 0): n_resamples = 1  certification: {'rho_cl': 0.9, 'sat': 0.021, 'rho_witness': 0.7325505511161192, 'rho_severed': 0.046041567902958956, 'min_margin': 0.27376975592839164, 's_change': True, 'n_lost': 1, 'min_entry_ok': True, 'ok': True}
+lost set (pre & ~post): [0]  assign: [0]
+
+--- confounder PRESENT ---
+  fit: q(retained) = 6  cond(Sigma_a) = 213  median sd_c = 0.1198
+  l_c            : [8.28 6.2  7.72 5.43 3.01 9.8  0.06 0.07 0.14 0.1  6.86 6.8  6.81 6.81 6.79 0.13 0.14 0.09 0.04 0.05 0.04 0.11 0.05 0.05]
+  pre-event S    : [1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+  post-event S   : [0 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+  offset  200 (read t=1200):
+      Delta fault-free  max    4.17  median   2.64  on-support [2.1 2.9 2.5 2.3 3.  2.7]
+      Delta post-event  max  109.06  median   3.02  on-support [109.1  73.3  76.8  53.6   5.8   8.1]
+      AUC_pre_event_support(-Delta) = 1.000   AUC_full(l - Delta) = 0.242   AUC_full(l) = 0.800
+  offset  500 (read t=1500):
+      Delta fault-free  max    3.77  median   2.24  on-support [3.5 3.7 2.5 2.7 2.6 1.8]
+      Delta post-event  max  270.76  median   4.24  on-support [270.8 174.2 176.2 126.6   8.6  19.9]
+      AUC_pre_event_support(-Delta) = 1.000   AUC_full(l - Delta) = 0.063   AUC_full(l) = 0.800
+  offset 1000 (read t=1999):
+      Delta fault-free  max    5.50  median   2.83  on-support [3.1 1.6 5.5 1.9 2.6 2.8]
+      Delta post-event  max  220.33  median   5.66  on-support [220.3 143.2 141.4 103.7   6.1  14.2]
+      AUC_pre_event_support(-Delta) = 1.000   AUC_full(l - Delta) = 0.147   AUC_full(l) = 0.800
+
+--- confounder ABSENT (G=0, refit) ---
+  fit: q(retained) = 6  cond(Sigma_a) = 213  median sd_c = 0.1197
+  l_c            : [8.28 6.2  7.72 5.43 3.02 9.81 0.05 0.07 0.14 0.1  0.14 0.07 0.09 0.1  0.11 0.13 0.14 0.09 0.04 0.05 0.04 0.11 0.05 0.04]
+  pre-event S    : [1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+  post-event S   : [0 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+  offset  200 (read t=1200):
+      Delta fault-free  max    4.17  median   2.58  on-support [2.1 2.9 2.6 2.3 3.1 2.7]
+      Delta post-event  max  109.05  median   3.09  on-support [109.   71.3  75.7  54.6   5.8   5.4]
+      AUC_pre_event_support(-Delta) = 1.000   AUC_full(l - Delta) = 0.337   AUC_full(l) = 0.958
+  offset  500 (read t=1500):
+      Delta fault-free  max    4.25  median   2.26  on-support [3.5 3.7 2.5 2.7 2.6 1.8]
+      Delta post-event  max  270.73  median   4.30  on-support [270.7 168.9 173.1 129.3   8.5  12.6]
+      AUC_pre_event_support(-Delta) = 1.000   AUC_full(l - Delta) = 0.189   AUC_full(l) = 0.958
+  offset 1000 (read t=1999):
+      Delta fault-free  max    5.52  median   2.51  on-support [3.1 1.7 5.5 1.9 2.6 2.8]
+      Delta post-event  max  220.31  median   4.05  on-support [220.3 138.6 138.7 106.2   6.1   7.6]
+      AUC_pre_event_support(-Delta) = 1.000   AUC_full(l - Delta) = 0.337   AUC_full(l) = 0.958
+
+--- lag-slot attribution, tau = 0 (post-event window t=1000..1499) ---
+   slots = [a_t k0, a_t k1, a_t-1 k0, a_t-1 k1, a_t-2 k0, a_t-2 k1]
+   lost channel  0: c_hat = [-7.303 -5.378 -6.247 -4.661 -5.002 -3.761]
+   retained channel  1: c_hat = [4.502 3.321 4.049 3.031 3.384 2.545]
+
+--- lag-slot attribution, tau = 2 (post-event window t=1000..1499) ---
+   slots = [a_t k0, a_t k1, a_t-1 k0, a_t-1 k1, a_t-2 k0, a_t-2 k1]
+   lost channel  0: c_hat = [-4.528 -3.464 -5.551 -4.4   -6.669 -5.329]
+   retained channel  1: c_hat = [2.417 1.834 2.999 2.379 3.683 2.958]
+
+--- static fit-time-constant control (l as raw_support) on auc_pre_event_support ---
+   present: 0.200   absent: 0.200   (tau = 0, seed 0)
+
+--- tau = 0, seed 0: primary and caps ---
+   q = 6  cond(Sigma_a) = 212.6   n_lost = 1
+   AUC_pre_event_support(-Delta): offset 200: 1.000  offset 500: 1.000  offset 1000: 1.000
+   static l control on the same primary: 0.200
+   Delta fault-free over the whole episode (t_ep >= 30): median 2.55  max 6.19  (sqrt(3K) = 2.449)
+   Delta post-event   over the whole episode: max 272.9
+   sd_c: median 0.1198  pads [0.0499 0.0502 0.0499 0.05  ]  min 0.0499  (degeneracy needs sd < 1e-2 * median = 0.00120)
+   l on pads: [0.038 0.108 0.047 0.046]
+
+--- tau = 2, seed 0: primary and caps ---
+   q = 6  cond(Sigma_a) = 274   n_lost = 1
+   AUC_pre_event_support(-Delta): offset 200: 1.000  offset 500: 1.000  offset 1000: 1.000
+   static l control on the same primary: 0.000
+   Delta fault-free over the whole episode (t_ep >= 30): median 2.48  max 5.07  (sqrt(3K) = 2.449)
+   Delta post-event   over the whole episode: max 174.5
+   sd_c: median 0.1199  pads [0.0499 0.0502 0.0499 0.05  ]  min 0.0499  (degeneracy needs sd < 1e-2 * median = 0.00120)
+   l on pads: [0.053 0.102 0.037 0.051]
+
+--- rank handling, exactly collinear action column ---
+   eigenvalues: [1.00000000e-06 9.46142744e-01 9.92030229e-01 1.02247876e+00
+ 1.03666459e+00 2.00268867e+00]
+   kappa_min = 1e-08 -> cutoff 2e-08, retained q = 6, largest whitening factor 1000
+   kappa_min = 0.0001 -> cutoff 0.0002, retained q = 5, largest whitening factor 1.028
+
+elapsed 38.0 s

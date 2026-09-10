@@ -1,0 +1,10 @@
+The documents in this repository (the technical report, the specifications, the contract,
+the adjudications, the reviews, the roadmap and all other prose) are licensed under the
+Creative Commons Attribution 4.0 International licence (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+
+Code (the files under red-team/executable-proofs/, the simulation and diagnostic scripts in
+the review folders, report/build_report.py and red-team/freeze.py, red-team/make_confirmation_design.py)
+is licensed under the MIT licence in LICENSE.
+
+Copyright (c) 2026 Daniel Frazer.

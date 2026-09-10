@@ -1,0 +1,105 @@
+================================================================================
+REVIEW 6 (GEMINI) REPRODUCTION: FROZEN SUITE (38d161e762a3de76)
+================================================================================
+
+>>> RUNNING FAMILY L BASE CELLS (Seeds 0..9, 4 cells) <<<
+Running cell: N_x=10, tau=0 ...
+Done in 174.5s. Primary offset 500: Seq-IBD=0.813, Comp=0.879, Benefit=-0.017 [-0.045, 0.012]
+Running cell: N_x=30, tau=0 ...
+Done in 207.8s. Primary offset 500: Seq-IBD=0.813, Comp=0.879, Benefit=-0.017 [-0.045, 0.012]
+Running cell: N_x=10, tau=2 ...
+Done in 183.7s. Primary offset 500: Seq-IBD=0.687, Comp=1.000, Benefit=+0.000 [0.000, 0.000]
+Running cell: N_x=30, tau=2 ...
+Done in 204.6s. Primary offset 500: Seq-IBD=0.687, Comp=1.000, Benefit=+0.000 [0.000, 0.000]
+
+>>> RUNNING PERTURBATION SET AT SEED 0 <<<
+Perturbation coupling=0.5, noise=0.5: offset 500 IBD(pres)=0.675, Comp(pres)=1.000, Comp(abs)=1.000, Benefit=+0.000
+Perturbation coupling=0.5, noise=1.0: offset 500 IBD(pres)=0.600, Comp(pres)=1.000, Comp(abs)=1.000, Benefit=+0.000
+Perturbation coupling=0.5, noise=2.0: offset 500 IBD(pres)=0.550, Comp(pres)=1.000, Comp(abs)=1.000, Benefit=+0.000
+Perturbation coupling=1.0, noise=0.5: offset 500 IBD(pres)=0.750, Comp(pres)=1.000, Comp(abs)=1.000, Benefit=+0.000
+Perturbation coupling=1.0, noise=1.0: offset 500 IBD(pres)=0.750, Comp(pres)=1.000, Comp(abs)=1.000, Benefit=+0.000
+Perturbation coupling=1.0, noise=2.0: offset 500 IBD(pres)=0.550, Comp(pres)=1.000, Comp(abs)=1.000, Benefit=+0.000
+Perturbation coupling=2.0, noise=0.5: offset 500 IBD(pres)=0.800, Comp(pres)=1.000, Comp(abs)=1.000, Benefit=+0.000
+Perturbation coupling=2.0, noise=1.0: offset 500 IBD(pres)=0.800, Comp(pres)=1.000, Comp(abs)=1.000, Benefit=+0.000
+Perturbation coupling=2.0, noise=2.0: offset 500 IBD(pres)=0.800, Comp(pres)=1.000, Comp(abs)=1.000, Benefit=+0.000
+
+>>> RUNNING FAMILY N (N_x=10, tau in {0, 2}, seeds 0..4) <<<
+Running Family N tau=0 seeds 0..4 ...
+Done in 184.0s. Primary offset 500: Seq-IBD=0.840, Comp=0.728, Benefit=+0.000
+Running Family N tau=2 seeds 0..4 ...
+Done in 158.0s. Primary offset 500: Seq-IBD=0.775, Comp=0.767, Benefit=+0.133
+
+All simulations completed in 1285.1s (21.42 min).
+
+================================================================================
+DETAILED RESULTS REPORT
+================================================================================
+
+--- TABLE 1: BASE CELLS (FAMILY L, SEEDS 0..9) PRIMARY PRE-EVENT SUPPORT AUC ---
+Cell               | Offset | IBD(pres) | Comp(pres) | Comp(abs) | Comp(abs) Lo | Floor>=0.85? | Benefit [95% CI]      
+-------------------------------------------------------------------------------------------------------------------
+Nx=10, tau=0       | 200    | 0.601     | 0.869      | 0.863     | 0.702        | FAIL         | -0.006 [-0.034, +0.021]
+Nx=10, tau=0       | 500    | 0.813     | 0.879      | 0.863     | 0.702        | FAIL         | -0.017 [-0.045, +0.012]
+Nx=10, tau=0       | 1000   | 0.854     | 0.879      | 0.863     | 0.702        | FAIL         | -0.017 [-0.045, +0.012]
+Nx=30, tau=0       | 200    | 0.601     | 0.869      | 0.863     | 0.702        | FAIL         | -0.006 [-0.034, +0.021]
+Nx=30, tau=0       | 500    | 0.813     | 0.879      | 0.863     | 0.702        | FAIL         | -0.017 [-0.045, +0.012]
+Nx=30, tau=0       | 1000   | 0.854     | 0.882      | 0.863     | 0.702        | FAIL         | -0.020 [-0.048, +0.009]
+Nx=10, tau=2       | 200    | 0.463     | 1.000      | 1.000     | 1.000        | PASS         | +0.000 [+0.000, +0.000]
+Nx=10, tau=2       | 500    | 0.687     | 1.000      | 1.000     | 1.000        | PASS         | +0.000 [+0.000, +0.000]
+Nx=10, tau=2       | 1000   | 0.796     | 1.000      | 1.000     | 1.000        | PASS         | +0.000 [+0.000, +0.000]
+Nx=30, tau=2       | 200    | 0.463     | 1.000      | 1.000     | 1.000        | PASS         | +0.000 [+0.000, +0.000]
+Nx=30, tau=2       | 500    | 0.687     | 1.000      | 1.000     | 1.000        | PASS         | +0.000 [+0.000, +0.000]
+Nx=30, tau=2       | 1000   | 0.796     | 1.000      | 1.000     | 1.000        | PASS         | +0.000 [+0.000, +0.000]
+
+--- TABLE 2: CONTROLS & SECONDARY FULL-CHANNEL AUC (OFFSET 500) ---
+Cell               | Const Ctrl | Static Ctrl(pres)  | Static Ctrl(abs) | Sec IBD(pres)  | Sec Comp(pres) | Sec Comp(abs) 
+-------------------------------------------------------------------------------------------------------------------
+Nx=10, tau=0       | 0.500      | 0.422              | 0.422            | 0.871          | 0.795          | 0.964         
+Nx=30, tau=0       | 0.500      | 0.422              | 0.422            | 0.872          | 0.731          | 0.982         
+Nx=10, tau=2       | 0.500      | 0.200              | 0.200            | 0.817          | 0.795          | 0.962         
+Nx=30, tau=2       | 0.500      | 0.200              | 0.200            | 0.823          | 0.724          | 0.980         
+
+--- TABLE 3: INSTANCE SUPPORT & LOST CHANNELS DISTRIBUTION ---
+Nx=10, tau=0: Pre-event support mean=5.7, n_lost distribution: {1: 7, 2: 3}
+Nx=30, tau=0: Pre-event support mean=5.7, n_lost distribution: {1: 7, 2: 3}
+Nx=10, tau=2: Pre-event support mean=4.0, n_lost distribution: {1: 10}
+Nx=30, tau=2: Pre-event support mean=4.0, n_lost distribution: {1: 10}
+
+--- TABLE 4: PERTURBATION SET (SEED 0, FAMILY L, Nx=10, tau=0, OFFSET 500) ---
+Coupling | Noise  | IBD(pres) | Comp(pres) | Comp(abs) | Benefit    | Sec IBD(pres)  | Sec Comp(abs) 
+-----------------------------------------------------------------------------------------------
+0.5      | 0.5    | 0.675     | 1.000      | 1.000     | +0.000     | 0.814          | 0.947         
+0.5      | 1.0    | 0.600     | 1.000      | 1.000     | +0.000     | 0.741          | 0.947         
+0.5      | 2.0    | 0.550     | 1.000      | 1.000     | +0.000     | 0.599          | 0.947         
+1.0      | 0.5    | 0.750     | 1.000      | 1.000     | +0.000     | 0.843          | 0.958         
+1.0      | 1.0    | 0.750     | 1.000      | 1.000     | +0.000     | 0.833          | 0.958         
+1.0      | 2.0    | 0.550     | 1.000      | 1.000     | +0.000     | 0.728          | 0.958         
+2.0      | 0.5    | 0.800     | 1.000      | 1.000     | +0.000     | 0.959          | 0.958         
+2.0      | 1.0    | 0.800     | 1.000      | 1.000     | +0.000     | 0.941          | 0.958         
+2.0      | 2.0    | 0.800     | 1.000      | 1.000     | +0.000     | 0.851          | 0.958         
+
+--- TABLE 5: FAMILY N REPRODUCTION TARGET (SEEDS 0..4, Nx=10) ---
+Cell               | Offset | IBD(pres) | Comp(pres) | Comp(abs) | Benefit    | Sec IBD(pres)  | Sec Comp(abs) 
+-----------------------------------------------------------------------------------------------
+Family N, tau=0    | 200    | 0.680     | 0.728      | 0.718     | -0.010     | 0.868          | 0.981         
+Family N, tau=0    | 500    | 0.840     | 0.728      | 0.728     | +0.000     | 0.868          | 0.981         
+Family N, tau=0    | 1000   | 0.878     | 0.728      | 0.715     | -0.013     | 0.868          | 0.981         
+Family N, tau=2    | 200    | 0.667     | 0.783      | 0.917     | +0.133     | 0.778          | 0.981         
+Family N, tau=2    | 500    | 0.775     | 0.767      | 0.900     | +0.133     | 0.778          | 0.981         
+Family N, tau=2    | 1000   | 0.725     | 0.750      | 0.900     | +0.150     | 0.778          | 0.981         
+
+================================================================================
+EXIT CONDITION EVALUATION (Contract v3.9 Section L)
+================================================================================
+FAIL: D-10.3 competence floor failed in Nx=10, tau=0 at offset 500: lower bound 0.702 < 0.85
+FAIL: Confounding benefit lower bound < 0.10 in Nx=10, tau=0 at offset 500: -0.045 < 0.10
+FAIL: D-10.3 competence floor failed in Nx=30, tau=0 at offset 500: lower bound 0.702 < 0.85
+FAIL: Confounding benefit lower bound < 0.10 in Nx=30, tau=0 at offset 500: -0.045 < 0.10
+PASS: D-10.3 competence floor met in Nx=10, tau=2 at offset 500: lower bound 1.000 >= 0.85
+FAIL: Confounding benefit lower bound < 0.10 in Nx=10, tau=2 at offset 500: 0.000 < 0.10
+PASS: D-10.3 competence floor met in Nx=30, tau=2 at offset 500: lower bound 1.000 >= 0.85
+FAIL: Confounding benefit lower bound < 0.10 in Nx=30, tau=2 at offset 500: 0.000 < 0.10
+
+Overall Competence Floor (Absent Lower Bound >= 0.85): FAILED
+Overall Confounding Benefit (Lower Bound >= 0.10): FAILED
+================================================================================

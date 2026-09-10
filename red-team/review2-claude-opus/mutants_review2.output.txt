@@ -1,0 +1,41 @@
+gate under test: /Users/danielfrazer/Documents/Personal/Persistent Adaptive AI/docs/archive/red-team/executable-proofs/gate
+numpy 2.4.4  python 3.12.0
+
+baseline failing tests (unmutated): 0
+
+KILLED  OP-M1  HPDT median-not-mean            -> 1 failing tests   [G primary estimand: 'mean over events']
+         killed by: test_G_hpdt_mean_three_events_and_outcomes(AssertionError)
+KILLED  OP-M2  spacing ignores episode end     -> 1 failing tests   [0/D event_spacing '...and before episode end'; G no-admin-censoring]
+         killed by: test_G_spacing_episode_end_strictness_and_order(AssertionError)
+KILLED  OP-M3  spacing strict > not >=         -> 1 failing tests   [B/D 'spacing >= event_spacing' (=250 exactly)]
+         killed by: test_G_spacing_episode_end_strictness_and_order(AssertionError)
+KILLED  OP-M4  S_obs drops padding guard       -> 1 failing tests   [C3 'Assign_t(c) = j != empty'; A/D3 padding channels]
+         killed by: test_K1_sensor_swap_moves_observed_support_not_latent_with_reachable_padding_target(AssertionError)
+KILLED  OP-M5  S_obs uses >= eps               -> 1 failing tests   [C3 '|gain| * e_j > eps' (strict)]
+         killed by: test_C3_gain_boundary_and_functional_form(AssertionError)
+KILLED  OP-M6  adjacency drops A_d/A_w/A_x     -> 2 failing tests   [C1 'full block adjacency (A_b, B_t, C_d, A_d, A_w, A_x)']
+         killed by: test_K10_downstream_d_inside_S_and_w_x_outside(AssertionError), test_K11_downstream_chain_through_A_d_with_and_without_delay(AssertionError)
+KILLED  OP-M7  response ignores z_bar          -> 1 failing tests   [C4 'z_bar the stationary mean...family N: empirical z_bar']
+         killed by: test_C4_family_N_response_depends_on_zbar_and_is_not_odd(AssertionError)
+KILLED  OP-M8  corr mean-not-max               -> 1 failing tests   [0/E2d rho_min = 'max pairwise |corr|']
+         killed by: test_E2_witness_negative_sign_and_nonzero_column_and_max_not_mean(AssertionError)
+KILLED  OP-M9  terminated scored as detected   -> 1 failing tests   [G/L11 competing outcome scored as H_det]
+         killed by: test_G_hpdt_mean_three_events_and_outcomes(AssertionError)
+KILLED  OP-M10 reachability over-reach by 1    -> 6 failing tests   [C1 'first hit is at h = tau + 1']
+         killed by: test_C1_chain_reaches_at_exactly_H2(AssertionError), test_C1_delayed_chain_one_hop_per_step(AssertionError), test_C1_reachability_is_sign_pattern_not_magnitude(AssertionError), test_K10_downstream_d_inside_S_and_w_x_outside(AssertionError), test_K11_downstream_chain_through_A_d_with_and_without_delay(AssertionError), test_K4_actuator_loss_label_depends_on_coupling_and_horizon(AssertionError)
+KILLED  OP-M11 Jacobian arrives one step early -> 1 failing tests   [C4 'M = 0 for h <= tau']
+         killed by: test_C4_open_loop_equals_piecewise_jacobian_over_tau_h_grid_rectangular(AssertionError)
+KILLED  OP-M12 HPDT uncapped delay             -> 1 failing tests   [G 'min(delay, H_det)']
+         killed by: test_G_hpdt_mean_three_events_and_outcomes(AssertionError)
+KILLED  OP-M13 S_obs ignores avail             -> 1 failing tests   [C3 'avail_t(c) = 1']
+         killed by: test_K5_sensor_dropout_changes_observed_support_only(AssertionError)
+KILLED  OP-M14 gain ignored (correct M8)       -> 1 failing tests   [C3 gain is part of the definition (L5)]
+         killed by: test_C3_gain_boundary_and_functional_form(AssertionError)
+KILLED  OP-M15 adjacency zeroes A_d block only -> 1 failing tests   [C1 full block adjacency incl. A_d (shape preserved)]
+         killed by: test_K11_downstream_chain_through_A_d_with_and_without_delay(AssertionError)
+
+15/15 killed;  0 SURVIVORS:
+
+--- audit of the shipped mutants.py M8 mutant ---
+shipped M8: RecursionError -- the mutant calls the PATCHED ref.s_obs_eps, i.e. ITSELF.
+            It is 'killed' by its own infinite recursion, not by the gate's discrimination.

@@ -1,0 +1,80 @@
+
+====================================================================================================
+P1  lambda_rel is [prov] and moves the PRIMARY: AUC of the loading l vs S^obs,eps
+====================================================================================================
+cell          conf        lam_rel=1e-08   lam_rel=1e-06  lam_rel=0.0001    lam_rel=0.01       lam_rel=1
+tau=0         present             0.851           0.851           0.851           0.787           0.777
+tau=0         absent              1.000           1.000           1.000           1.000           1.000
+tau=2         present             0.914           0.914           0.914           0.923           0.800
+tau=2         absent              1.000           1.000           1.000           0.997           0.992
+
+====================================================================================================
+P2  q_cap = 40 [prov]: is the clip reachable?  (range of the shift term at the scored offsets)
+====================================================================================================
+cell      conf        off   max shift     min q    frac q at -q_cap  frac q ties
+tau=0     present     200        3.55     -2.69               0.000        0.000
+tau=0     present     500        3.69     -1.90               0.000        0.000
+tau=0     present    1000        2.20     -1.30               0.000        0.000
+tau=0     absent      200        3.57     -2.67               0.000        0.000
+tau=0     absent      500        3.65     -3.53               0.000        0.000
+tau=0     absent     1000        2.29     -1.38               0.000        0.000
+tau=2     present     200        3.95     -2.70               0.000        0.000
+tau=2     present     500        3.71     -1.92               0.000        0.000
+tau=2     present    1000        2.60     -1.31               0.000        0.000
+tau=2     absent      200        3.98     -2.67               0.000        0.000
+tau=2     absent      500        3.64     -3.53               0.000        0.000
+tau=2     absent     1000        2.68     -1.38               0.000        0.000
+
+====================================================================================================
+P3  degeneracy rule (sigma_c < 1e-2 * median sigma  AND  l_c < 1e-3): can it EVER fire?
+====================================================================================================
+cfg                            min sigma_c   1e-2*median     min l_c   fires?
+default                            0.04993       0.00121     0.03199    False
+noise_mult=0.5                     0.02497       0.00060     0.03219    False
+noise_mult=2.0                     0.09986       0.00241     0.02650    False
+N_x=30                             0.04952       0.00121     0.03174    False
+tau=2                              0.04993       0.00121     0.03181    False
+
+Also: a DROPPED-OUT sensor (avail=0) after the event -- is it reclassified? (fit-time rule, so no)
+  sd of channel 0's raw obs after dropout: 0.05004  (pad channel sd: 0.05029 )
+
+====================================================================================================
+P4  balanced blocks: group sizes per (k,sign) over every window, and the FIRST-500-STEPS claim
+====================================================================================================
+  full (25-unit) windows: min(n+,n-) range = [5, 7]; violations of n_min_sign=3: 0
+  PARTIAL windows (< 25 units, i.e. every episode's first 24 epochs): violations = 4134
+  -> T-IBD-blocks says the guard never binds 'in EVERY window'; it binds in every episode prefix.
+
+====================================================================================================
+P5  probe count and budget fraction on the frozen generator's 0-indexed 2000-step run
+====================================================================================================
+  granted probe steps: 99  first=20 last=1980
+  budget fraction = 99/2000 = 0.0495   (spec sec 3 claims 100 and 'exactly 0.050')
+  units that close inside the episode: 99   (spec claims 99)
+
+====================================================================================================
+P6  contract E4 determinism: the noise key uses Python's salted str hash
+====================================================================================================
+  reference_generator._noise -> np.random.default_rng([seed, ep, hash(var)&0xffff, t])
+    hash('b') & 0xffff = 24782
+    hash('d') & 0xffff = 64192
+    hash('w') & 0xffff = 62843
+    hash('x') & 0xffff = 5539
+    hash('o') & 0xffff = 22550
+    hash('a') & 0xffff = 6163
+    hash('u') & 0xffff = 31075
+  These change every process unless PYTHONHASHSEED is fixed; run_gate.py pins numpy and
+  python but NOT PYTHONHASHSEED, and test_gen_determinism_bitwise compares two instances
+  INSIDE one process, so it cannot see this.
+
+====================================================================================================
+P7  D-2a arithmetic: is the [900,1100] band attainable inside the 2e6-step cap?
+====================================================================================================
+  Band half-width 100 on a mean of 1000 => need 1.96*sd/sqrt(n) <= 100 => n >= (1.96*sd/100)^2
+    run-length sd=  700: n>=  189 run lengths; IBD cost n*(502 warm-up + 1000) =  0.284M steps;  comparator cost n*1000 = 0.189M
+    run-length sd= 1000: n>=  385 run lengths; IBD cost n*(502 warm-up + 1000) =  0.578M steps;  comparator cost n*1000 = 0.385M
+    run-length sd= 1400: n>=  753 run lengths; IBD cost n*(502 warm-up + 1000) =  1.131M steps;  comparator cost n*1000 = 0.753M
+    run-length sd= 1800: n>= 1245 run lengths; IBD cost n*(502 warm-up + 1000) =  1.870M steps;  comparator cost n*1000 = 1.245M
+    run-length sd= 2200: n>= 1860 run lengths; IBD cost n*(502 warm-up + 1000) =  2.794M steps  EXCEEDS 2e6 CAP;  comparator cost n*1000 = 1.860M
+  => the same D-2a cap buys the two arms different dispersion tolerance (sd<=1861 vs <=2282),
+     and n=400 (the rule's floor) only meets the band if sd <= 1020.

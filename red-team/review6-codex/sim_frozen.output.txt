@@ -1,0 +1,3787 @@
+completed L_Nx10_tau0 seed=0 instance=1 n_lost=1
+completed L_Nx10_tau0 seed=1 instance=1000 n_lost=2
+completed L_Nx10_tau0 seed=2 instance=2000 n_lost=1
+completed L_Nx10_tau0 seed=3 instance=3000 n_lost=2
+completed L_Nx10_tau0 seed=4 instance=4000 n_lost=1
+completed L_Nx10_tau0 seed=5 instance=5000 n_lost=1
+completed L_Nx10_tau0 seed=6 instance=6000 n_lost=1
+completed L_Nx10_tau0 seed=7 instance=7000 n_lost=1
+completed L_Nx10_tau0 seed=8 instance=8000 n_lost=1
+completed L_Nx10_tau0 seed=9 instance=9000 n_lost=2
+completed L_Nx10_tau2 seed=0 instance=1 n_lost=1
+completed L_Nx10_tau2 seed=1 instance=1000 n_lost=1
+completed L_Nx10_tau2 seed=2 instance=2000 n_lost=1
+completed L_Nx10_tau2 seed=3 instance=3000 n_lost=1
+completed L_Nx10_tau2 seed=4 instance=4000 n_lost=1
+completed L_Nx10_tau2 seed=5 instance=5000 n_lost=1
+completed L_Nx10_tau2 seed=6 instance=6000 n_lost=1
+completed L_Nx10_tau2 seed=7 instance=7000 n_lost=1
+completed L_Nx10_tau2 seed=8 instance=8000 n_lost=1
+completed L_Nx10_tau2 seed=9 instance=9000 n_lost=1
+completed L_Nx30_tau0 seed=0 instance=1 n_lost=1
+completed L_Nx30_tau0 seed=1 instance=1000 n_lost=2
+completed L_Nx30_tau0 seed=2 instance=2000 n_lost=1
+completed L_Nx30_tau0 seed=3 instance=3000 n_lost=2
+completed L_Nx30_tau0 seed=4 instance=4000 n_lost=1
+completed L_Nx30_tau0 seed=5 instance=5000 n_lost=1
+completed L_Nx30_tau0 seed=6 instance=6000 n_lost=1
+completed L_Nx30_tau0 seed=7 instance=7000 n_lost=1
+completed L_Nx30_tau0 seed=8 instance=8000 n_lost=1
+completed L_Nx30_tau0 seed=9 instance=9000 n_lost=2
+completed L_Nx30_tau2 seed=0 instance=1 n_lost=1
+completed L_Nx30_tau2 seed=1 instance=1000 n_lost=1
+completed L_Nx30_tau2 seed=2 instance=2000 n_lost=1
+completed L_Nx30_tau2 seed=3 instance=3000 n_lost=1
+completed L_Nx30_tau2 seed=4 instance=4000 n_lost=1
+completed L_Nx30_tau2 seed=5 instance=5000 n_lost=1
+completed L_Nx30_tau2 seed=6 instance=6000 n_lost=1
+completed L_Nx30_tau2 seed=7 instance=7000 n_lost=1
+completed L_Nx30_tau2 seed=8 instance=8000 n_lost=1
+completed L_Nx30_tau2 seed=9 instance=9000 n_lost=1
+completed pert_c0.5_n0.5 seed=0 instance=1 n_lost=1
+completed pert_c0.5_n1 seed=0 instance=1 n_lost=1
+completed pert_c0.5_n2 seed=0 instance=1 n_lost=1
+completed pert_c1_n0.5 seed=0 instance=1 n_lost=1
+completed pert_c1_n1 seed=0 instance=1 n_lost=1
+completed pert_c1_n2 seed=0 instance=1 n_lost=1
+completed pert_c2_n0.5 seed=0 instance=1 n_lost=1
+completed pert_c2_n1 seed=0 instance=1 n_lost=1
+completed pert_c2_n2 seed=0 instance=1 n_lost=1
+completed N_Nx10_tau0 seed=0 instance=1 n_lost=1
+completed N_Nx10_tau0 seed=1 instance=1001 n_lost=1
+completed N_Nx10_tau0 seed=2 instance=2007 n_lost=1
+completed N_Nx10_tau0 seed=3 instance=3005 n_lost=2
+completed N_Nx10_tau0 seed=4 instance=4002 n_lost=1
+completed N_Nx10_tau2 seed=0 instance=1 n_lost=1
+completed N_Nx10_tau2 seed=1 instance=1001 n_lost=1
+completed N_Nx10_tau2 seed=2 instance=2007 n_lost=1
+completed N_Nx10_tau2 seed=3 instance=3005 n_lost=1
+completed N_Nx10_tau2 seed=4 instance=4002 n_lost=1
+{
+  "output": "review6-codex/sim_frozen.results.json",
+  "summaries": [
+    {
+      "label": "L_Nx10_tau0",
+      "confounder": "present",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.6009375,
+          0.45120581056870357,
+          0.7506691894312965
+        ],
+        "secondary_ci": [
+          0.816842235797828,
+          0.7660286510338417,
+          0.8676558205618143
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.86875,
+          0.7247193320069697,
+          1.0127806679930305
+        ],
+        "secondary_ci": [
+          0.7948997493734334,
+          0.7517702424306214,
+          0.8380292563162455
+        ]
+      }
+    },
+    {
+      "label": "L_Nx10_tau0",
+      "confounder": "present",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8130208333333334,
+          0.7099873342959278,
+          0.9160543323707391
+        ],
+        "secondary_ci": [
+          0.8514582027986632,
+          0.8027667242862372,
+          0.9001496813110893
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.8791666666666667,
+          0.7390442337490499,
+          1.0192890995842834
+        ],
+        "secondary_ci": [
+          0.7948997493734334,
+          0.7517702424306214,
+          0.8380292563162455
+        ]
+      }
+    },
+    {
+      "label": "L_Nx10_tau0",
+      "confounder": "present",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.85375,
+          0.7892272788888633,
+          0.9182727211111367
+        ],
+        "secondary_ci": [
+          0.8713973736424394,
+          0.836982378452772,
+          0.9058123688321068
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.8791666666666667,
+          0.7390442337490499,
+          1.0192890995842834
+        ],
+        "secondary_ci": [
+          0.7948997493734334,
+          0.7517702424306214,
+          0.8380292563162455
+        ]
+      }
+    },
+    {
+      "label": "L_Nx10_tau0",
+      "confounder": "absent",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.6009375,
+          0.45120581056870357,
+          0.7506691894312965
+        ],
+        "secondary_ci": [
+          0.8075093984962406,
+          0.7504787417579385,
+          0.8645400552345427
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.8625,
+          0.7022638676311681,
+          1.022736132368832
+        ],
+        "secondary_ci": [
+          0.963733291562239,
+          0.9516615936215402,
+          0.9758049895029377
+        ]
+      }
+    },
+    {
+      "label": "L_Nx10_tau0",
+      "confounder": "absent",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8130208333333334,
+          0.7099873342959278,
+          0.9160543323707391
+        ],
+        "secondary_ci": [
+          0.86343697786132,
+          0.8230250124035562,
+          0.9038489433190838
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.8625,
+          0.7022638676311681,
+          1.022736132368832
+        ],
+        "secondary_ci": [
+          0.963733291562239,
+          0.9516615936215402,
+          0.9758049895029377
+        ]
+      }
+    },
+    {
+      "label": "L_Nx10_tau0",
+      "confounder": "absent",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.85375,
+          0.7892272788888633,
+          0.9182727211111367
+        ],
+        "secondary_ci": [
+          0.8558329417293233,
+          0.8154243229298191,
+          0.8962415605288275
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.8625,
+          0.7022638676311681,
+          1.022736132368832
+        ],
+        "secondary_ci": [
+          0.963733291562239,
+          0.9516615936215402,
+          0.9758049895029377
+        ]
+      }
+    },
+    {
+      "label": "L_Nx10_tau0",
+      "offset": 200,
+      "delta_present_ci": [
+        -0.26781250000000006,
+        -0.530321746759804,
+        -0.005303253240196093
+      ],
+      "delta_absent_ci": [
+        -0.26156250000000003,
+        -0.5421559690726759,
+        0.019030969072675874
+      ],
+      "confounding_benefit_ci": [
+        -0.00625,
+        -0.03373026998996245,
+        0.021230269989962455
+      ]
+    },
+    {
+      "label": "L_Nx10_tau0",
+      "offset": 500,
+      "delta_present_ci": [
+        -0.06614583333333332,
+        -0.26890492960977563,
+        0.13661326294310902
+      ],
+      "delta_absent_ci": [
+        -0.049479166666666664,
+        -0.27419897340708854,
+        0.17524064007375523
+      ],
+      "confounding_benefit_ci": [
+        -0.016666666666666663,
+        -0.04546251786851514,
+        0.01212918453518182
+      ]
+    },
+    {
+      "label": "L_Nx10_tau0",
+      "offset": 1000,
+      "delta_present_ci": [
+        -0.025416666666666643,
+        -0.18887140047002363,
+        0.13803806713669034
+      ],
+      "delta_absent_ci": [
+        -0.00874999999999998,
+        -0.1920686884984381,
+        0.17456868849843815
+      ],
+      "confounding_benefit_ci": [
+        -0.016666666666666663,
+        -0.04546251786851514,
+        0.01212918453518182
+      ]
+    },
+    {
+      "label": "L_Nx10_tau0",
+      "static_loading_control_ci": [
+        0.4216666666666667,
+        0.24906991154136665,
+        0.5942634217919667
+      ],
+      "channel_constant_control_ci": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "n_lost_distribution": {
+        "1": 7,
+        "2": 3
+      },
+      "seconds": 147.43632888793945
+    },
+    {
+      "label": "L_Nx10_tau2",
+      "confounder": "present",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.4625,
+          0.3523546368443734,
+          0.5726453631556266
+        ],
+        "secondary_ci": [
+          0.6746031746031745,
+          0.605764672452579,
+          0.74344167675377
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "secondary_ci": [
+          0.7952380952380953,
+          0.7741983629411959,
+          0.8162778275349947
+        ]
+      }
+    },
+    {
+      "label": "L_Nx10_tau2",
+      "confounder": "present",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.6874999999999999,
+          0.5399651652353799,
+          0.8350348347646199
+        ],
+        "secondary_ci": [
+          0.753373015873016,
+          0.6492306869738244,
+          0.8575153447722076
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "secondary_ci": [
+          0.7952380952380953,
+          0.7741983629411959,
+          0.8162778275349947
+        ]
+      }
+    },
+    {
+      "label": "L_Nx10_tau2",
+      "confounder": "present",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.7958333333333333,
+          0.7195819152081467,
+          0.8720847514585198
+        ],
+        "secondary_ci": [
+          0.817063492063492,
+          0.7663058898005973,
+          0.8678210943263868
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "secondary_ci": [
+          0.7952380952380953,
+          0.7741983629411959,
+          0.8162778275349947
+        ]
+      }
+    },
+    {
+      "label": "L_Nx10_tau2",
+      "confounder": "absent",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.4625,
+          0.3523546368443734,
+          0.5726453631556266
+        ],
+        "secondary_ci": [
+          0.6561507936507935,
+          0.5921027293148993,
+          0.7201988579866878
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "secondary_ci": [
+          0.9619047619047618,
+          0.9560411314635189,
+          0.9677683923460048
+        ]
+      }
+    },
+    {
+      "label": "L_Nx10_tau2",
+      "confounder": "absent",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.6874999999999999,
+          0.5399651652353799,
+          0.8350348347646199
+        ],
+        "secondary_ci": [
+          0.7511904761904762,
+          0.6425475346172475,
+          0.8598334177637049
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "secondary_ci": [
+          0.9619047619047618,
+          0.9560411314635189,
+          0.9677683923460048
+        ]
+      }
+    },
+    {
+      "label": "L_Nx10_tau2",
+      "confounder": "absent",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.7958333333333333,
+          0.7195819152081467,
+          0.8720847514585198
+        ],
+        "secondary_ci": [
+          0.7936507936507937,
+          0.7335552858477498,
+          0.8537463014538377
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "secondary_ci": [
+          0.9619047619047618,
+          0.9560411314635189,
+          0.9677683923460048
+        ]
+      }
+    },
+    {
+      "label": "L_Nx10_tau2",
+      "offset": 200,
+      "delta_present_ci": [
+        -0.5375,
+        -0.6476453631556266,
+        -0.42735463684437336
+      ],
+      "delta_absent_ci": [
+        -0.5375,
+        -0.6476453631556266,
+        -0.42735463684437336
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "L_Nx10_tau2",
+      "offset": 500,
+      "delta_present_ci": [
+        -0.3125,
+        -0.46003483476462,
+        -0.16496516523538002
+      ],
+      "delta_absent_ci": [
+        -0.3125,
+        -0.46003483476462,
+        -0.16496516523538002
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "L_Nx10_tau2",
+      "offset": 1000,
+      "delta_present_ci": [
+        -0.2041666666666667,
+        -0.28041808479185326,
+        -0.12791524854148015
+      ],
+      "delta_absent_ci": [
+        -0.2041666666666667,
+        -0.28041808479185326,
+        -0.12791524854148015
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "L_Nx10_tau2",
+      "static_loading_control_ci": [
+        0.19999999999999998,
+        0.07686376073389752,
+        0.32313623926610247
+      ],
+      "channel_constant_control_ci": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "n_lost_distribution": {
+        "1": 10
+      },
+      "seconds": 149.11824703216553
+    },
+    {
+      "label": "L_Nx30_tau0",
+      "confounder": "present",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.6009375,
+          0.45120581056870357,
+          0.7506691894312965
+        ],
+        "secondary_ci": [
+          0.8339189532520324,
+          0.7878860910144188,
+          0.879951815489646
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.86875,
+          0.7247193320069697,
+          1.0127806679930305
+        ],
+        "secondary_ci": [
+          0.7314516885553471,
+          0.6779647784154129,
+          0.7849385986952814
+        ]
+      }
+    },
+    {
+      "label": "L_Nx30_tau0",
+      "confounder": "present",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8130208333333334,
+          0.7099873342959278,
+          0.9160543323707391
+        ],
+        "secondary_ci": [
+          0.8587037797060664,
+          0.8130275974802869,
+          0.9043799619318459
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.8791666666666667,
+          0.7390442337490499,
+          1.0192890995842834
+        ],
+        "secondary_ci": [
+          0.7314516885553471,
+          0.6779647784154129,
+          0.7849385986952814
+        ]
+      }
+    },
+    {
+      "label": "L_Nx30_tau0",
+      "confounder": "present",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.85375,
+          0.7892272788888633,
+          0.9182727211111367
+        ],
+        "secondary_ci": [
+          0.8722598108192621,
+          0.8347352494613804,
+          0.9097843721771437
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.8822916666666666,
+          0.7452477557373417,
+          1.0193355775959914
+        ],
+        "secondary_ci": [
+          0.7314516885553471,
+          0.6779647784154129,
+          0.7849385986952814
+        ]
+      }
+    },
+    {
+      "label": "L_Nx30_tau0",
+      "confounder": "absent",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.6009375,
+          0.45120581056870357,
+          0.7506691894312965
+        ],
+        "secondary_ci": [
+          0.8196606765947466,
+          0.764667148398681,
+          0.8746542047908122
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.8625,
+          0.7022638676311681,
+          1.022736132368832
+        ],
+        "secondary_ci": [
+          0.9820438555347092,
+          0.9760313269988067,
+          0.9880563840706117
+        ]
+      }
+    },
+    {
+      "label": "L_Nx30_tau0",
+      "confounder": "absent",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8130208333333334,
+          0.7099873342959278,
+          0.9160543323707391
+        ],
+        "secondary_ci": [
+          0.868738664790494,
+          0.8315061899426042,
+          0.9059711396383838
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.8625,
+          0.7022638676311681,
+          1.022736132368832
+        ],
+        "secondary_ci": [
+          0.9820438555347092,
+          0.9760313269988067,
+          0.9880563840706117
+        ]
+      }
+    },
+    {
+      "label": "L_Nx30_tau0",
+      "confounder": "absent",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.85375,
+          0.7892272788888633,
+          0.9182727211111367
+        ],
+        "secondary_ci": [
+          0.8528759185428392,
+          0.8095412315175233,
+          0.896210605568155
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.8625,
+          0.7022638676311681,
+          1.022736132368832
+        ],
+        "secondary_ci": [
+          0.9820438555347092,
+          0.9760313269988067,
+          0.9880563840706117
+        ]
+      }
+    },
+    {
+      "label": "L_Nx30_tau0",
+      "offset": 200,
+      "delta_present_ci": [
+        -0.26781250000000006,
+        -0.530321746759804,
+        -0.005303253240196093
+      ],
+      "delta_absent_ci": [
+        -0.26156250000000003,
+        -0.5421559690726759,
+        0.019030969072675874
+      ],
+      "confounding_benefit_ci": [
+        -0.00625,
+        -0.03373026998996245,
+        0.021230269989962455
+      ]
+    },
+    {
+      "label": "L_Nx30_tau0",
+      "offset": 500,
+      "delta_present_ci": [
+        -0.06614583333333332,
+        -0.26890492960977563,
+        0.13661326294310902
+      ],
+      "delta_absent_ci": [
+        -0.049479166666666664,
+        -0.27419897340708854,
+        0.17524064007375523
+      ],
+      "confounding_benefit_ci": [
+        -0.016666666666666663,
+        -0.04546251786851514,
+        0.01212918453518182
+      ]
+    },
+    {
+      "label": "L_Nx30_tau0",
+      "offset": 1000,
+      "delta_present_ci": [
+        -0.028541666666666642,
+        -0.18947558014199206,
+        0.1323922468086588
+      ],
+      "delta_absent_ci": [
+        -0.00874999999999998,
+        -0.1920686884984381,
+        0.17456868849843815
+      ],
+      "confounding_benefit_ci": [
+        -0.019791666666666662,
+        -0.04842637585803576,
+        0.008843042524702433
+      ]
+    },
+    {
+      "label": "L_Nx30_tau0",
+      "static_loading_control_ci": [
+        0.4216666666666667,
+        0.24906991154136665,
+        0.5942634217919667
+      ],
+      "channel_constant_control_ci": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "n_lost_distribution": {
+        "1": 7,
+        "2": 3
+      },
+      "seconds": 159.20176696777344
+    },
+    {
+      "label": "L_Nx30_tau2",
+      "confounder": "present",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.4625,
+          0.3523546368443734,
+          0.5726453631556266
+        ],
+        "secondary_ci": [
+          0.69380081300813,
+          0.6216272296940262,
+          0.7659743963222339
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "secondary_ci": [
+          0.724390243902439,
+          0.695446717570961,
+          0.753333770233917
+        ]
+      }
+    },
+    {
+      "label": "L_Nx30_tau2",
+      "confounder": "present",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.6874999999999999,
+          0.5399651652353799,
+          0.8350348347646199
+        ],
+        "secondary_ci": [
+          0.7679878048780487,
+          0.6731189175488378,
+          0.8628566922072597
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "secondary_ci": [
+          0.724390243902439,
+          0.695446717570961,
+          0.753333770233917
+        ]
+      }
+    },
+    {
+      "label": "L_Nx30_tau2",
+      "confounder": "present",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.7958333333333333,
+          0.7195819152081467,
+          0.8720847514585198
+        ],
+        "secondary_ci": [
+          0.8226626016260162,
+          0.7694302893820529,
+          0.8758949138699795
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "secondary_ci": [
+          0.724390243902439,
+          0.695446717570961,
+          0.753333770233917
+        ]
+      }
+    },
+    {
+      "label": "L_Nx30_tau2",
+      "confounder": "absent",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.4625,
+          0.3523546368443734,
+          0.5726453631556266
+        ],
+        "secondary_ci": [
+          0.6625000000000001,
+          0.5968484053037311,
+          0.7281515946962691
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "secondary_ci": [
+          0.9804878048780488,
+          0.9774844819691194,
+          0.9834911277869781
+        ]
+      }
+    },
+    {
+      "label": "L_Nx30_tau2",
+      "confounder": "absent",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.6874999999999999,
+          0.5399651652353799,
+          0.8350348347646199
+        ],
+        "secondary_ci": [
+          0.755691056910569,
+          0.6481867089018021,
+          0.863195404919336
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "secondary_ci": [
+          0.9804878048780488,
+          0.9774844819691194,
+          0.9834911277869781
+        ]
+      }
+    },
+    {
+      "label": "L_Nx30_tau2",
+      "confounder": "absent",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.7958333333333333,
+          0.7195819152081467,
+          0.8720847514585198
+        ],
+        "secondary_ci": [
+          0.7905487804878049,
+          0.7196521995232079,
+          0.8614453614524018
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "secondary_ci": [
+          0.9804878048780488,
+          0.9774844819691194,
+          0.9834911277869781
+        ]
+      }
+    },
+    {
+      "label": "L_Nx30_tau2",
+      "offset": 200,
+      "delta_present_ci": [
+        -0.5375,
+        -0.6476453631556266,
+        -0.42735463684437336
+      ],
+      "delta_absent_ci": [
+        -0.5375,
+        -0.6476453631556266,
+        -0.42735463684437336
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "L_Nx30_tau2",
+      "offset": 500,
+      "delta_present_ci": [
+        -0.3125,
+        -0.46003483476462,
+        -0.16496516523538002
+      ],
+      "delta_absent_ci": [
+        -0.3125,
+        -0.46003483476462,
+        -0.16496516523538002
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "L_Nx30_tau2",
+      "offset": 1000,
+      "delta_present_ci": [
+        -0.2041666666666667,
+        -0.28041808479185326,
+        -0.12791524854148015
+      ],
+      "delta_absent_ci": [
+        -0.2041666666666667,
+        -0.28041808479185326,
+        -0.12791524854148015
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "L_Nx30_tau2",
+      "static_loading_control_ci": [
+        0.19999999999999998,
+        0.07686376073389752,
+        0.32313623926610247
+      ],
+      "channel_constant_control_ci": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "n_lost_distribution": {
+        "1": 10
+      },
+      "seconds": 158.22141408920288
+    },
+    {
+      "label": "pert_c0.5_n0.5",
+      "confounder": "present",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.44999999999999996,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7631578947368421,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.6842105263157895,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n0.5",
+      "confounder": "present",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.675,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7552631578947369,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.6842105263157895,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n0.5",
+      "confounder": "present",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8144736842105263,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.6842105263157895,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n0.5",
+      "confounder": "absent",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.44999999999999996,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7171052631578947,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9473684210526315,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n0.5",
+      "confounder": "absent",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.675,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7671052631578947,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9473684210526315,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n0.5",
+      "confounder": "absent",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7381578947368421,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9473684210526315,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n0.5",
+      "offset": 200,
+      "delta_present_ci": [
+        -0.55,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.55,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c0.5_n0.5",
+      "offset": 500,
+      "delta_present_ci": [
+        -0.32499999999999996,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.32499999999999996,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c0.5_n0.5",
+      "offset": 1000,
+      "delta_present_ci": [
+        -0.19999999999999996,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.19999999999999996,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c0.5_n0.5",
+      "static_loading_control_ci": [
+        0.0,
+        null,
+        null
+      ],
+      "channel_constant_control_ci": [
+        0.5,
+        null,
+        null
+      ],
+      "n_lost_distribution": {
+        "1": 1
+      },
+      "seconds": 15.540996074676514
+    },
+    {
+      "label": "pert_c0.5_n1",
+      "confounder": "present",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.5249999999999999,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7171052631578947,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.6842105263157895,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n1",
+      "confounder": "present",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.6,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.6960526315789474,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.6842105263157895,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n1",
+      "confounder": "present",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.75,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7407894736842104,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.6842105263157895,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n1",
+      "confounder": "absent",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.5249999999999999,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.675,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9473684210526315,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n1",
+      "confounder": "absent",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.6,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7013157894736842,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9473684210526315,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n1",
+      "confounder": "absent",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.75,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.6499999999999999,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9473684210526315,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n1",
+      "offset": 200,
+      "delta_present_ci": [
+        -0.4750000000000001,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.4750000000000001,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c0.5_n1",
+      "offset": 500,
+      "delta_present_ci": [
+        -0.4,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.4,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c0.5_n1",
+      "offset": 1000,
+      "delta_present_ci": [
+        -0.25,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.25,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c0.5_n1",
+      "static_loading_control_ci": [
+        0.0,
+        null,
+        null
+      ],
+      "channel_constant_control_ci": [
+        0.5,
+        null,
+        null
+      ],
+      "n_lost_distribution": {
+        "1": 1
+      },
+      "seconds": 15.501550197601318
+    },
+    {
+      "label": "pert_c0.5_n2",
+      "confounder": "present",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.5,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.6447368421052633,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.6842105263157895,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n2",
+      "confounder": "present",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.55,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.6473684210526316,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.6842105263157895,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n2",
+      "confounder": "present",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.625,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.5986842105263157,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.6842105263157895,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n2",
+      "confounder": "absent",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.5,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.6078947368421053,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9473684210526315,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n2",
+      "confounder": "absent",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.55,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.6684210526315789,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9473684210526315,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n2",
+      "confounder": "absent",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.625,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.4697368421052631,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9473684210526315,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c0.5_n2",
+      "offset": 200,
+      "delta_present_ci": [
+        -0.5,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.5,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c0.5_n2",
+      "offset": 500,
+      "delta_present_ci": [
+        -0.44999999999999996,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.44999999999999996,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c0.5_n2",
+      "offset": 1000,
+      "delta_present_ci": [
+        -0.375,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.375,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c0.5_n2",
+      "static_loading_control_ci": [
+        0.0,
+        null,
+        null
+      ],
+      "channel_constant_control_ci": [
+        0.5,
+        null,
+        null
+      ],
+      "n_lost_distribution": {
+        "1": 1
+      },
+      "seconds": 15.486641883850098
+    },
+    {
+      "label": "pert_c1_n0.5",
+      "confounder": "present",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.475,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7763157894736842,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n0.5",
+      "confounder": "present",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.75,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8013157894736842,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n0.5",
+      "confounder": "present",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8999999999999999,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.843421052631579,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n0.5",
+      "confounder": "absent",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.475,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.75,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n0.5",
+      "confounder": "absent",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.75,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8092105263157895,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n0.5",
+      "confounder": "absent",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8999999999999999,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7776315789473685,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n0.5",
+      "offset": 200,
+      "delta_present_ci": [
+        -0.525,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.525,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c1_n0.5",
+      "offset": 500,
+      "delta_present_ci": [
+        -0.25,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.25,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c1_n0.5",
+      "offset": 1000,
+      "delta_present_ci": [
+        -0.10000000000000009,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.10000000000000009,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c1_n0.5",
+      "static_loading_control_ci": [
+        0.2,
+        null,
+        null
+      ],
+      "channel_constant_control_ci": [
+        0.5,
+        null,
+        null
+      ],
+      "n_lost_distribution": {
+        "1": 1
+      },
+      "seconds": 15.511393785476685
+    },
+    {
+      "label": "pert_c1_n1",
+      "confounder": "present",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.55,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7789473684210526,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n1",
+      "confounder": "present",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.75,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.761842105263158,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n1",
+      "confounder": "present",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.875,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8328947368421051,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n1",
+      "confounder": "absent",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.55,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7526315789473684,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n1",
+      "confounder": "absent",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.75,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7868421052631579,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n1",
+      "confounder": "absent",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.875,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7618421052631579,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n1",
+      "offset": 200,
+      "delta_present_ci": [
+        -0.44999999999999996,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.44999999999999996,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c1_n1",
+      "offset": 500,
+      "delta_present_ci": [
+        -0.25,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.25,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c1_n1",
+      "offset": 1000,
+      "delta_present_ci": [
+        -0.125,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.125,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c1_n1",
+      "static_loading_control_ci": [
+        0.2,
+        null,
+        null
+      ],
+      "channel_constant_control_ci": [
+        0.5,
+        null,
+        null
+      ],
+      "n_lost_distribution": {
+        "1": 1
+      },
+      "seconds": 15.507476806640625
+    },
+    {
+      "label": "pert_c1_n2",
+      "confounder": "present",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.5,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7473684210526316,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n2",
+      "confounder": "present",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.55,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7157894736842106,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n2",
+      "confounder": "present",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.725,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7276315789473684,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n2",
+      "confounder": "absent",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.5,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7210526315789474,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n2",
+      "confounder": "absent",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.55,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.7197368421052632,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n2",
+      "confounder": "absent",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.725,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.643421052631579,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c1_n2",
+      "offset": 200,
+      "delta_present_ci": [
+        -0.5,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.5,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c1_n2",
+      "offset": 500,
+      "delta_present_ci": [
+        -0.44999999999999996,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.44999999999999996,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c1_n2",
+      "offset": 1000,
+      "delta_present_ci": [
+        -0.275,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.275,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c1_n2",
+      "static_loading_control_ci": [
+        0.2,
+        null,
+        null
+      ],
+      "channel_constant_control_ci": [
+        0.5,
+        null,
+        null
+      ],
+      "n_lost_distribution": {
+        "1": 1
+      },
+      "seconds": 15.474345207214355
+    },
+    {
+      "label": "pert_c2_n0.5",
+      "confounder": "present",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.5,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9131578947368422,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n0.5",
+      "confounder": "present",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9263157894736842,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n0.5",
+      "confounder": "present",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9592105263157894,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n0.5",
+      "confounder": "absent",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.5,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8947368421052632,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n0.5",
+      "confounder": "absent",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9434210526315789,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n0.5",
+      "confounder": "absent",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.925,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n0.5",
+      "offset": 200,
+      "delta_present_ci": [
+        -0.5,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.5,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c2_n0.5",
+      "offset": 500,
+      "delta_present_ci": [
+        -0.19999999999999996,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.19999999999999996,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c2_n0.5",
+      "offset": 1000,
+      "delta_present_ci": [
+        0.0,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        0.0,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c2_n0.5",
+      "static_loading_control_ci": [
+        0.2,
+        null,
+        null
+      ],
+      "channel_constant_control_ci": [
+        0.5,
+        null,
+        null
+      ],
+      "n_lost_distribution": {
+        "1": 1
+      },
+      "seconds": 15.552340030670166
+    },
+    {
+      "label": "pert_c2_n1",
+      "confounder": "present",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.4,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9039473684210526,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n1",
+      "confounder": "present",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9144736842105263,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n1",
+      "confounder": "present",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9407894736842105,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n1",
+      "confounder": "absent",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.4,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.881578947368421,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n1",
+      "confounder": "absent",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9276315789473685,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n1",
+      "confounder": "absent",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9052631578947369,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n1",
+      "offset": 200,
+      "delta_present_ci": [
+        -0.6,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.6,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c2_n1",
+      "offset": 500,
+      "delta_present_ci": [
+        -0.19999999999999996,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.19999999999999996,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c2_n1",
+      "offset": 1000,
+      "delta_present_ci": [
+        0.0,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        0.0,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c2_n1",
+      "static_loading_control_ci": [
+        0.2,
+        null,
+        null
+      ],
+      "channel_constant_control_ci": [
+        0.5,
+        null,
+        null
+      ],
+      "n_lost_distribution": {
+        "1": 1
+      },
+      "seconds": 15.459926128387451
+    },
+    {
+      "label": "pert_c2_n2",
+      "confounder": "present",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.37500000000000006,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8592105263157894,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n2",
+      "confounder": "present",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8644736842105264,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n2",
+      "confounder": "present",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.95,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8513157894736842,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n2",
+      "confounder": "absent",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.37500000000000006,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8447368421052632,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n2",
+      "confounder": "absent",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.886842105263158,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n2",
+      "confounder": "absent",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.95,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.8052631578947368,
+          null,
+          null
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          1.0,
+          null,
+          null
+        ],
+        "secondary_ci": [
+          0.9578947368421052,
+          null,
+          null
+        ]
+      }
+    },
+    {
+      "label": "pert_c2_n2",
+      "offset": 200,
+      "delta_present_ci": [
+        -0.625,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.625,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c2_n2",
+      "offset": 500,
+      "delta_present_ci": [
+        -0.19999999999999996,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.19999999999999996,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c2_n2",
+      "offset": 1000,
+      "delta_present_ci": [
+        -0.050000000000000044,
+        null,
+        null
+      ],
+      "delta_absent_ci": [
+        -0.050000000000000044,
+        null,
+        null
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        null,
+        null
+      ]
+    },
+    {
+      "label": "pert_c2_n2",
+      "static_loading_control_ci": [
+        0.2,
+        null,
+        null
+      ],
+      "channel_constant_control_ci": [
+        0.5,
+        null,
+        null
+      ],
+      "n_lost_distribution": {
+        "1": 1
+      },
+      "seconds": 15.465052843093872
+    },
+    {
+      "label": "N_Nx10_tau0",
+      "confounder": "present",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.68,
+          0.5241724049474646,
+          0.8358275950525355
+        ],
+        "secondary_ci": [
+          0.8568092105263159,
+          0.7583132890095983,
+          0.9553051320430335
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.7275,
+          0.3627777123907306,
+          1.0922222876092695
+        ],
+        "secondary_ci": [
+          0.7936842105263157,
+          0.7052310770057899,
+          0.8821373440468414
+        ]
+      }
+    },
+    {
+      "label": "N_Nx10_tau0",
+      "confounder": "present",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8400000000000001,
+          0.7289421957920882,
+          0.951057804207912
+        ],
+        "secondary_ci": [
+          0.8602960526315788,
+          0.7609266548946508,
+          0.9596654503685068
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.7275,
+          0.3627777123907306,
+          1.0922222876092695
+        ],
+        "secondary_ci": [
+          0.7936842105263157,
+          0.7052310770057899,
+          0.8821373440468414
+        ]
+      }
+    },
+    {
+      "label": "N_Nx10_tau0",
+      "confounder": "present",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8775000000000001,
+          0.7160538353003227,
+          1.0389461646996774
+        ],
+        "secondary_ci": [
+          0.8681743421052632,
+          0.7512804434302267,
+          0.9850682407802998
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.7275,
+          0.3627777123907306,
+          1.0922222876092695
+        ],
+        "secondary_ci": [
+          0.7936842105263157,
+          0.7052310770057899,
+          0.8821373440468414
+        ]
+      }
+    },
+    {
+      "label": "N_Nx10_tau0",
+      "confounder": "absent",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.68,
+          0.5241724049474646,
+          0.8358275950525355
+        ],
+        "secondary_ci": [
+          0.8556578947368421,
+          0.7368727060401496,
+          0.9744430834335345
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.7175,
+          0.3663729863590094,
+          1.0686270136409908
+        ],
+        "secondary_ci": [
+          0.9806578947368422,
+          0.9594534939442501,
+          1.0018622955294343
+        ]
+      }
+    },
+    {
+      "label": "N_Nx10_tau0",
+      "confounder": "absent",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8400000000000001,
+          0.7289421957920882,
+          0.951057804207912
+        ],
+        "secondary_ci": [
+          0.8709374999999999,
+          0.7939473956475555,
+          0.9479276043524444
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.7275,
+          0.3627777123907306,
+          1.0922222876092695
+        ],
+        "secondary_ci": [
+          0.9806578947368422,
+          0.9594534939442501,
+          1.0018622955294343
+        ]
+      }
+    },
+    {
+      "label": "N_Nx10_tau0",
+      "confounder": "absent",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.8775000000000001,
+          0.7160538353003227,
+          1.0389461646996774
+        ],
+        "secondary_ci": [
+          0.8439309210526316,
+          0.6994930570198195,
+          0.9883687850854437
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.7150000000000001,
+          0.33003409671589196,
+          1.0999659032841083
+        ],
+        "secondary_ci": [
+          0.9806578947368422,
+          0.9594534939442501,
+          1.0018622955294343
+        ]
+      }
+    },
+    {
+      "label": "N_Nx10_tau0",
+      "offset": 200,
+      "delta_present_ci": [
+        -0.04749999999999999,
+        -0.5358998962632813,
+        0.44089989626328124
+      ],
+      "delta_absent_ci": [
+        -0.03749999999999998,
+        -0.5085249554105667,
+        0.4335249554105668
+      ],
+      "confounding_benefit_ci": [
+        -0.010000000000000009,
+        -0.037764451051978024,
+        0.017764451051978002
+      ]
+    },
+    {
+      "label": "N_Nx10_tau0",
+      "offset": 500,
+      "delta_present_ci": [
+        0.11249999999999998,
+        -0.32759063439499875,
+        0.5525906343949987
+      ],
+      "delta_absent_ci": [
+        0.11249999999999998,
+        -0.32759063439499875,
+        0.5525906343949987
+      ],
+      "confounding_benefit_ci": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "N_Nx10_tau0",
+      "offset": 1000,
+      "delta_present_ci": [
+        0.15000000000000002,
+        -0.2401868611165579,
+        0.5401868611165579
+      ],
+      "delta_absent_ci": [
+        0.16250000000000003,
+        -0.23532931941545943,
+        0.5603293194154595
+      ],
+      "confounding_benefit_ci": [
+        -0.0125,
+        -0.047205563814972484,
+        0.022205563814972486
+      ]
+    },
+    {
+      "label": "N_Nx10_tau0",
+      "static_loading_control_ci": [
+        0.6549999999999999,
+        0.233702472241266,
+        1.0762975277587339
+      ],
+      "channel_constant_control_ci": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "n_lost_distribution": {
+        "1": 4,
+        "2": 1
+      },
+      "seconds": 145.30724096298218
+    },
+    {
+      "label": "N_Nx10_tau2",
+      "confounder": "present",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.6666666666666666,
+          0.38329692472572624,
+          0.950036408607607
+        ],
+        "secondary_ci": [
+          0.8071428571428572,
+          0.6208877176105863,
+          0.9933979966751281
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.7833333333333332,
+          0.42789534143365515,
+          1.1387713252330114
+        ],
+        "secondary_ci": [
+          0.7587301587301587,
+          0.6973469754674885,
+          0.8201133419928289
+        ]
+      }
+    },
+    {
+      "label": "N_Nx10_tau2",
+      "confounder": "present",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.775,
+          0.4809683314153668,
+          1.0690316685846333
+        ],
+        "secondary_ci": [
+          0.7539682539682541,
+          0.4730292534713865,
+          1.0349072544651217
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.7666666666666666,
+          0.3979228865653656,
+          1.1354104467679675
+        ],
+        "secondary_ci": [
+          0.7587301587301587,
+          0.6973469754674885,
+          0.8201133419928289
+        ]
+      }
+    },
+    {
+      "label": "N_Nx10_tau2",
+      "confounder": "present",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.725,
+          0.47796398624444836,
+          0.9720360137555516
+        ],
+        "secondary_ci": [
+          0.7781746031746032,
+          0.6747700815626513,
+          0.8815791247865551
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.7499999999999999,
+          0.36284322743580083,
+          1.137156772564199
+        ],
+        "secondary_ci": [
+          0.7587301587301587,
+          0.6973469754674885,
+          0.8201133419928289
+        ]
+      }
+    },
+    {
+      "label": "N_Nx10_tau2",
+      "confounder": "absent",
+      "offset": 200,
+      "seq_ibd": {
+        "primary_ci": [
+          0.6666666666666666,
+          0.38329692472572624,
+          0.950036408607607
+        ],
+        "secondary_ci": [
+          0.805952380952381,
+          0.6039401260103342,
+          1.0079646358944276
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.9166666666666666,
+          0.6852962412335167,
+          1.1480370920998166
+        ],
+        "secondary_ci": [
+          0.980952380952381,
+          0.9552550510363698,
+          1.0066497108683923
+        ]
+      }
+    },
+    {
+      "label": "N_Nx10_tau2",
+      "confounder": "absent",
+      "offset": 500,
+      "seq_ibd": {
+        "primary_ci": [
+          0.775,
+          0.4809683314153668,
+          1.0690316685846333
+        ],
+        "secondary_ci": [
+          0.7611111111111111,
+          0.5034031343775356,
+          1.0188190878446866
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.9,
+          0.6223554894802201,
+          1.17764451051978
+        ],
+        "secondary_ci": [
+          0.980952380952381,
+          0.9552550510363698,
+          1.0066497108683923
+        ]
+      }
+    },
+    {
+      "label": "N_Nx10_tau2",
+      "confounder": "absent",
+      "offset": 1000,
+      "seq_ibd": {
+        "primary_ci": [
+          0.725,
+          0.47796398624444836,
+          0.9720360137555516
+        ],
+        "secondary_ci": [
+          0.7583333333333333,
+          0.6186719887206599,
+          0.8979946779460067
+        ]
+      },
+      "comparator": {
+        "primary_ci": [
+          0.9,
+          0.6223554894802201,
+          1.17764451051978
+        ],
+        "secondary_ci": [
+          0.980952380952381,
+          0.9552550510363698,
+          1.0066497108683923
+        ]
+      }
+    },
+    {
+      "label": "N_Nx10_tau2",
+      "offset": 200,
+      "delta_present_ci": [
+        -0.11666666666666667,
+        -0.7357717305760456,
+        0.5024383972427122
+      ],
+      "delta_absent_ci": [
+        -0.25,
+        -0.7408107903693901,
+        0.24081079036939018
+      ],
+      "confounding_benefit_ci": [
+        0.13333333333333336,
+        -0.05463288885825368,
+        0.3212995555249204
+      ]
+    },
+    {
+      "label": "N_Nx10_tau2",
+      "offset": 500,
+      "delta_present_ci": [
+        0.00833333333333337,
+        -0.6330678857837825,
+        0.6497345524504493
+      ],
+      "delta_absent_ci": [
+        -0.125,
+        -0.6252633105194912,
+        0.37526331051949124
+      ],
+      "confounding_benefit_ci": [
+        0.13333333333333336,
+        -0.08123077232742351,
+        0.3478974389940902
+      ]
+    },
+    {
+      "label": "N_Nx10_tau2",
+      "offset": 1000,
+      "delta_present_ci": [
+        -0.024999999999999977,
+        -0.49860344918068245,
+        0.4486034491806825
+      ],
+      "delta_absent_ci": [
+        -0.175,
+        -0.559381419415302,
+        0.20938141941530197
+      ],
+      "confounding_benefit_ci": [
+        0.15000000000000002,
+        -0.0350963403465199,
+        0.3350963403465199
+      ]
+    },
+    {
+      "label": "N_Nx10_tau2",
+      "static_loading_control_ci": [
+        0.6,
+        0.06035607176376456,
+        1.1396439282362354
+      ],
+      "channel_constant_control_ci": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "n_lost_distribution": {
+        "1": 5
+      },
+      "seconds": 148.48426604270935
+    }
+  ]
+}
