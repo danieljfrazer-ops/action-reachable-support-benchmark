@@ -2,12 +2,12 @@
 title: "Which sensors do my actions control? A negative result on sequential interventional boundary tracking under a shared-cause confounder"
 author: "Daniel Frazer"
 date: "September 2026"
-version: "Technical report, draft 12 (15 September 2026), restructured"
+version: "Technical report, version 1.0 (15 September 2026)"
 ---
 
 # Which sensors do my actions control? A negative result on sequential interventional boundary tracking under a shared-cause confounder
 
-**Daniel Frazer** (independent). Technical report, September 2026.
+**Daniel Frazer** (independent). Technical report, version 1.0, September 2026. DOI 10.5281/zenodo.22775827.
 
 ## Abstract
 
@@ -181,7 +181,7 @@ The archive contains every prompt, review, adjudication, frozen manifest and has
 
 The gate runs under a Python 3.12 interpreter with the pinned NumPy from the requirements file and refuses any other interpreter; the requirements file cannot install Python itself, so a reader must provide 3.12. A stale Python 3.14 virtual environment that a reviewer had left inside the gate directory, and the bytecode caches from three interpreters, were removed before publication; the archive as published has not been run from a clean checkout, and the gate result quoted above is from the author's machine. No per-version snapshot of the archive was retained, so the historical freeze hashes in Table A1 are assertions from the round log and are not recomputable from the archive as it stands; the archive today hashes to the final frozen version plus the decision entries added after it. A public release should be accompanied by a repository whose commits fix this from that point on.
 
-Repository: `github.com/danieljfrazer-ops/action-reachable-support-benchmark` (archival DOI via Zenodo to be minted on release). Documents are under CC BY 4.0, code under MIT.
+Repository: `github.com/danieljfrazer-ops/action-reachable-support-benchmark`, release v1.0. Archival copy of this report: DOI 10.5281/zenodo.22775827. Documents are under CC BY 4.0, code under MIT.
 
 ## 7. Disclosure
 

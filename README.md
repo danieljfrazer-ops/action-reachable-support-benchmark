@@ -2,6 +2,8 @@
 
 Which sensors do an agent's actions actually control, when a hidden cause confounds it and its body changes? This repository is the record of an attempt to build a benchmark for that question, and of the cross-model red team that showed the benchmark's central claim was not supported.
 
+**Cite:** Frazer, D. (2026). Which sensors do my actions control? A negative result on sequential interventional boundary tracking under a shared-cause confounder. Technical report, version 1.0. DOI 10.5281/zenodo.22775827.
+
 **Start with the technical report:** [`report/technical-report.pdf`](report/technical-report.pdf) (source: [`report/technical-report.md`](report/technical-report.md)). It states what was tried, what three AI systems found when they each implemented the estimators and ran them on one frozen simulator, what survived, and six errors of the author's that the process caught or missed. [`report/file-map.md`](report/file-map.md) traces every table and claim in the report to the archived files.
 
 ## Layout
